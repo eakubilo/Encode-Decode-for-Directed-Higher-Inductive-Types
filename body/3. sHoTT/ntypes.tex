@@ -1,0 +1,48 @@
+\documentclass[main.tex]{subfiles}
+
+\begin{document}
+Having read section \todo{do a section about n-types}, with the tools developed in this section
+a natural question to ask is: "can we generalize the notion of an n-type to sHoTT?" This question can be interpreted in many ways. There is
+a lot of freedom that is introduced, as we have free pick of which paths to change, and whether we want to change them to an isomorphism or morphism.
+For some types, all of these notions coincide. For example, the notion of set is one where parallel paths between points are equal. We can generalize this
+notion and instead ask for a type where parallel morphisms between points are equal. That is, we can ask for a type to "be a relation".
+\begin{definition}
+A type $A$ is a relation if for all $x,y : A$ and $f,g : \ho[A]{x}{y}$, we have $f = g$.
+\end{definition}
+
+As a first example of this, we can show that Unit is a relation.
+
+\begin{lemma}
+    Unit is a relation.
+\end{lemma}
+\begin{proof}
+    It suffices to show $\ho[\Un]{\star}{\star}$ is contractible. This is immediate as
+    \begin{equation}
+        \ndexten{\osx}{\Un}{\pardo}{[\star,\star]}
+    \end{equation}
+    has contractible fibers, thus the entire extension type is contractible by relative
+    function extensionality.
+\end{proof}
+Natural numbers are also a relation
+\begin{lemma}
+$\mathbb{N}$ is a relation.
+\end{lemma}
+\begin{proof}
+    Now, we define $\eco : \prd{n : \mathbb{N}}{m : \mathbb{N}} \ho[\mathbb{N}]{n}{m} \to \co\,n\,m$ with the defining equations
+    \begin{align*}
+        &\eco\,0\,0\,\_ \defeq \star&\\
+        &\eco\,S(n)\,S(m)\,f\defeq \eco\,n\,m\,\phi(f)&
+    \end{align*}
+
+    and we define $\dco : \prd{n:\mathbb{N}}{m:\mathbb{N}}\co\,n\,m \to \ho[\mathbb{N}]{n}{m}$ as
+    \begin{align*}
+        &\dco\,0\,0\,\_ \defeq \idhom{0}&\\
+        &\dco\,S(n)\,S(m)\,u\defeq \lam{i}S(\dco\, n\, m\, u)&
+    \end{align*}
+    Before we can show that these maps form a pair in a bi invertible equivalence, we define a map $r : \prd{n : \mathbb{N}}{f:\ho[\mathbb{N}]{n}{n}}f=\idhom{n}$
+    Finally, we can show that these functions form a bi invertible equivalence by defining a map  
+    \begin{align*}
+        \eta \, 0 \, 0 \, \_ 
+    \end{align*}
+\end{proof}
+\end{document}

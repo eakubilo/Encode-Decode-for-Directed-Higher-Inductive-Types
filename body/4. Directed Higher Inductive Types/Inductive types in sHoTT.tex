@@ -1,0 +1,129 @@
+\documentclass[main.tex]{subfiles}
+
+\begin{document}
+Inductive types, are intuitvely viewed as types which are completely "determined" by their constructors, of which map into the inductive type
+being formed as \textit{points}. They are positive types which contain no higher homotopical data.
+We would similarly like to state the same for sHoTT, that inductive types are objects without any higher \textit{simplicial data}. We observe that this is
+trivially the case for the Unit type. Since all of its terms are definitionally $\star$, the morphism space of $\Un$ is
+\begin{equation}
+    \label{eq:unhom}
+    \ndexten{\osx}{\Un}{\pardo}{[\star,\star]}
+\end{equation}
+which clearly has contractible fibers. Since we've assumed relative functional extensionality, the entire type (\ref{eq:unhom}) will be contractible.
+
+As a less degenerate task, we might want to do the same thing for the natural numbers. In service of that goal, we can define a type family $$\co : \mathbb{N} \to \mathbb{N}\to \uc$$ recursively, with defining equations
+\begin{align*}
+    &\co\,0\,0\defeq \Un&\\
+    &\co\,0\,S(n) \defeq \vo&\\
+    &\co\,S(n)\,0\defeq \vo&\\
+    &\co\,S(n)\,S(m)\defeq \co \,n\,m&
+\end{align*}
+We also define a map $r : \prd{n : \mathbb{N}}\co\,n\,n$ by induction as 
+\begin{align*}
+    &r\,0 \defeq \star &\\
+    &r\,S(n) \defeq r(n)&
+\end{align*} 
+\begin{lemma}
+    For all $n,m : \mathbb{N}$,
+    \begin{equation}
+        \ho[\mathbb{N}]{n}{m} \simeq \co\,n\,m
+    \end{equation}
+\end{lemma}
+\begin{proof}
+    We define $\eco : \prd{n : \mathbb{N}}{m : \mathbb{N}} \ho[\mathbb{N}]{n}{m} \to \co\,n\,m$ as
+    \begin{equation}
+        &\eco\,n \defeq \text{yon}^{\lam{m}\co\,n\,m}_{n}(r(n))
+    \end{equation}
+    and $\dco : \prd{n:\mathbb{N}}{m:\mathbb{N}}\co\,n\,m \to \ho[\mathbb{N}]{n}{m}$ as
+\begin{align*}
+    &\dco\,0\,0\,\_ \defeq \idhom{0}&\\
+    &\dco\,0\,S(m)\,u \defeq \text{abort}(u)&\\
+    &\dco\,S(n)\,0\,u \defeq \text{abort}(u)&\\
+    &\dco\,S(n)\,S(m)\,u\defeq \lam{i}S((\dco\, n\, m\, u)i)&
+\end{align*} 
+    
+\end{proof}
+$\eco$ and $\dco$, we define a map $\text{pred} : \mathbb{N} \to \mathbb{N}$ as
+\begin{align*}
+    &\text{pred}\,0 \defeq 0&\\
+    &\text{pred}\,S(n) \defeq n&
+\end{align*}
+Moreover, there is a map $\phi : \prd{n:\mathbb{N}}{m:\mathbb{N}}\ho[\mathbb{N}]{S(n)}{S(m)} \to \ho[\mathbb{N}]{n}{m}$ defined as
+\begin{align*}
+    &\phi \, 0 \, 0 \,\_ \defeq \idhom{0}&\\
+    &\phi \, S(n)\, S(m)\,f \defeq \lam{i}\text{pred}(f(i))
+\end{align*}
+
+and we 
+We can also show that the fibers of $\co$ are propositional by defining a type $\psi : \prd{n : \mathbb{N}}{m : \mathbb{N}}\co\,n\,m \to (\co\,n\,m = \Un)$ by
+\begin{align*}
+    &\psi\,0\,0\,\_\defeq \refl{\Un}\\
+    &\psi\,S(n)\,S(m)\,u\defeq\psi\,n\,m\,u&
+\end{align*}
+
+Finally, we can show that these functions form a bi invertible equivalence by defining a map $$\epsilon : \prd{n:\mathbb{N}}{m:\mathbb{N}}{u : \co \, n\, m}\eco\,n\,m\,(\dco\,n\,m \,u) =u$$
+as
+\begin{align*}
+    \epsilon\,n\,m\,u \defeq \text{ap}_{((\psi\,n\,m\,u)^{-1})_*}(\refl{\star})
+\end{align*}
+Noting that 
+\begin{equation}
+    \eco\,n\,m\,(\dco\,n\,m \,u) =_{\co\,n\,m} u \simeq \star =_{\Un} \star
+\end{equation}
+since $\text{ap}_{(\psi\,n\,m\,u)_*}: \eco\,n\,m\,(\dco\,n\,m \,u) =_{\co\,n\,m} u \to \star =_{\Un} \star$ is an equivalence with inverse as $\text{ap}_{((\psi\,n\,m\,u)^{-1})_*}$ as transporting 
+is an equivalence.
+
+On the other hand, if we try to define $$\eta : \prd{n:\mathbb{N}}{m:\mathbb{N}}{f : \ho[\mathbb{N}]{n}{m}}\dco\,n\,m\,(\eco\,n\,m f) =f,$$
+we run into issues as we have no way of showing that, in the base case, that all $f : \ho[\mathbb{N}]{0}{0}$ have the property that $$f = \refl{0}.$$
+In fact, we will ultimately have to inhabit the type $$\prd{n : \mathbb{N}}{m : \mathbb{N}}\ho[\mathbb{N}]{n}{m} \to \ho[\mathbb{N}]{n}{m}=\Un.$$
+That is, we want to show that the two-sided representable for the naturals also has propositional fibers. From there, we can easily complete
+$\eta$. To do so, though, is equivalent to a proof that $\mathbb{N}$ is Segal, which ultimately requires us to have a characterization of the 
+morphism types in the naturals.
+\begin{lemma}
+    $\prd{n : \mathbb{N}}{m : \mathbb{N}}\ho[\mathbb{N}]{n}{m} \to \ho[\mathbb{N}]{n}{m}=\Un$ if and only if $\mathbb{N}$ is Segal.
+\end{lemma}
+\begin{proof}
+    In the forward direction, we assume there is a term 
+    $$\zeta : \prd{n : \mathbb{N}}{m : \mathbb{N}}\ho[\mathbb{N}]{n}{m} \to \ho[\mathbb{N}]{n}{m}=\Un.$$
+    Then, we can complete the definition of $\eta$ very quickly:
+    \begin{equation}
+        \epsilon\,n\,m\,f \defeq \text{ap}_{((\zeta\,n\,m\,f)^{-1})_*}(\refl{\star})
+    \end{equation}
+    So, we conclude that for all $n,m : \mathbb{N}$,
+    $$\ho[\mathbb{N}]{n}{m} \simeq \co\,n\,m.$$
+    The astute reader will notice that $\co$ defined above is exactly $\co$ defined in theorem 2.13.1. Hence, $$(n=m)\simeq \co(n,m)\simeq\ho[\mathbb{N}]{n}{m}.$$
+    That is, $\mathbb{N}$ is discrete, so it is Segal. On the other hand, given a proof that $\mathbb{N}$ is Segal, we can characterize the morphism space in a way that looks
+    much more similar to book HoTT. Define a map $$\co' : \mathbb{N}\to\mathbb{N}\to\uc$$
+    as
+    \begin{align*}
+        &\co'\,0\,0\defeq \Un&\\
+        &\co'\,0\,S(n) \defeq \vo&\\
+        &\co'\,S(n)\,0\defeq \vo&\\
+        &\co'\,S(n)\,S(m)\defeq \co' \,n\,m&
+    \end{align*}
+
+\end{proof}
+
+
+We start with Unit. \todo{define Unit in section 2}
+\begin{lemma}
+    $\Un$ is discrete
+\end{lemma}
+\begin{proof}
+    It suffices to show that the map induced by idtoarr between total spaces
+    \begin{equation}
+        \sm{v:\Un}u = v \to \sm{v:\Un}\ho[\Un]{u}{v}
+    \end{equation}
+    is an equivalence. The domain is contractible as it is a based path space. In the codomain, both 
+\end{proof}
+
+We also expect the type of natural numbers to be discrete too. \todo{define natural numbers}
+
+\begin{lemma} $\mathbb{N}$ is discrete.
+\end{lemma}
+\begin{proof}
+    To show this
+\end{proof}
+The unit type corresponds to the category with one object and one morphism (the identity).
+
+\end{document}

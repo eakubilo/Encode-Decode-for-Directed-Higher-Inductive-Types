@@ -1,0 +1,65 @@
+\documentclass[main.tex]{subfiles}
+
+\begin{document}
+In section 2, we saw that all type families were fibrations and what that means specifically in HoTT. Of course in sHoTT type families are also fibrations, with respect to \textit{paths} that is. The question of which type families are fibrations with respect to \textit{morphisms} and \textit{higher morphisms}, is not as trivial in sHoTT. In this section, we define and characterize type families that lift morphisms. Before we can define such type families, we must first make precise what it means to be a "morphism in the total space".
+\begin{definition}
+Given a type $A$, a type family $C : A \to \U$, points $x,y : A$, a morphism $f : \ho[A]{x}{y}$ and points $u : C(x)$ and $v : C(y)$, the type of \textbf{dependent morphisms over} $f$ \textbf{from} $u$ to $v$ is written as $$
+\dho{C}{f}{u}{v} \defeq \exten{t : \osx}{C(f(t))}{\pardo}{[u,v]}.$$
+\end{definition}
+The dependent morphism represents the intuitive notion of "morphism in the total space". Alternatively, we can observe that a type family $C: A \to \U$ associates morphisms $f : \ho[A]{x}{y}$ to spans
+% https://q.uiver.app/#q=WzAsMyxbMSwwLCJcXHNte3U6Qyh4KX17djpDKHkpfVxcZGhve0N9e2Z9e3V9e3Z9Il0sWzAsMSwiQyh4KSJdLFsyLDEsIkMoeSkiXSxbMCwxLCJcXGRvbSIsMl0sWzAsMiwiXFxjb2QiXV0=
+\[\begin{tikzcd}
+	& {\sm{u:C(x)}{v:C(y)}\dho{C}{f}{u}{v}} \\
+	{C(x)} && {C(y)}
+	\arrow["\dom"', from=1-2, to=2-1]
+	\arrow["\cod", from=1-2, to=2-3]
+\end{tikzcd}\]
+We do not know a priori that $C$ depends functorially on $A$. We cannot even assert that \textit{spans} depend functorially on $A$ either, given 
+\begin{definition}
+    Given a type $A$ and
+    \begin{gather*}
+                          x,y,z : A  \\
+    f : \ho[A]{x}{y} \qquad g : \ho[A]{y}{z} \qquad h:\ho[A]{x}{z} \\
+    t : \homtwo{A}(x,y,z,f,g,h)\\
+    u : C(x) \qquad v : C(y) \qquad w : C(z) \\
+    p : \dho{C}{f}{u}{v} \qquad q : \dho{C}{g}{v}{w} \qquad r : \dho{C}{h}{u}{w}
+    \end{gather*}
+    we define
+    $$\homtwo{C(t)}(u,v,w,p,q,r) \defeq \exten{s : \tsx}{C(t(s))}{\pardt}{[u,v,w,p,q,r]}$$
+    and say that a morphism in $\homtwo{C(t)}(u,v,w,p,q,r)$ is a \textbf{dependent 2-simplex over} $t$.
+\end{definition}
+In the case that $g \circ f = h$, we cannot necessarily conclude that the span associated to $C(h)$ is equal to the composites of the spans $C(g)$ and $C(f)$. These issues have easy workarounds, we can restrict ourselves to type families that act as fibrations with respect to morphisms, or alternatively functorial with respects to the fibers of $C$. 
+\begin{definition}
+A type family is \textbf{covariant} if for every $f : \ho[A]{x}{y}$  and $u : C(x)$, the type $$\sm{v : C(y)} \dho{C}{f}{u}{v}$$
+is contractible. Dually\footnote{We will not explicitly state dual theorems and definitions when they are obvious from context.}, $C$ is \textbf{contravariant} if for every $f : \ho[A]{x}{y}$  and $v : C(y)$, the type $$\sm{v : C(x)} \dho{C}{f}{u}{v}$$
+is contractible.
+\end{definition}
+We make our first extension to sHoTT by assuming that there is a type that acts as a classifier for covariant fibrations.
+\begin{axiom}
+    There is a a Segal type $\uc$ such that for any type or shape $A$, type families $C : A \to \uc$ are covariant fibrations.
+\end{axiom}
+\begin{remark}
+    Discrete families are members of $\uc$
+\end{remark}
+We can also show that definition of a covariant type family really does correspond to the familiar notion of a fibration in topology:
+\begin{lemma}
+    A type family $C : A \to \U$ is covariant if and only if for all morphisms $f : \ho[A]{x}{y}$ and points $u : C(x)$ the type $\exten{t : \osx}{C(f(t))}{0}{u}$ is contractible; there is a unique lifting of $f$ that starts at $u$.
+\end{lemma}
+
+Like in category theory, we can make extensive use of the covariance of the "representable" $\lam{x} \ho[A]{a}{x}$. To start, we see that the covariant of the representable allows us to characterize Segal types.
+
+\begin{proposition}
+    Given a type $A$ and a point $a : A$, then
+    $$\lam{x} \ho[A]{a}{x} : A \to \uc$$  if and only if $A$ is Segal.
+\end{proposition}
+
+We also enjoy some closure properties with covariant type families: mapping into a covariant family is covariant and mapping out of a covariant family \textit{into a discrete tpye} is contravariant.
+
+\begin{lemma}[RS17 Prop 8.30]
+    \label{lem:covcodiscov}
+    For any types $C$, $A$, and covariant family $B : C \to \U$, the type family $$\lam{x : C} A \to B(x) : C \to \U$$
+    is also covariant.
+\end{lemma}
+    
+
+\end{document}

@@ -1,0 +1,114 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{subfiles}
+\usepackage{amsmath,amssymb,amsfonts, amsthm}
+\usepackage{bbm}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\usepackage{mathtools}
+\usepackage{xspace}
+\usepackage{adjustbox}
+\usepackage{todonotes}
+\usepackage[hidelinks]{hyperref}
+\DeclareMathAlphabet{\mathbbold}{U}{bbold}{m}{n}
+
+\input{commands}
+\newtheoremstyle{named}{}{}{\itshape}{}{\bfseries}{.}{.5em}{\thmnote{#3's }#1}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem*{axiom}{Axiom}
+
+\theoremstyle{named}
+\newtheorem*{namedaxiom}{Axiom}
+\newtheorem{namedlemma}[theorem]{Lemma}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+
+
+
+\begin{document}
+%preamble
+\listoftodos
+\subsection*{\centering Acknowledgements}
+\newpage
+\addcontentsline{toc}{subsection}{Acknowledgements}
+\subfile{body/0. acknowledgements}
+
+\subfile{body/1. abstract}
+\subsection*{\centering Introduction}
+\addcontentsline{toc}{subsection}{Introduction}
+\subfile{body/2. Introduction}
+\newpage
+\tableofcontents
+
+\newpage 
+
+\section*{\centering 1. MLTT}
+\addcontentsline{toc}{section}{1. MLTT}
+\setcounter{section}{1}
+\newpage
+
+\section*{\centering 2. HoTT}
+\addcontentsline{toc}{section}{2. HoTT}
+\setcounter{section}{1}
+
+\newpage
+
+\section*{\centering 3. sHoTT}
+\addcontentsline{toc}{section}{3. sHoTT}
+\setcounter{section}{3}
+
+
+\subsection*{3.1 Three-layer type theory with shapes}
+\addcontentsline{toc}{subsection}{1. Three-layer type theory with shapes}
+\subfile{body/3. sHoTT/Three-layer type theory with shapes}
+
+
+\subsection*{3.2 Extension types}
+\addcontentsline{toc}{subsection}{2. Extension types}
+\subfile{body/3. sHoTT/Extension Types}
+
+
+\subsection*{3.3 Segal condition}
+\addcontentsline{toc}{subsection}{3. Segal condition}
+\subfile{body/3. sHoTT/Segal condition}
+
+\subsection*{3.4 Discrete types}
+\addcontentsline{toc}{subsection}{4. Discrete types}
+\subfile{body/3. sHoTT/Discrete types}
+
+\subsection*{3.5 Covariant fibrations}
+\addcontentsline{toc}{subsection}{5. Covariant fibrations}
+\subfile{body/3. sHoTT/Covariant fibrations}
+
+\subsection*{3.6 Rezk types}
+\addcontentsline{toc}{subsection}{6. Rezk types}
+\subfile{body/3. sHoTT/Discrete types}
+
+\subsection*{3.7 Directed univalence}
+\addcontentsline{toc}{subsection}{7. Directed univalence}
+\subfile{body/3. sHoTT/Directed univalence}
+
+\subsection*{3.8 Inner fibrations}
+\addcontentsline{toc}{subsection}{8. Inner fibrations}
+\subfile{body/3. sHoTT/Inner fibrations}
+
+
+\section{Directed Higher Inductive Types}
+
+\addcontentsline{toc}{subsection}{1. Unit}
+\subsection*{Unit}
+\subfile{body/4. Directed Higher Inductive Types/Unit}
+
+\addcontentsline{toc}{subsection}{2. Directed Interval}
+\subsection*{Directed Interval}
+\subfile{body/4. Directed Higher Inductive Types/directed interval}
+
+\end{document}

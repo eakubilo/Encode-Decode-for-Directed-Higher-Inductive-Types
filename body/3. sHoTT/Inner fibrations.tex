@@ -1,0 +1,81 @@
+\documentclass[main.tex]{subfiles}
+
+\begin{document}
+In this section, we introduce another important class of fibrations: \textit{inner fibrations}. They extend the notion of the Segal property to the dependent case. That is, inner fibrations have to do with completing \textit{horns} in the total space.
+
+\begin{definition}
+    For any type $A$, type family $C : A \to \uc$, and
+    \begin{gather*}
+    x,y,z : A  \\
+    f : \ho[A]{x}{y} \qquad g : \ho[A]{y}{z} \qquad h:\ho[A]{x}{z} \\
+    t : \homtwo{A}(x,y,z,f,g,h)\\
+    u : C(x) \qquad v : C(y) \qquad w : C(z) \\
+    p : \dho{C}{f}{u}{v} \qquad q : \dho{C}{g}{v}{w}  
+    \end{gather*}
+    we say $C$ is \textbf{inner} if the type 
+    \begin{equation}
+        \sm{r : \dho{C}{h}{u}{w}}\homtwo{C(t)}(u,v,w,p,q,r)
+    \end{equation}
+    is contractible.
+\end{definition}
+
+When the base of a type family is Segal, we state the inner condition much more tersely.
+\begin{lemma}[BW23]
+    \label{lem:totbaseseginner}
+    Given a Segal type $A$, a type family $C : A \to \U$ is inner if and only if $\widetilde{C}$ is Segal.
+\end{lemma}
+Covariant families are a wealthy source of inner families. Not only are covariant families a specialization of inner families, but the mapping space between covariant families, even dependently, is an inner type family as well. 
+
+\begin{lemma}[BW21]
+    Every covariant type family is an inner type family.
+\end{lemma}
+
+\begin{lemma}
+    Given a Segal type $A$, for any $P : A \to \uc$ and $Q : \widetilde{P} \to \uc$ the type family
+    $$\lam{x : A}\prd{p : P(x)}Q(x,p)$$
+    is inner.
+\end{lemma}
+\begin{proof}
+    Since $A$ is Segal, by lemma~\ref{lem:totbaseseginner} it suffices to show$$\sm{a:A}\prd{p : P(a)}Q(a,p)$$ is Segal. 
+    Note that 
+    \begin{equation*}
+        \tohorn \to \sm{a:A}\prd{p : P(a)}Q(a,p)\simeq \sm{\phi : \tohorn \to A}\prd{t : \tohorn}\prd{p : P(\phi(t))}Q(\phi(t),p)
+    \end{equation*}
+    by the type theoretic axiom of choice.
+    The type of extensions of some $(\phi, \psi)$ of this type is
+    \begin{equation*}
+        \sm{\mu : \ndexten{\tsx}{A}{\tohorn}{\phi}}\exten{t : \tsx}{\prd{p : P(\mu(t))}Q(\mu(t),p)}{\tohorn}{\psi}.
+    \end{equation*}
+    Note that the base is contractible since $A$ is Segal, hence this type of extensions is equivalent to
+    \begin{equation}
+        \label{eqn:leminnerstart}
+        \exten{t : \tsx}{\prd{p : P(\comp{g}{f}(t))}Q(\comp{g}{f}(t), p) }{\tohorn}{\psi}
+    \end{equation}
+    where $g,f$ make up the legs of $\phi$. We seek to show that this type is contractible. By lemma~\ref{lem:covdomcovcodisinner}, letting 
+    \begin{align*}
+        \zeta \defeq \comp{g}{f} \\
+        \epsilon \defeq  \ho[\uc]{P(\zeta(t))}{\sm{p : P(\zeta(t))} Q(\zeta(t),p)}\\
+        \fst : \sm{p : P(\zeta(t))} Q(\zeta(t),p)\to P(\zeta(t))
+    \end{align*}
+    to shorten definitions, this type is equivalent to
+    \begin{equation*}
+        \displaystyle \exten{t : \tsx}{\sm{f : \epsilon} \dua(\fst) \circ f = \idhom{P(\zeta(t))}}{\tohorn}{\psi'}
+    \end{equation*} 
+    which, by lemma~\ref{lem:compequalis2mor} is equivalent to the extension type
+    \begin{equation*}
+        \displaystyle \exten{t : \tsx}{\sm{f : \epsilon} \homtwoshort{\uc}(P(x), {\sm{p : P(\zeta(t))} Q(\zeta(t),p)}, P(x), \dua(\fst), f, \idhom{P(x)}) )}{\tohorn}{\psi''}
+    \end{equation*} 
+    Let $\alpha\equiv \lam{t}[(P(\zeta(t)), {\sm{p : P(\zeta(t))} Q(\zeta(t),p)}, P(\zeta(t)), \dua(\fst), \idhom{P(\zeta(t))}]$. The type above is then equivalent to
+    \begin{equation*}
+        \exten{t : \tsx}{\ndexten{\tsx}{\uc}{\tthorn}{\alpha(t)} }{\tohorn}{\psi'''}
+    \end{equation*}
+    by lemma~\ref{rem:sumoverfistt}. We then proceed by applying \todo{define the extension type theorems so I can refer to the label here} which allows us to swap the order of the nested extension types:
+    \begin{equation}
+        \label{eqn:leminnerend}
+        \exten{s : \tsx}{\exten{t : \tsx}{\uc}{\tohorn}{\lam{t } \psi''(t)(s)}}{\tthorn}{\lam{t}\alpha(t)}
+    \end{equation} 
+    Since $\uc$ is Segal, the fibers of \ref{eqn:leminnerend} are contractible. Thus, the entire type in \ref{eqn:leminnerend} is contractible by relative functional extensionality. 
+    So, \ref{eqn:leminnerstart} is contractible as well, since it is equivalent to \ref{eqn:leminnerend}.
+\end{proof}
+
+\end{document}
