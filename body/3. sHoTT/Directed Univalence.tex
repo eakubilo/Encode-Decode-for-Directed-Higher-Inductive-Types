@@ -12,12 +12,12 @@ For any two discrete types $A$ and $B$, there is a function
 
 \end{lemma}
 \begin{proof}
-    We first observe that the type family \begin{equation}
+    We begin by observing that the identity function on $\uc$, \begin{equation}
     \label{eqn:zetaisucovid}
-        \zeta \defeq \lam{B : \uc} x : \uc \to \uc
+        \id{\uc} : \uc \to \uc
     \end{equation}
-    is covariant, so by Lemma~\ref{lem:covcodiscov} the type family $$C \defeq \lam{B : \uc}A \to \zeta(B) : \uc \to \U$$
-    is also covariant. Note that \eqref{eqn:zetaisucovid} means that $C \equiv \lam{B : \uc} A \to B$. Finally, we appeal to the Yoneda lemma to define $\htf$:
+    is covariant, so by Lemma~\ref{lem:covcodiscov} the type family $$C \defeq \lam{B : \uc}A \to \id{\uc}(B) : \uc \to \U$$
+    is also covariant. Note that \eqref{eqn:zetaisucovid} can be restated as $C \equiv \lam{B : \uc} A \to B$. Finally, we appeal to the Yoneda lemma to define $\htf$:
     $$\htf \defeq  \yon{C}{A}(\id{A})(B) \defeq \lam{f}f_*(\id{A}) : \ho[\uc]{A}{B} \to (A \to B) $$
 \end{proof}
 \begin{remark}
@@ -39,7 +39,7 @@ Just as HoTT does not come equipped with tools to show idtoeqv is an equivalence
 For discrete types $A$ and $B$, we can break the equivalence up into:
 \begin{itemize}
     \item An introduction rule for $\ho[\uc]{A}{B}$ denoted $\dua$ for "directed univalence axiom":
-    $$\dua : A \to B \to (\ho[\uc]{A}{B})$$
+    $$\dua : (A \to B) \to (\ho[\uc]{A}{B})$$
     \item An elimination rule
     $$\htf \defeq \yon{C}{A}(\id{A}) : \ho[\uc]{A}{B} \to (A \to B)$$
     \item The propositional computation rule
