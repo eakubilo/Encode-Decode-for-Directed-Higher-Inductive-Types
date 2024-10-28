@@ -24,21 +24,23 @@ With our three-layer type theory and extension types, we can start to define fam
     and say that an element of $\homtwoshort{A}(x,y,z,f,g,h)$ is a $2$-\textbf{morphism}.
 \end{definition}
 
-\begin{remark}
-    We will mostly write a 2-morphism as 
-\end{remark} 
 
-Not only do functions act functorially on paths, they also act functorially on morphisms and higher morphisms.
+Not only do functions act functorially on paths, they also act functorially on morphisms and higher morphisms. That is, functions
+are \textit{functors}.
 \begin{lemma}(Morphism application)
     Let $A,B$ be types and $f : A \to B$. Then, given $x,y : A$, there are functions 
-    $$\maparrfunc{f} : \ho[A]{x}{y} \to \ho[A]{f x}{f y}$$
-    %ap^2
+    $$\mapfunc{f} : \ho[A]{x}{y} \to \ho[A]{f x}{f y}$$
 \end{lemma}
 
-In section 2, we saw that composition of paths was a function. With morphisms, we don't get the same luxury a priori. Instead, we can ask for types whose morphisms do have composites. So, composition of paths is a parametrically polymorphic function while composition of morphisms is a type class polymorphic function. That leads us to the following definition.
+In section 2, we saw that composition of paths was a function. This does not analogously hold automatically for morphisms. In sHoTT,
+the slogan is "some types are infinity categories" and this is the first place we see why that may be. Instead of types automatically
+coming with the structure of an infinity category and more specifically, that have a compoisition of morphisms operation, we must
+restrict our study to such types. Thus, we can ask for types whose morphisms do have composites. For a programming languages analogy, 
+composition of paths is a parametrically polymorphic function while composition of morphisms is a type class polymorphic function.
+That leads us to the following definition.
 \begin{definition}\label{def:def3.3}
     Let $A$ be a type, $x,y,z : A$ and $f : \ho[A]{x}{y}$ and $g : \ho[A]{y}{z}$. We say $A$ is \textbf{Segal} if the type $${\sm{h : \ho[A]{x}{z}} \hot[A]{f}{g}{h}} $$
-    is contractible. The unique inhabitant is denoted by $(g\circ f, \comp{g}{f}).$
+    is contractible. The unique inhabitant is denoted by $(g\cdot f, \comp{g}{f}).$
 \end{definition}
 
 In other words two composable morphisms are enough to specify a 2-morphism in a Segal type. That leads us to the following important alternative characterization of Segal-ness.

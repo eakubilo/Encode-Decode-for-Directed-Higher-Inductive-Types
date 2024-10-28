@@ -31,35 +31,98 @@ We do not know a priori that $C$ depends functorially on $A$. We cannot even ass
 In the case that $g \circ f = h$, we cannot necessarily conclude that the span associated to $C(h)$ is equal to the composites of the spans $C(g)$ and $C(f)$. These issues have easy workarounds, we can restrict ourselves to type families that act as fibrations with respect to morphisms, or alternatively functorial with respects to the fibers of $C$. 
 \begin{definition}
 A type family is \textbf{covariant} if for every $f : \ho[A]{x}{y}$  and $u : C(x)$, the type $$\sm{v : C(y)} \dho{C}{f}{u}{v}$$
-is contractible. Dually\footnote{We will not explicitly state dual theorems and definitions when they are obvious from context.}, $C$ is \textbf{contravariant} if for every $f : \ho[A]{x}{y}$  and $v : C(y)$, the type $$\sm{v : C(x)} \dho{C}{f}{u}{v}$$
+is contractible. When the context is clear, we write the specific inhabitant as $(f_*u, \trans{f}{u}).$
+
+Dually\footnote{We will not explicitly state dual theorems and definitions when they are obvious from context.}, $C$ is \textbf{contravariant} if for every $f : \ho[A]{x}{y}$  and $v : C(y)$, the type $$\sm{v : C(x)} \dho{C}{f}{u}{v}$$
 is contractible.
 \end{definition}
-We make our first extension to sHoTT by assuming that there is a type that acts as a classifier for covariant fibrations.
-\begin{axiom}
-    There is a a Segal type $\uc$ such that for any type or shape $A$, type families $C : A \to \uc$ are covariant fibrations.
-\end{axiom}
-\begin{remark}
-    Discrete families are members of $\uc$
-\end{remark}
 We can also show that definition of a covariant type family really does correspond to the familiar notion of a fibration in topology:
 \begin{lemma}
     A type family $C : A \to \U$ is covariant if and only if for all morphisms $f : \ho[A]{x}{y}$ and points $u : C(x)$ the type $\exten{t : \osx}{C(f(t))}{0}{u}$ is contractible; there is a unique lifting of $f$ that starts at $u$.
 \end{lemma}
 
-Like in category theory, we can make extensive use of the covariance of the "representable" $\lam{x} \ho[A]{a}{x}$. To start, we see that the covariant of the representable allows us to characterize Segal types.
+Often times, we are in a situation where we are given a covariant family with a Segal base. In such cases, a very useful property applies
 
-\begin{proposition}
+\begin{lemma}[RS17 Thm 8.8]
+    If $A$ is segal and $C : A \to \U$ is covariant, then 
+    $$\sm{a : A}C(a)$$
+    is Segal.
+\end{lemma}
+
+Like in category theory, we can make extensive use of the covariance of the "representable" $\lam{x} \ho[A]{a}{x}$. 
+To start, we see that the covariant of the representable allows us to characterize Segal types.
+
+\begin{lemma}[RS17 Prop 8.13]
     Given a type $A$ and a point $a : A$, then
     $$\lam{x} \ho[A]{a}{x} : A \to \uc$$  if and only if $A$ is Segal.
-\end{proposition}
+\end{lemma}
+We can also show that dependent morphisms are equivalent to a path whose domain is a transport, analogous to the situation in HoTT.
 
+\begin{lemma}[RS17 Lem 8.15]
+    If $C : A \to \U$ is covariant, $f : \ho[A]{x}{y}$, $u: C(x)$, and $v : C(y)$, then
+    $$\ho[C(f)]{u}{v} \simeq (f_*u =_{C(y)}v).$$
+\end{lemma}
+
+For covariant families with Segal bases, we can show that "directed transporting" is functorial:
+\begin{lemma}[RS17 Prop 8.16]
+    For any segal type $A$, covariant family $C : A \to \U$, $f : \ho[A]{x}{y}$, $g : \ho[A]{y}{z}$, and $u : C(X)$, we have
+    \begin{gather*}
+        g_*(f_*\,u) = (g\cdot f)_*\,u \qquad \normalfont \text{ and } \qquad (\idhom{x})_*\,u = u
+    \end{gather*}
+\end{lemma}
+
+Naturality also comes for free, for maps between covariant types.
+
+\begin{lemma}[RS17 Prop 8.17]
+    For any two covariant families $C,D : A \to \U$ and a fiberwise map $\phi : \prd{x : A}C(x) \to D(x)$, $f: \ho[A]{x}{y}$ and $u:C(x)$,
+    $$\phi_y(f_*\,u) = f_*(\phi_x(u)).$$
+\end{lemma}
+
+We can also show that covariant types over Segal bases have discrete fibers.
+
+\begin{lemma}[RS17 Prop 8.18]
+    For any Segal type $A$ and covariant map $C : A \to \U$, and $x : A$, the type $C(x)$ is discrete.
+\end{lemma}
+
+\begin{lemma}[RS17 Cor 8.19]
+    If $A$ is Segal, then for any $x,y: A$ the type $\ho[A]{x}{y}$ is discrete.
+\end{lemma}
+
+\begin{lemma}[RS17 Cor 8.20]
+    If $A$ is discrete, then for any $x,y : A$, so is $x =_A y$.
+\end{lemma}
 We also enjoy some closure properties with covariant type families: mapping into a covariant family is covariant and mapping out of a covariant family \textit{into a discrete tpye} is contravariant.
 
 \begin{lemma}[RS17 Prop 8.30]
     \label{lem:covcodiscov}
-    For any types $C$, $A$, and covariant family $B : C \to \U$, the type family $$\lam{x : C} A \to B(x) : C \to \U$$
+    For types $C$, $A$, and covariant family $B : C \to \U$, the type family $$\lam{x : C} A \to B(x) : C \to \U$$
     is also covariant.
 \end{lemma}
+
+\begin{lemma}[RS17 Prop 8.31]
+    \label{lem:covdomiscon}
+    For a discrete type $Y$ and a covariant type family $C : A \to \U$, the type
+    $$\lam{x : A}C(a) \to Y$$
+    is contravariant.
+\end{lemma}
+
     
+
+
+In HoTT, we saw that type families were automatically fibrations. We hope to see the same in sHoTT, but it is not true that all families are fibrations.
+We can instead axiomatize some classifier universe for covariant fibrations, that can only be used in a particular way.
+\begin{axiom}
+    There is a Segal universe of discrete types $\uc$ along with an encoding function 
+    $$\co : \prd{A : \U}{B : A \to \U}(\isc\, A\, B) \to (A \to \uc)$$
+    and decoding function
+    $$\text{El} : \prd{A : \U}(A \to \uc) \to (A \to \U)$$
+    with, for every type $A$, family $B : A \to \U$ and proof that $c$, a proof that $B$ is covariant, a retraction 
+    $$\text{El}\,A\,(\co\, A\, B\, c) = B$$
+\end{axiom}
+\begin{remark}
+    Fibers of covariant types are discrete, so discrete types are the points of $\uc$. This is especially reasonable if you observe
+    that discrete types over $\Un$ are covariant. 
+\end{remark}
+
 
 \end{document}
