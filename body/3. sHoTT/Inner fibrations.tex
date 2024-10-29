@@ -51,28 +51,30 @@ Covariant families are a wealthy source of inner families. Not only are covarian
         \label{eqn:leminnerstart}
         \exten{t : \tsx}{\prd{p : P(\comp{g}{f}(t))}Q(\comp{g}{f}(t), p) }{\tohorn}{\psi}
     \end{equation}
-    where $g,f$ make up the legs of $\phi$. We seek to show that this type is contractible. By lemma~\ref{lem:covdomcovcodisinner}, letting 
+    where $g,f$ make up the legs of $\phi$. We seek to show that this type is contractible. By lemma~\ref{lem:covdomcovcodisinner}, shortening
+    definitions by taking 
     \begin{align*}
         \zeta \defeq \comp{g}{f} \\
         \epsilon \defeq  \ho[\uc]{P(\zeta(t))}{\sm{p : P(\zeta(t))} Q(\zeta(t),p)}\\
-        \fst : \sm{p : P(\zeta(t))} Q(\zeta(t),p)\to P(\zeta(t))
+        \fst : \left(\sm{p : P(\zeta(t))} Q(\zeta(t),p)\right)\to P(\zeta(t)),
     \end{align*}
-    to shorten definitions, this type is equivalent to
+     this type is equivalent to
     \begin{equation*}
-        \displaystyle \exten{t : \tsx}{\sm{f : \epsilon} \dua(\fst) \circ f = \idhom{P(\zeta(t))}}{\tohorn}{\psi'}
+        \displaystyle \exten{t : \tsx}{\sm{f : \epsilon} \dua(\fst) \circ f = \idhom{P(\zeta(t))}}{\tohorn}{\psi'}.
     \end{equation*} 
-    which, by lemma~\ref{lem:compequalis2mor} is equivalent to the extension type
+    By lemma~\ref{lem:compequalis2mor}, this is equivalent to the extension type
     \begin{equation*}
         \displaystyle \exten{t : \tsx}{\sm{f : \epsilon} \homtwoshort{\uc}(P(x), {\sm{p : P(\zeta(t))} Q(\zeta(t),p)}, P(x), \dua(\fst), f, \idhom{P(x)}) )}{\tohorn}{\psi''}
     \end{equation*} 
-    Let $\alpha\equiv \lam{t}[(P(\zeta(t)), {\sm{p : P(\zeta(t))} Q(\zeta(t),p)}, P(\zeta(t)), \dua(\fst), \idhom{P(\zeta(t))}]$. The type above is then equivalent to
+    Let $\alpha\equiv \lam{t}[(P(\zeta(t)), {\sm{p : P(\zeta(t))} Q(\zeta(t),p)}, P(\zeta(t)), \dua(\fst), \idhom{P(\zeta(t))}]$. 
+    We can push our equivalence to the type
     \begin{equation*}
         \exten{t : \tsx}{\ndexten{\tsx}{\uc}{\tthorn}{\alpha(t)} }{\tohorn}{\psi'''}
     \end{equation*}
     by lemma~\ref{rem:sumoverfistt}. We then proceed by applying \todo{define the extension type theorems so I can refer to the label here} which allows us to swap the order of the nested extension types:
     \begin{equation}
         \label{eqn:leminnerend}
-        \exten{s : \tsx}{\exten{t : \tsx}{\uc}{\tohorn}{\lam{t } \psi''(t)(s)}}{\tthorn}{\lam{t}\alpha(t)}
+        \exten{s : \tsx}{\exten{t : \tsx}{\uc}{\tohorn}{\lam{t } \psi'''(t)(s)}}{\tthorn}{\lam{t}\alpha(t)}
     \end{equation} 
     Since $\uc$ is Segal, the fibers of \ref{eqn:leminnerend} are contractible. Thus, the entire type in \ref{eqn:leminnerend} is contractible by relative functional extensionality. 
     So, \ref{eqn:leminnerstart} is contractible as well, since it is equivalent to \ref{eqn:leminnerend}.
