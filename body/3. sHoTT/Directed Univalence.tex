@@ -72,15 +72,20 @@ Finally, the directed univalence even extends to characterizing dependent functi
         \sm{f : P(x)\to \sm{p : P(x)} Q(x,p)} \fst \circ f = \id{P(x)}
     \end{align*}
     with the first equivalence following from lemma~\ref{lem:equivbaseequivtot}. The second equivalence is a result of the functorality 
-    of $\dua$ and lemmas~\ref{compisequiv} and~\ref{equivistotequiv}. The third equivalence comes from~\ref{equivissurjemb}. Now that
+    of $\dua$ and lemmas~\ref{lem:compisequiv} and~\ref{lem:equivistotequiv}. The third equivalence comes from~\ref{lem:equivissurjemb}. Now that
     we are working with functions, we can reduce the types further:
     \begin{align*}
        \sm{f : P(x) \to \sm{p : P(x)}Q(x,p)}\fst \circ f = \id{P(x)} \simeq \\
        \sm{(f_1,f_2) : \sm{g : P(x) \to P(x)}\prd{p : P(x)}Q(x,g(p))}f_1 = \id{P(x)} \simeq\\
-       \sm{f_1 : P(x) \to P(x)}\sm{f_2 :\prd{p : P(x)}Q(x,f_1(p))} f_1 = \id{P(x)} \simeq \\
+       \sm{f : P(x) \to P(x)}(\prd{p : P(x)}Q(x,f(p))) \times (f = \id{P(x)}) \simeq \\
+       \sm{f : P(x) \to P(x)} (f = \id{P(x)})\times(\prd{p : P(x)}Q(x,f(p))) \simeq \\
+       \sm{(f, p): \sm{g : P(x) \to P(x)} g = \id{P(x)}} \prd{p : P(x)}Q(x,f(p)) \simeq \\
        \prd{p : P(x)}Q(x,p)
     \end{align*}
-    with the first equivalence following from the type theoretic axiom of choice, the second following from the associativity of sigma types and the third following from singleton contractibility. Thus, we can get our desired equivalence by composing the two equivalences formed in this proof.
+    with the first equivalence following from lemma~\ref{lem:ttaoc}. The second follows from
+    lemma~\ref{lem:sigisassoc}. The third follows from lemma~\ref{lem:sigissymm}. The fourth follows again from
+    lemma~\ref{lem:sigisassoc}. The final equivalence follows from lemma~\ref{lem:contractiblesingletons} and lemma~\ref{lem:contractibleissimple}.
+     Thus, we can get our desired equivalence by composing the two equivalences formed in this proof.
     \end{proof}
 
 

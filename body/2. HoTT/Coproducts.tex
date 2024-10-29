@@ -1,0 +1,19 @@
+\documentclass[main.tex]{subfiles}
+
+\begin{document}
+
+Product is obviously symmetric:
+
+\begin{lemma}
+    \label{lem:sigissymm}
+    For any two types $A$ and $B$, we have $A \times B \simeq B \times A$.
+\end{lemma}
+
+\begin{lemma}[HoTT Book Exercise 2.10]
+    \label{lem:sigisassoc}
+    For any type $A : \U$ and type families $B : A \to \U$ and $C : (\sm{x : A}B(x)) \to \U$, the following holds
+    \begin{equation}
+        \left( \sm{x : A}\sm{y : B(x)}C((x,y)) \right) \simeq \left( \sm{p : \sm{x:A}B(x)}C(p) \right)
+    \end{equation}
+\end{lemma}
+\end{document}
