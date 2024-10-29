@@ -71,7 +71,9 @@ Finally, the directed univalence even extends to characterizing dependent functi
         \sm{f : P(x)\to \sm{p : P(x)} Q(x,p)}\dua(\fst \circ f) = \idhom{P(x)}\simeq \\
         \sm{f : P(x)\to \sm{p : P(x)} Q(x,p)} \fst \circ f = \id{P(x)}
     \end{align*}
-    with the first equivalence following from exercise 2.10, the second from the functorality of $\dua$ and the third coming from theorem 4.6.3. Now that we are working with functions, we can reduce the types further:
+    with the first equivalence following from lemma~\ref{lem:equivbaseequivtot}. The second equivalence is a result of the functorality 
+    of $\dua$ and lemmas~\ref{compisequiv} and~\ref{equivistotequiv}. The third equivalence comes from~\ref{equivissurjemb}. Now that
+    we are working with functions, we can reduce the types further:
     \begin{align*}
        \sm{f : P(x) \to \sm{p : P(x)}Q(x,p)}\fst \circ f = \id{P(x)} \simeq \\
        \sm{(f_1,f_2) : \sm{g : P(x) \to P(x)}\prd{p : P(x)}Q(x,g(p))}f_1 = \id{P(x)} \simeq\\
