@@ -30,6 +30,12 @@
 \newcommand{\two}{\mathbb{2}}
 \newcommand{\yon}[2]{\normalfont \text{yon}^{#1}_{#2}}
 \newcommand{\trans}[2]{\normalfont \text{trans}_{{#1}, {#2}}}
+\newcommand{\qinv}{\normalfont \text{qinv}}
+\newcommand{\linv}{\normalfont \text{linv}}
+\newcommand{\rinv}{\normalfont \text{rinv}}
+\newcommand{\biinv}{\normalfont \text{biinv}}
+\newcommand{\iseq}{\normalfont \text{isequiv}}
+\newcommand{\tot}{\normalfont \text{total}}
 
 %from RS17
 \newcommand{\sh}[2]{\{#1\mid #2\}}
@@ -141,10 +147,6 @@
 \newcommand{\mapdepfunc}[1]{\ensuremath{\mathsf{apd}_{#1}}\xspace} % Without argument
 % \newcommand{\mapdep}[2]{\ensuremath{{#1}\llparenthesis{#2}\rrparenthesis}\xspace}
 \newcommand{\mapdep}[2]{\ensuremath{\mapdepfunc{#1}\mathopen{}\left(#2\right)\mathclose{}}\xspace}
-\let\apfunc\mapfunc
-\let\ap\map
-\let\apdfunc\mapdepfunc
-\let\apd\mapdep
 
 %%% 2D map on paths
 \newcommand{\aptwofunc}[1]{\ensuremath{\mathsf{ap}^2_{#1}}\xspace}
@@ -188,3 +190,16 @@
 % \newcommand{\apdtwofunc}[1]{\ensuremath{\mathsf{apd}^2_{#1}}\xspace}
 % \newcommand{\apdtwo}[2]{\ensuremath{\apdtwofunc{#1}\mathopen{}\left(#2\right)\mathclose{}}\xspace}
 
+%%% Bracket/squash/truncation types %%%
+\newcommand{\trunc}[2]{\mathopen{}\left\Vert #2\right\Vert_{#1}\mathclose{}}
+
+%%% Equivalence types %%%
+\newcommand{\hfib}[2]{{\mathsf{fib}}_{#1}(#2)}
+
+%%% Map on paths %%%
+\newcommand{\apfunc}[1]{\ensuremath{\mathsf{ap}_{#1}}\xspace} % Without argument
+
+%% random
+
+%https://tex.stackexchange.com/questions/273034/square-version-of-cdot-small-black-square
+\newcommand*\sq{\mathbin{\vcenter{\hbox{\rule{.3ex}{.3ex}}}}}

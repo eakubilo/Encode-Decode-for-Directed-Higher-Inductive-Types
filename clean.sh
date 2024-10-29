@@ -1,9 +1,0 @@
-rm *.aux
-rm *.fdb_latexmk
-rm *.fls
-rm *.log
-rm *.pdf
-rm *.tdo
-rm *.out
-rm *.synctex.gz
-rm *.toc
