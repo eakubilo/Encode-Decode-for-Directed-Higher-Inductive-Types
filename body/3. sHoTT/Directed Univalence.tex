@@ -54,7 +54,28 @@ Directed univalence also allows us to  identify identity morphisms with identity
 \end{align*}
 The first equality from the fact that $\id{A} = (\idhom{A})_*(\id{A}) \equiv \htf(\idhom{A})$ by proposition 8.16. To show the second, if we define $p \defeq \dua(f)$ and $q \defeq \dua(g)$, then
     $$\dua(g \circ f) = \dua(\htf(p) \circ \htf(q)) = \dua(\htf(p \cdot q)) = p \cdot q$$
-
+This allows us to state a result analogous to~\ref{lem:compissquare}:
+\begin{lemma}
+    For any two covariant families $F, G : A \to \U$, a morphism $h : \ho[A]{x}{y}$ and maps $f : F(x) \to G(x)$, and $g : F(y) \to G(y)$ we have the following:
+    \begin{equation*}
+        \ho[(\lam{x}F(x)\to G(x))h]{f}{q} \simeq g \circ h_* = h_*  \circ f
+    \end{equation*}
+\end{lemma}
+\begin{proof}
+    By directed univalence,
+    \begin{equation*}
+        \ho[(\lam{x}F(x)\to G(x))h]{f}{q} \simeq
+        \ho[{(\lam{x}\ho[\uc]{F(x)}{G(x)})h}]{\dua f}{\dua g}
+    \end{equation*}
+    By lemma~\ref{lem:compissquare}, this is equivalent to
+    \begin{equation*}
+        \dua g \cdot \dua h_* = \dua h_* \cdot \dua f
+    \end{equation*}
+    which, by lemma~\ref{lem:equivissurjemb} and the functorality of $\htf$, is equivalent to the type
+    \begin{equation*}
+        g \circ h_* = h_*  \circ f
+    \end{equation*}
+\end{proof}
 Finally, the directed univalence even extends to characterizing dependent functions as morphisms in $\uc$.
 \begin{lemma}
     For any type family $P : A \to \uc$, for all $x : A$ and $Q : \tilde{P} \to \uc$, there is an equivalence
