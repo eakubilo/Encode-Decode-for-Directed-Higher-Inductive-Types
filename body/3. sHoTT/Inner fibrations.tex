@@ -20,13 +20,13 @@ In this section, we introduce another important class of fibrations: \textit{inn
 \end{definition}
 
 When the base of a type family is Segal, we state the inner condition much more tersely.
-\begin{lemma}[BW23]
+\begin{lemma}[BW21 Proposition 4.1.5]
     \label{lem:totbaseseginner}
     Given a Segal type $A$, a type family $C : A \to \U$ is inner if and only if $\widetilde{C}$ is Segal.
 \end{lemma}
 Covariant families are a wealthy source of inner families. Not only are covariant families a specialization of inner families, but the mapping space between covariant families, even dependently, is an inner type family as well. 
 
-\begin{lemma}[BW21]
+\begin{lemma}[BW21 Proposition 6.1.1]
     Every covariant type family is an inner type family.
 \end{lemma}
 
@@ -71,7 +71,7 @@ Covariant families are a wealthy source of inner families. Not only are covarian
     \begin{equation*}
         \exten{t : \tsx}{\ndexten{\tsx}{\uc}{\tthorn}{\alpha(t)} }{\tohorn}{\psi'''}
     \end{equation*}
-    by lemma~\ref{rem:sumoverfistt}. We then proceed by applying \todo{define the extension type theorems so I can refer to the label here} which allows us to swap the order of the nested extension types:
+    by lemma~\ref{rem:sumoverfistt}. We then proceed by applying lemma~\ref{lem:exten_curry} which allows us to swap the order of the nested extension types:
     \begin{equation}
         \label{eqn:leminnerend}
         \exten{s : \tsx}{\exten{t : \tsx}{\uc}{\tohorn}{\lam{t } \psi'''(t)(s)}}{\tthorn}{\lam{t}\alpha(t)}

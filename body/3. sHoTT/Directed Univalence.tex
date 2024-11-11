@@ -54,6 +54,21 @@ Directed univalence also allows us to  identify identity morphisms with identity
 \end{align*}
 The first equality from the fact that $\id{A} = (\idhom{A})_*(\id{A}) \equiv \htf(\idhom{A})$ by proposition 8.16. To show the second, if we define $p \defeq \dua(f)$ and $q \defeq \dua(g)$, then
     $$\dua(g \circ f) = \dua(\htf(p) \circ \htf(q)) = \dua(\htf(p \cdot q)) = p \cdot q$$
+
+We can also prove a useful lemma
+\begin{lemma}
+    \label{lem:tptissubst}
+    For any covariant type $P$ and morphism $f : \ho[A]{x}{y}$,
+    \begin{equation*}
+        \dua(f_*) = P(f)
+    \end{equation*}
+\end{lemma}
+\begin{proof}
+    Since we are asked to inhabit the type family,
+    $$\prd{f : \ho[A]{x}{y}} \dua(f_*) = P(f)$$
+    we can appeal to the dependent Yoneda lemma, so it suffices to show this for $\idhom{x}$. In that case, $(\idhom{x})_* = \id{P(x)}$,
+    which means $\dua((\idhom{x})_*) = \dua(\id{P(x)}) = \idhom{P(x)} = P(\idhom(x))$.
+\end{proof}
 This allows us to state a result analogous to~\ref{lem:compissquare}:
 \begin{lemma}
     For any two covariant families $F, G : A \to \U$, a morphism $h : \ho[A]{x}{y}$ and maps $f : F(x) \to G(x)$, and $g : F(y) \to G(y)$ we have the following:
@@ -67,7 +82,7 @@ This allows us to state a result analogous to~\ref{lem:compissquare}:
         \ho[(\lam{x}F(x)\to G(x))h]{f}{q} \simeq
         \ho[{(\lam{x}\ho[\uc]{F(x)}{G(x)})h}]{\dua f}{\dua g}
     \end{equation*}
-    By lemma~\ref{lem:compissquare}, this is equivalent to
+    By lemma~\ref{lem:compissquare} and ~\ref{lem:tptissubst}, this is equivalent to
     \begin{equation*}
         \dua g \cdot \dua h_* = \dua h_* \cdot \dua f
     \end{equation*}
@@ -76,7 +91,7 @@ This allows us to state a result analogous to~\ref{lem:compissquare}:
         g \circ h_* = h_*  \circ f
     \end{equation*}
 \end{proof}
-Finally, the directed univalence even extends to characterizing dependent functions as morphisms in $\uc$.
+Directed univalence extends to characterizing dependent functions as morphisms in $\uc$.
 \begin{lemma}
     For any type family $P : A \to \uc$, for all $x : A$ and $Q : \tilde{P} \to \uc$, there is an equivalence
 
@@ -109,6 +124,74 @@ Finally, the directed univalence even extends to characterizing dependent functi
      Thus, we can get our desired equivalence by composing the two equivalences formed in this proof.
     \end{proof}
 
+We can even show that commutativity is sufficient to get a map into a type.
+
+\begin{lemma}
+    \label{lem:commisfunarr}
+    For any covariant type families $P : A \to \U$, $Q : \prd{x : A}P(x) \to \U$, morphisms $f : \ho[A]{x}{z}$ and dependent functions
+    $\phi : \prd{p : P(x)}Q(x,p)$, $\psi : \prd{p : P(z)}Q(z,p)$, there is a map 
+    $$f_* \circ \phi = \psi \circ f_* \to \ho[(\lam{x}\prd{p : P(x)}Q(x,p))f]{\phi}{ \psi}$$
+\end{lemma}
+\begin{proof}
+    We first begin by massaging the codomain. Noting for all $x : A$ that there is a map 
+    $$\zeta : \prd{p : P(x)}Q(x,p) \to (P(x) \to \sm{p : P(x)}Q(x,p))$$
+    defined as
+    $$\zeta \defeq \lam{g}{p}(p, g(p)).$$
+    The codomain, by the previous lemma, is equivalent to
+    \begin{equation*}
+        \ho[(\lam{x}(\sm{h : P(x) \to \sm{p : P(x)} Q(x,p)} \fst \circ h = \id{P(x)}))f]{(\zeta(\phi), \refl{})}{(\zeta(\psi), \refl{})}
+    \end{equation*}
+    which is defined as the extension type
+    \begin{equation*}
+        \exten{t : \osx}{\sm{h : P(f(t)) \to \sm{p : P(f(t))}Q(f(t), p)}\fst \circ h = \id{P(x)}}{\pardo}{[(\zeta(\phi), \refl{}), (\zeta(\psi), \refl{})]}
+    \end{equation*}
+    which is equivalent to the type
+    \begin{equation*}
+        \sm{(h : \ho[(\lam{x} P(x) \to \sm{p : P(x)}Q(x,p)))f]{\zeta(\phi)}{\zeta(\psi)}}\exten{t : \osx}{\fst \circ h(t) = \id{P(f(t))}}{\pardo}{[\refl{}, \refl{}]}
+    \end{equation*}
+
+    Now, we can construct an inhabitant of this type. Let $h : f_* \circ \phi = \psi \circ f_*$. For any $p : P(x)$, we can construct a term
+    $$h \defeq (\refl{}, \happly(h)(p)) : (f_*(p), (f_* \circ \phi)(p) ) = (f_*(p), \psi( f_*(p)))$$
+    Note that $(f_*(p), \psi( f_*(p))) = (\lam{p}(p, \psi(p)))(f_*(p))$. In conjunction with lemma~\ref{lem:tptinsigma}, there is a term
+    $$h' : f_* \circ (\lam{p}(p, \phi(p)))  = (\lam{p}(p, \psi(p)))\circ f_*, $$ 
+    which by lemma~\ref{lem:compissquare} induces a term
+    $$\tilde{h} : \ho[(\lam{x} P(x) \to \sm{p : P(x)}Q(x,p))f]{\zeta(\phi)}{\zeta(\psi)}$$ that is represented by the diagram
+    % https://q.uiver.app/#q=WzAsNCxbMCwwLCJQKHgpIl0sWzAsMiwiUCh5KSJdLFszLDAsIlxcc217cDpQKHgpfVEoeCxwKSJdLFszLDIsIlxcc217cDpQKHkpfVEoeSxwKSJdLFswLDIsIlxcemV0YShcXHBoaSkiXSxbMSwzLCJcXHpldGEoXFxwc2kpIl0sWzAsMSwiZl8qIiwxXSxbMiwzLCJmXyoiLDFdXQ==
+\[\begin{tikzcd}
+	{P(x)} &&& {\sm{p:P(x)}Q(x,p)} \\
+	\\
+	{P(y)} &&& {\sm{p:P(y)}Q(y,p)}
+	\arrow["{\zeta(\phi)}", from=1-1, to=1-4]
+	\arrow["{f_*}"{description}, from=1-1, to=3-1]
+	\arrow["{f_*}"{description}, from=1-4, to=3-4]
+	\arrow["{\zeta(\psi)}", from=3-1, to=3-4]
+\end{tikzcd}\]
+    We can compose this with the diagram that represents $\ho[(\lam{x} (\sm{p : P(x)}Q(x,p)) \to P(x))f]{\fst}{\fst}$,
+    % https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXHNte3A6UCh4KX1RKHgscCkiXSxbMCwyLCJcXHNte3A6UCh5KX1RKHkscCkiXSxbMiwwLCJQKHgpIl0sWzIsMiwiUCh5KSJdLFswLDEsImZfKiIsMV0sWzAsMiwiXFxmc3QiLDFdLFsxLDMsIlxcZnN0IiwxXSxbMiwzLCJmXyoiLDFdXQ==
+\[\begin{tikzcd}
+	{\sm{p:P(x)}Q(x,p)} && {P(x)} \\
+	\\
+	{\sm{p:P(y)}Q(y,p)} && {P(y)}
+	\arrow["\fst"{description}, from=1-1, to=1-3]
+	\arrow["{f_*}"{description}, from=1-1, to=3-1]
+	\arrow["{f_*}"{description}, from=1-3, to=3-3]
+	\arrow["\fst"{description}, from=3-1, to=3-3]
+\end{tikzcd}\]
+    to obtain a term of type $\ho[(\lam{x} P(x) \to P(x))f]{\id{P(x)}}{\id{P(y)}}$, represented by the diagram
+% https://q.uiver.app/#q=WzAsNCxbMCwwLCJQKHgpIl0sWzAsMiwiUCh5KSJdLFsyLDAsIlAoeCkiXSxbMiwyLCJQKHkpIl0sWzAsMSwiZl8qIiwxXSxbMCwyLCJcXGlke1AoeCl9IiwxXSxbMiwzLCJmXyoiLDFdLFsxLDMsIlxcaWR7UCh5KX0iLDFdXQ==
+\[\begin{tikzcd}
+	{P(x)} && {P(x)} \\
+	\\
+	{P(y)} && {P(y)}
+	\arrow["{\id{P(x)}}"{description}, from=1-1, to=1-3]
+	\arrow["{f_*}"{description}, from=1-1, to=3-1]
+	\arrow["{f_*}"{description}, from=1-3, to=3-3]
+	\arrow["{\id{P(y)}}"{description}, from=3-1, to=3-3]
+\end{tikzcd}\]
+    which factorizes to form an inhabitant of
+    $$\exten{t:\osx}{ \fst \circ \tilde{h}(t) = \id{P(f(t))}}{\pardo}{[\refl{}, \refl{}]}$$
+    as desired.
+\end{proof}
 
 
 \end{document}

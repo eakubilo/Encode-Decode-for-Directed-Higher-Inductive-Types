@@ -106,6 +106,13 @@ We also enjoy some closure properties with covariant type families: mapping into
     is contravariant.
 \end{lemma}
 
+Transporting a sigma of covariant types is the same as transporting in each individual component.
+\begin{lemma}
+    \label{lem:tptinsigma}
+     For any covariant type families $P : A \to \U$, $Q : \prd{x : A}P(x) \to \U$, a morphism $f : \ho[A]{x}{y}$, point $p : P(x)$, and map 
+     $\phi : \prd{p : P(x)}Q(x,p)$,
+    $$(f_*(p),(f_* \circ \phi)(p)) = f_* (p, \phi(p))$$
+\end{lemma}
     
 
 

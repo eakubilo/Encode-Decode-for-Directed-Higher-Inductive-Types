@@ -30,55 +30,20 @@ Moreover, there is a map $\phi : \prd{n:\mathbb{N}}{m:\mathbb{N}}\ho[\mathbb{N}]
     &\phi \, S(n)\, S(m)\,f \defeq \lam{i}\text{pred}(f(i))
 \end{align*}
 
-Now, we define $\eco : \prd{n : \mathbb{N}}{m : \mathbb{N}} \ho[\mathbb{N}]{n}{m} \to \co\,n\,m$ with the defining equations
+Now, we can \textit{attempt} to define $\eco : \prd{n : \mathbb{N}}{m : \mathbb{N}} \ho[\mathbb{N}]{n}{m} \to \co\,n\,m$ with the defining equations
 \begin{align*}
     &\eco\,0\,0\,\_ \defeq \star&\\
     &\eco\,S(n)\,S(m)\,f\defeq \eco\,n\,m\,(\phi\,n\,m\,f)&
 \end{align*}
+We run into issues though, as we have no way of showing $\ho[\mathbb{N}]{0}{S(m)}$ is empty. We expect the naturals to be a set, both
+simplicially and homotopically, but we need extra assumptions. There is both a constant and discrete embedding from simplicial sets into
+bisimplicial sets. Thus, we must carry the assumption that $\mathbb{N}$ is Segal or discrete to characterize its morphisms. 
 
-and we define $\dco : \prd{n:\mathbb{N}}{m:\mathbb{N}}\co\,n\,m \to \ho[\mathbb{N}]{n}{m}$ as
-\begin{align*}
-    &\dco\,0\,0\,\_ \defeq \idhom{0}&\\
-    &\dco\,S(n)\,S(m)\,u\defeq \lam{i}S((\dco\, n\, m\, u)i)&
-\end{align*}
-We can also show that the fibers of $\co$ are propositional by defining a type $\psi : \prd{n : \mathbb{N}}{m : \mathbb{N}}\co\,n\,m \to (\co\,n\,m = \Un)$ by
-\begin{align*}
-    &\psi\,0\,0\,\_\defeq \refl{\Un}\\
-    &\psi\,S(n)\,S(m)\,u\defeq\psi\,n\,m\,u&
-\end{align*}
-
-Finally, we can show that these functions form a bi invertible equivalence by defining a map $$\epsilon : \prd{n:\mathbb{N}}{m:\mathbb{N}}{u : \co \, n\, m}\eco\,n\,m\,(\dco\,n\,m \,u) =u$$
-as
-\begin{align*}
-    \epsilon\,n\,m\,u \defeq \text{ap}_{((\psi\,n\,m\,u)^{-1})_*}(\refl{\star})
-\end{align*}
-Noting that 
-\begin{equation}
-    \eco\,n\,m\,(\dco\,n\,m \,u) =_{\co\,n\,m} u \simeq \star =_{\Un} \star
-\end{equation}
-since $\text{ap}_{(\psi\,n\,m\,u)_*}: \eco\,n\,m\,(\dco\,n\,m \,u) =_{\co\,n\,m} u \to \star =_{\Un} \star$ is an equivalence with inverse as $\text{ap}_{((\psi\,n\,m\,u)^{-1})_*}$ as transporting 
-is an equivalence.
-
-On the other hand, if we try to define $$\eta : \prd{n:\mathbb{N}}{m:\mathbb{N}}{f : \ho[\mathbb{N}]{n}{m}}\dco\,n\,m\,(\eco\,n\,m f) =f,$$
-we run into issues as we have no way of showing that, in the base case, that all $f : \ho[\mathbb{N}]{0}{0}$ have the property that $$f = \refl{0}.$$
-In fact, we will ultimately have to inhabit the type $$\prd{n : \mathbb{N}}{m : \mathbb{N}}\ho[\mathbb{N}]{n}{m} \to \ho[\mathbb{N}]{n}{m}=\Un.$$
-That is, we want to show that the two-sided representable for the naturals also has propositional fibers. From there, we can easily complete
-$\eta$. To do so, though, is equivalent to a proof that $\mathbb{N}$ is Segal, which ultimately requires us to have a characterization of the 
-morphism types in the naturals.
 \begin{lemma}
-    $\prd{n : \mathbb{N}}{m : \mathbb{N}}\ho[\mathbb{N}]{n}{m} \to \ho[\mathbb{N}]{n}{m}=\Un$ if and only if $\mathbb{N}$ is Segal.
+    $\mathbb{N}$ is discrete if and only if $\mathbb{N}$ is Segal.
 \end{lemma}
 \begin{proof}
-    In the forward direction, we assume there is a term 
-    $$\zeta : \prd{n : \mathbb{N}}{m : \mathbb{N}}\ho[\mathbb{N}]{n}{m} \to \ho[\mathbb{N}]{n}{m}=\Un.$$
-    Then, we can complete the definition of $\eta$ very quickly:
-    \begin{equation}
-        \eta\,n\,m\,f \defeq \text{ap}_{((\zeta\,n\,m\,f)^{-1})_*}(\refl{\star})
-    \end{equation}
-    So, we conclude that for all $n,m : \mathbb{N}$,
-    $$\ho[\mathbb{N}]{n}{m} \simeq \co\,n\,m.$$
-    The astute reader will notice that $\co$ defined above is exactly $\co$ defined in theorem 2.13.1. Hence, $$(n=m)\simeq \co(n,m)\simeq\ho[\mathbb{N}]{n}{m}.$$
-    That is, $\mathbb{N}$ is discrete, so it is Segal. 
+    In the forward direction, $\mathbb{N}$ is discrete, so it is Segal. 
     
     On the other hand, given a proof that $\mathbb{N}$ is Segal, we can characterize the morphism space in a way that looks
     much more similar to book HoTT. Define a map $$\co' : \mathbb{N}\to\mathbb{N}\to\uc$$
@@ -109,7 +74,7 @@ morphism types in the naturals.
     \begin{equation}
         \eta' \, n \defeq \text{yon}^{\lam{(m,f)}\dco'\,n\,m\,(\eco'\,n\,m f) =f}_n(\refl{\idhom{0}})
     \end{equation}
-    with this being a valid definition as $\lam{(m,f)}\dco'\,n\,m\,(\eco'\,n\,m f) =f$ \todo{does this follow?} is covariant due to the
+    with this being a valid definition as $\lam{(m,f)}\dco'\,n\,m\,(\eco'\,n\,m f) =f$ is covariant due to the
     covariance of $\lam{m}\ho[\mathbb{N}]{n}{m}$, which follows from the assumption that $\mathbb{N}$ is Segal.
 
     To define the final term showing that $\eco'$ and $\dco'$ are quasi-inverses, we note that we can perform a similar
@@ -131,7 +96,7 @@ as
 \end{proof}
 
 So, out of the box, we quickly see that we cannot immediately conclude that inductive types behave as expected. It is only with
-the added assumption of Segalness that the type $\mathbb{N}$ satisfied the properties we would expect from an inductive type.
+the added assumption of discreteness that the type $\mathbb{N}$ satisfied the properties we would expect from an inductive type.
 This goes well with the slogan of sHoTT: "\textit{some} types are $(\infty,1)$-categories". 
 
 \end{document}
