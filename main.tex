@@ -12,6 +12,10 @@
 \usepackage{mathpartir}
 \usepackage[hidelinks]{hyperref}
 \usepackage{bussproofs}
+\usepackage{caption}
+\usepackage{svg}
+\usepackage{floatrow}
+\usepackage{subcaption}
 \DeclareMathAlphabet{\mathbbold}{U}{bbold}{m}{n}
 
 \input{commands}
@@ -79,7 +83,14 @@
 \section*{\centering 3. sHoTT}
 \addcontentsline{toc}{section}{3. sHoTT}
 \setcounter{section}{3}
-
+The type theory of simplicial homotopy type theory is an example of a \textit{type theory with shapes}. The top layers,
+the cube and tope layer, provide a setting of shapes that the lower homotopy type theory layer depend on. In the type
+theory layer, types that depend on shapes are called extension types. With extension types in tow, we can define morphisms,
+2-simplices, and higher simplices in types. This allows us to characterize Segal types which are structured like categories, 
+discrete types which are structured like groupoids, and Rezk types which act as univalent categories. We can also characterize 
+type families that lift morphisms, Covariant families, and families that lift 2-simplices, Inner families. We extend sHoTT with a
+ discrete classifying universe of covariant fibrations and a directed univalence axiom. In this section, we briefly describe sHoTT 
+ and explore our extensions.
 
 \subsection*{3.1 Three-layer type theory with shapes}
 \addcontentsline{toc}{subsection}{1. Three-layer type theory with shapes}

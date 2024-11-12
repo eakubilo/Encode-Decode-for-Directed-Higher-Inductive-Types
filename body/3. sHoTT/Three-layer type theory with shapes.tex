@@ -1,22 +1,11 @@
 \documentclass[main.tex]{subfiles}
 
 \begin{document}
-A type theory with shapes is a layered type theory consisting of a \textbf{cube layer}, a simple intuitionistic type theory with finite products,
-a \textbf{tope layer}, a coherent first order logic over the cube layer, and a \textbf{type layer}, a dependent type theory that contains additional
-contexts for the cube and tope layer. sHoTT then builds on this foundation by axiomatizing a strict interval cube $\mathbbm{2}$, an inequality tope,
-and rules ensuring the tope layer with the inequality tope forms the coherent theory of the strict interval.
+The foundation of sHoTT is a \textit{three-layer type theory with shapes}. More specifically, it is a type theory that consists 
+of a \textbf{cube layer} at the top, which is a simple type theory with finite products. Cubes in sHoTT are finite powers of 
+$\mathbbm{2}$, such as those in figure\todo{draw important cubes}. 
 
-Specifically, the \textbf{cube layer} is specified by the following formal rules
-\begin{mathpar}
-    \inferrule{ }{1 \,\cu} \and
-    \inferrule{ I \, \cu \\ J\, \cu}{I \times J \, \cu }\and
-    \inferrule{(t:I) \in \Xi}{\Xi \vdash t : I}\and
-    \inferrule{ }{\chi \vdash \star : 1} \and
-    \inferrule{\Xi \vdash s : I \\ \Xi \vdash t : J }{\Xi \vdash \langle s,t \rangle : I \times J}\and
-    \inferrule{\Xi \vdash t : I \times J}{\Xi \vdash \pi_1(t) : I}\and
-    \inferrule{\Xi \vdash t : I \times J}{\Xi \vdash \pi_2(t) : J}
-\end{mathpar}
-The \textbf{tope layer} builds on top of this. The intuition for the tope layer comes from viewing it as "polytopes" embedded in cubes.
-The formal rules for the tope layer are as follows
-
+We have the \textbf{shape layer} sitting under the cube layer. The shape layer allows us to talk about polytopes that live in cubes.
+A polytope can be thought of as a shape composed out of simplices. That is, it is a shape composed of lines, triangles, tetrahedra
+and so on. Examples of shapes can be seen in \todo{draw important shapes that we end up using}
 \end{document}
