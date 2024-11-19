@@ -1,0 +1,155 @@
+\documentclass[main.tex]{subfiles}
+
+\begin{document}
+In section 2, we saw that all type families were fibrations and what that means specifically in HoTT. Of course in sHoTT type 
+families are also fibrations, with respect to \textit{paths} that is. When discussing which type families lift simplicial shapes,
+we must specify which shapes are being lifted. An important collection of type families are the ones that lift \textit{morphisms},
+covariantly or contravariantly. Before we can precsiely define such type families, we must first make specify what it means to be a 
+ "lifted morphism".
+\begin{definition}
+Given a type $A$, a type family $C : A \to \U$, points $x,y : A$, a morphism $f : \ho[A]{x}{y}$ and points $u : C(x)$ and $v : C(y)$, the type of \textbf{dependent morphisms over} $f$ \textbf{from} $u$ to $v$ is written as $$
+\dho{C}{f}{u}{v} \defeq \exten{t : \osx}{C(f(t))}{\pardo}{[u,v]}.$$
+\end{definition}
+The dependent morphism represents the intuitive notion of "morphism in the total space". Alternatively, we can observe that a type family $C: A \to \U$ associates morphisms $f : \ho[A]{x}{y}$ to spans
+% https://q.uiver.app/#q=WzAsMyxbMSwwLCJcXHNte3U6Qyh4KX17djpDKHkpfVxcZGhve0N9e2Z9e3V9e3Z9Il0sWzAsMSwiQyh4KSJdLFsyLDEsIkMoeSkiXSxbMCwxLCJcXGRvbSIsMl0sWzAsMiwiXFxjb2QiXV0=
+\[\begin{tikzcd}
+	& {\sm{u:C(x)}{v:C(y)}\dho{C}{f}{u}{v}} \\
+	{C(x)} && {C(y)}
+	\arrow["\dom"', from=1-2, to=2-1]
+	\arrow["\cod", from=1-2, to=2-3]
+\end{tikzcd}\]
+We do not know a priori that $C$ depends functorially on $A$. We can instead restrict ourselves to the study of type families that have our
+ desired property.
+\begin{definition}
+A type family is \textbf{covariant} if for every $f : \ho[A]{x}{y}$  and $u : C(x)$, the type $$\sm{v : C(y)} \dho{C}{f}{u}{v}$$
+is contractible. When the context is clear, we write the specific inhabitant as $(\dtran{C}(f, u), \trans{f}{u})$ or 
+even more tersely as $(f_*u, \trans{f}{u}).$
+
+Dually\footnote{We will not explicitly state dual theorems and definitions when they are obvious from context.}, $C$ is \textbf{contravariant} if for every $f : \ho[A]{x}{y}$  and $v : C(y)$, the type $$\sm{v : C(x)} \dho{C}{f}{u}{v}$$
+is contractible.
+\end{definition}
+As we stated before, we are interested in type families that "lift morphisms". The following lemma shows that covariant type families 
+satisfies this property.
+\begin{lemma}
+    A type family $C : A \to \U$ is covariant if and only if for all morphisms $f : \ho[A]{x}{y}$ and points $u : C(x)$ the type $\exten{t : \osx}{C(f(t))}{0}{u}$ is contractible; there is a unique lifting of $f$ that starts at $u$.
+\end{lemma}
+\begin{remark}
+    Covariant families are stable under subtitution. That is, for any $g : B \to A$ and covariant type family $C : A \to \U$, the type family
+    $\lam{b}C(g(b))$ is also covariant.
+\end{remark}
+With these in hand, we can start stating facts that we expect from our covariant type families. To start, in HoTT, it is the case that
+transporting along a type family is the same thing as applying a type family to a path, then coercing along the new path. A similar 
+statement holds.
+\begin{lemma}
+    Let $C : B \to \U$ be covariant and $h : A \to B$. For any $f : \ho[A]{x}{y}$ and $u : C(h(x))$ we have that
+    \[
+         \dtran{C\circ h}(f, u) = \dtran{C}(\mapfunc{h}{f}, u)
+    \]
+\end{lemma}
+
+We can also show that dependent morphisms in a covariant type family are equivalent to a path whose domain is a transport, analogous
+ to the situation in HoTT.
+
+\begin{lemma}[RS17 Lem 8.15]
+    If $C : A \to \U$ is covariant, $f : \ho[A]{x}{y}$, $u: C(x)$, and $v : C(y)$, then
+    $$\ho[C(f)]{u}{v} \simeq (f_*u =_{C(y)}v).$$
+\end{lemma}
+
+Often times, we are in a situation where we are given a covariant family over a Segal base. The covariant family should faithfully
+represent the compositions in the base, as it is functorial in the base. So, we should expect the total space of the family to be 
+Segal as well, since the total space is composed of lifted morphisms.
+
+\begin{lemma}[RS17 Thm 8.8]
+    If $A$ is segal and $C : A \to \U$ is covariant, then 
+    $$\sm{a : A}C(a)$$
+    is Segal.
+\end{lemma}
+
+For such covariant families over Segal bases, we can also show that "directed transporting" is functorial:
+\begin{lemma}[RS17 Prop 8.16]
+    For any segal type $A$, covariant family $C : A \to \U$, $f : \ho[A]{x}{y}$, $g : \ho[A]{y}{z}$, and $u : C(X)$, we have
+    \begin{gather*}
+        g_*(f_*\,u) = (g\cdot f)_*\,u \qquad \normalfont \text{ and } \qquad (\idhom{x})_*\,u = u
+    \end{gather*}
+\end{lemma}
+
+
+There are certain type families that are automatically covariant over a Segal base. For example, in category theory, we can make
+ extensive use of the representable $\lam{x} \ho[A]{a}{x}$. In sHoTT, the story is the exact same. One useful property of the
+  representable in sHoTT is that it allows us to characterize Segal types.
+\begin{lemma}[RS17 Prop 8.13]
+    Given a type $A$ and a point $a : A$, then
+    $$\lam{x} \ho[A]{a}{x} : A \to \uc$$  if and only if $A$ is Segal.
+\end{lemma}
+
+Lastly, covariant types over Segal bases have discrete fibers.
+
+\begin{lemma}[RS17 Prop 8.18]
+    For any Segal type $A$ and covariant map $C : A \to \U$, and $x : A$, the type $C(x)$ is discrete.
+\end{lemma}
+
+\begin{lemma}[RS17 Cor 8.19]
+    If $A$ is Segal, then for any $x,y: A$ the type $\ho[A]{x}{y}$ is discrete.
+\end{lemma}
+
+\begin{lemma}[RS17 Cor 8.20]
+    If $A$ is discrete, then for any $x,y : A$, so is $x =_A y$.
+\end{lemma}
+
+
+
+Covariant type families act functorially in other important ways. For example, naturality comes for free, for maps between covariant
+ types.
+
+\begin{lemma}[RS17 Prop 8.17]
+    For any two covariant families $C,D : A \to \U$ and a fiberwise map $\phi : \prd{x : A}C(x) \to D(x)$, $f: \ho[A]{x}{y}$ and $u:C(x)$,
+    $$\phi_y(f_*\,u) = f_*(\phi_x(u)).$$
+\end{lemma}
+
+Moreover, we can show that transporting a pair is the same thing as a pair of transports.
+\begin{lemma}
+    \label{lem:tptinsigma}
+     For any covariant type families $P : A \to \U$, $Q : \prd{x : A}P(x) \to \U$, a morphism $f : \ho[A]{x}{y}$, point $p : P(x)$, and map 
+     $\phi : \prd{p : P(x)}Q(x,p)$,
+    $$(f_*(p),(f_* \circ \phi)(p)) = f_* (p, \phi(p))$$
+\end{lemma}
+
+We also enjoy some closure properties with covariant type families: mapping into a covariant family is covariant and mapping out of a covariant family \textit{into a discrete tpye} is contravariant.
+
+\begin{lemma}[RS17 Prop 8.30]
+    \label{lem:covcodiscov}
+    For types $C$, $A$, and covariant family $B : C \to \U$, the type family $$\lam{x : C} A \to B(x) : C \to \U$$
+    is also covariant.
+\end{lemma}
+
+\begin{lemma}[RS17 Prop 8.31]
+    \label{lem:covdomiscon}
+    For a discrete type $Y$ and a covariant type family $C : A \to \U$, the type
+    $$\lam{x : A}C(a) \to Y$$
+    is contravariant.
+\end{lemma}
+
+
+    
+
+
+
+As stated before, only some type families are fibrations. This means that in base sHoTT, unless we can cleverly apply closure properties,
+we must prove covariance by hand. Similarly, we must carry data that a type family is covaraint everywhere we need it. We can do slightly better
+We can instead axiomatize some classifier universe for covariant fibrations and enforce that any function landing in this universe is 
+a covariant function.
+\begin{axiom}
+    There is a Segal universe of discrete types $\uc$ along with an encoding function 
+    $$\co : \prd{A : \U}{B : A \to \U}(\isc\, A\, B) \to (A \to \uc)$$
+    and decoding function
+    $$\text{El} : \prd{A : \U}(A \to \uc) \to (A \to \U)$$
+    with, for every type $A$, family $B : A \to \U$ and a proof that $B$ is covariant, 
+    $$\text{El}\,A\,(\co\, A\, B\, c) = B$$
+\end{axiom}
+\begin{remark}
+    Fibers of covariant types are discrete, so discrete types are the points of $\uc$. This is especially reasonable if you observe
+    that discrete types over $\Un$ are covariant. 
+\end{remark}
+
+
+\end{document}

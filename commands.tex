@@ -6,7 +6,7 @@
 \newcommand{\vo}{\text{Void}}
 \newcommand{\uc}{\U_\text{cov}}
 \newcommand{\isc}{\normalfont \text{is\_covariant}}
-\newcommand{\dua}{\normalfont \text{dua}}
+\newcommand{\dua}{\mathsf{dua}}
 \newcommand{\dcoe}{\text{dcoe}}
 \newcommand{\ho}[3][2]{\normalfont  \text{hom}_{#1}(#2,#3)}
 \newcommand{\dho}[4]{\normalfont  \hom_{#1(#2)}(#3, #4)}
@@ -20,7 +20,7 @@
 \newcommand{\fst}{\text{fst}}
 \newcommand{\snd}{\text{snd}}
 \newcommand{\dco}{\text{decode}}
-\newcommand{\htf}{\normalfont \text{homtofun}}
+\newcommand{\htf}{ \mathsf{homtofun}}
 \newcommand{\funext}{\normalfont \text{funext}}
 \newcommand{\happly}{\normalfont \text{happly}}
 \newcommand{\cu}{\normalfont \text{cube}}
@@ -29,18 +29,24 @@
 \newcommand{\cod}{\normalfont \text{cod}}
 \newcommand{\two}{\mathbb{2}}
 \newcommand{\yon}[2]{\normalfont \text{yon}^{#1}_{#2}}
-\newcommand{\trans}[2]{\normalfont \text{trans}_{{#1}, {#2}}}
+\newcommand{\evid}[2]{\normalfont \text{evid}^{#1}_{#2}}
+\newcommand{\trans}[2]{\mathsf{trans}_{{#1}, {#2}}}
 \newcommand{\qinv}{\normalfont \text{qinv}}
 \newcommand{\linv}{\normalfont \text{linv}}
 \newcommand{\rinv}{\normalfont \text{rinv}}
 \newcommand{\biinv}{\normalfont \text{biinv}}
 \newcommand{\iseq}{\normalfont \text{isequiv}}
 \newcommand{\tot}{\normalfont \text{total}}
-
+\newcommand{\preshape}[3]{\ensuremath{\nobreak{#1}\nobreak : \nobreak {#2}\,\mid\,{#3}\nobreak}}
+\newcommand{\shape}[3]{\ensuremath{\{\preshape{{#1}}{{#2}}{{#3}}\} }}
+\newcommand{\recbot}{\normalfont \text{rec}_\bot}
 %from RS17
 \newcommand{\sh}[2]{\{#1\mid #2\}}
 \newcommand{\exten}[4]{\left\langle\mathchoice{\textstyle\prod_{#1}}{\textstyle\prod_{#1}}{\scriptstyle\prod_{#1}}{\scriptscriptstyle\prod_{#1}} #2 \middle|^{#3}_{#4}\right\rangle}
 \newcommand{\ndexten}[4]{\left\langle #1 \to #2 \middle|^{#3}_{#4}\right\rangle}
+\newcommand{\tw}{\mathbbm{2}}
+\newcommand{\cube}{\text{cube}}
+\newcommand{\dtran}[1]{\mathsf{dtransport}^{#1}}
 
 %extension type stuff
 \def\pair#1#2{\left \langle #1, #2 \right \rangle}
@@ -140,11 +146,11 @@
 
 
 %%% Map on paths %%%
-\newcommand{\mapfunc}[1]{\ensuremath{\mathsf{map}_{#1}}\xspace} % Without argument
+\newcommand{\mapfunc}[1]{\ensuremath{\mathsf{aphom}_{#1}}\xspace} % Without argument
 \newcommand{\map}[2]{\ensuremath{{#1}\mathopen{}\left({#2}\right)\mathclose{}}\xspace}
 \let\Ap\map
 %\newcommand{\Ap}[2]{\ensuremath{{#1}\left({#2}\right)}\xspace}
-\newcommand{\mapdepfunc}[1]{\ensuremath{\mathsf{apd}_{#1}}\xspace} % Without argument
+\newcommand{\mapdepfunc}[1]{\ensuremath{\mathsf{apdhom}_{#1}}\xspace} % Without argument
 % \newcommand{\mapdep}[2]{\ensuremath{{#1}\llparenthesis{#2}\rrparenthesis}\xspace}
 \newcommand{\mapdep}[2]{\ensuremath{\mapdepfunc{#1}\mathopen{}\left(#2\right)\mathclose{}}\xspace}
 

@@ -1,0 +1,23 @@
+\documentclass[main.tex]{subfiles}
+
+\begin{document}
+Another important facet of HoTT is that functions between types acts functorially on paths. To establish this fact more formally, we
+first show that functions "respect equality".
+\begin{lemma}[HoTT Book 2.2.1]
+    For any function $f : A \to B$ and $x,y : A$, there is a function
+    $$\apfunc{f}: x = y \to f(x) = f(y)$$
+    such that each $x : A$, we have $\apfunc{f}(\refl{x}) \equiv \refl{f(x)}$.
+\end{lemma}
+
+We can then establish that $\apfunc{f}$ behaves functorailly.
+
+\begin{lemma}[HoTT Book 2.2.2]
+    For functions $f : A \to B$ and $g : B \to C$ and paths $p : x = y$ and $q : y = q$, we have:
+    \begin{enumerate}
+        \item $\apfunc{f}(p \cdot q) = \apfunc{f}(p)\cdot \apfunc{f}(q)$.
+        \item $\apfunc{f}(p^{-1}) = (\apfunc{f}(p))^{-1}$.
+        \item $\apfunc{g}(\apfunc{f}(p)) = \apfunc{g \circ f}(p)$.
+        \item $\apfunc{\id{A}}(p) = p$.
+    \end{enumerate}
+\end{lemma}
+\end{document}

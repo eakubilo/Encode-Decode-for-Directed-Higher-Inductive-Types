@@ -30,7 +30,8 @@ For any two discrete types $A$ and $B$, there is a function
 with the second equality following from Proposition 8.16. 
 
 \end{remark}
-Just as HoTT does not come equipped with tools to show idtoeqv is an equivalence, sHoTT also does not come equipped with the tools to show {\htf} is an equivalence. Instead, we can postulate \textit{directed univalence} as an axiom.
+Just as HoTT does not come equipped with tools to show idtoeqv is an equivalence, sHoTT also does not come equipped with the tools to show $\htf$
+ is an equivalence. Instead, we can postulate \textit{directed univalence} as an axiom.
 
 \begin{axiom}[Directed Univalence]
     For any discrete types $A,B : \uc$, the function defined in Lemma~\ref{lem:can_define_htf} is an equivalence.
@@ -64,10 +65,15 @@ We can also prove a useful lemma
     \end{equation*}
 \end{lemma}
 \begin{proof}
-    Since we are asked to inhabit the type family,
-    $$\prd{f : \ho[A]{x}{y}} \dua(f_*) = P(f)$$
-    we can appeal to the dependent Yoneda lemma, so it suffices to show this for $\idhom{x}$. In that case, $(\idhom{x})_* = \id{P(x)}$,
-    which means $\dua((\idhom{x})_*) = \dua(\id{P(x)}) = \idhom{P(x)} = P(\idhom(x))$.
+    By lemma (transport is coerce then ap), it follows that 
+    \begin{align*}
+        \dua(f_*) \defeq \\
+        \dua(\dtran{P}(f, -)) \simeq \\
+        \dua(\dtran{\lam{x}x}(\mapfunc{P}f, -)) \simeq \\
+        \dua(\htf(\mapfunc{P}f)) \simeq\\
+        \mapfunc{P}f \defeq \\
+        P(f)
+    \end{align*}
 \end{proof}
 This allows us to state a result analogous to~\ref{lem:compissquare}:
 \begin{lemma}
@@ -166,7 +172,7 @@ We can even show that commutativity is sufficient to get a map into a type.
 	\arrow["{f_*}"{description}, from=1-4, to=3-4]
 	\arrow["{\zeta(\psi)}", from=3-1, to=3-4]
 \end{tikzcd}\]
-    We can compose this with the diagram that represents $\ho[(\lam{x} (\sm{p : P(x)}Q(x,p)) \to P(x))f]{\fst}{\fst}$,
+    We can compose this with the diagram that represents\linebreak $\ho[(\lam{x} (\sm{p : P(x)}Q(x,p)) \to P(x))f]{\fst}{\fst}$,
     % https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXHNte3A6UCh4KX1RKHgscCkiXSxbMCwyLCJcXHNte3A6UCh5KX1RKHkscCkiXSxbMiwwLCJQKHgpIl0sWzIsMiwiUCh5KSJdLFswLDEsImZfKiIsMV0sWzAsMiwiXFxmc3QiLDFdLFsxLDMsIlxcZnN0IiwxXSxbMiwzLCJmXyoiLDFdXQ==
 \[\begin{tikzcd}
 	{\sm{p:P(x)}Q(x,p)} && {P(x)} \\

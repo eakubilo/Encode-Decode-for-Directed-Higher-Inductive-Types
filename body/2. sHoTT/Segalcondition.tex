@@ -1,7 +1,8 @@
 \documentclass[main.tex]{subfiles}
 
 \begin{document}
-With our three-layer type theory and extension types, we can start to define familiar category theoretic notions. We start by defining important types which depend on shapes.
+With our three-layer type theory and extension types, we can start developing the core aspects of sHoTT. We start by probing simplicial
+shapes in types, which we will use to restrict our study to types with categorical structure.
 
 \begin{definition}
     For a type $A$ and points $x,y : A$ which induce a term $[x,y]$\footnote{Spelled out, this is a term that depends on $t : \pardo $ that evaluates to $x$ when $t \equiv 0$ and $y$ when $t \equiv 1$.} in context $\pardo$, we write
@@ -25,25 +26,33 @@ With our three-layer type theory and extension types, we can start to define fam
 \end{definition}
 
 
-Not only do functions act functorially on paths, they also act functorially on morphisms and higher morphisms. That is, functions
-are \textit{functors}.
+In the last section, we saw that functions acted functorially on paths using path induction. In sHoTT, we get nicer behavior.
+Functions definitionally act functorially on morphisms, edified by the following lemma. 
 \begin{lemma}(Morphism application)
-    Let $A,B$ be types and $f : A \to B$. Then, given $x,y : A$, there are functions 
-    $$\mapfunc{f} : \ho[A]{x}{y} \to \ho[A]{f x}{f y}$$
+    Let $A,B$ be types and $f : A \to B$. Then, given $x,y : A$, there is a function 
+    \[\mapfunc{f} : \ho[A]{x}{y} \to \ho[B]{f x}{f y}\]
+    When the context is clear, we often write $f(h)$ rather than $\mapfunc{f}h$ for $h : \ho[A]{x}{y}$.
+\end{lemma}
+The dependent version of the previous lemma follows.
+\begin{lemma}
+    Let $B : A \to \U$ and $\phi : \prd{x : A}B(x)$. Then, given $x,y : A$, there is a function
+    $$\mapdepfunc{\phi} : \prd{f : \ho[A]{x}{y}}\ho[B(f)]{\phi(x)}{\phi(y)}$$
 \end{lemma}
 
-In section 2, we saw that composition of paths was a function. This does not analogously hold automatically for morphisms. In sHoTT,
-the slogan is "some types are infinity categories" and this is the first place we see why that may be. Instead of types automatically
-coming with the structure of an infinity category and more specifically, that have a compoisition of morphisms operation, we must
-restrict our study to such types. Thus, we can ask for types whose morphisms do have composites. For a programming languages analogy, 
-composition of paths is a parametrically polymorphic function while composition of morphisms is a type class polymorphic function.
-That leads us to the following definition.
+In section 2, we saw that we could define path composition using path induction. While we would hope that, just like the previous lemma,
+we could define morphism composition definitionally, that is not the case. In sHoTT,
+the slogan is "some types are infinity categories" and this is the first place we see why that may be. Not all types come with the
+structure of a category, but a single characterization allows us to talk about the types that do; the types that have categorical structure
+are the ones that support composition. Our system is arranged in such a way that all categorical structure follows from composition.
+For a programming languages analogy, composition of paths is a parametrically polymorphic 
+function while composition of morphisms is a type class polymorphic function. That leads us to the following definition.
 \begin{definition}\label{def:def3.3}
     Let $A$ be a type, $x,y,z : A$ and $f : \ho[A]{x}{y}$ and $g : \ho[A]{y}{z}$. We say $A$ is \textbf{Segal} if the type $${\sm{h : \ho[A]{x}{z}} \hot[A]{f}{g}{h}} $$
     is contractible. The unique inhabitant is denoted by $(g\cdot f, \comp{g}{f}).$
 \end{definition}
 
-In other words two composable morphisms are enough to specify a 2-morphism in a Segal type. That leads us to the following important alternative characterization of Segal-ness.
+In other words two composable morphisms specify a 2-morphism in a Segal type. We can alternatively say that a horns
+decides simplices in a Segal type. More formally,
 
 \begin{lemma}
 A type $A$ is Segal if and only if the restriction map
@@ -69,23 +78,29 @@ is an equivalence.
     \sm{g : \ho[A]{y}{z}}\homtwo{A}(x,y,z,f,g,h) \simeq \ndexten{\tsx}{A}{\tzhorn}{[x,y,z,f,h]}.
     \end{equation}
 \end{remark}
-Paths between morphisms also correspond two 2-morphisms:
+Given a segal type $A$, we have two ways of saying two morphisms $f,g : \ho[A]{x}{y}$ are the same. We can either:
+\begin{enumerate}
+    \item Provide a path $f = g$
+    \item Provide a 2-simplex $\homtwo{A}(x,x,y,\idhom{x},f,g)$
+\end{enumerate}
+It turns out that both of these coincide.
 \begin{lemma}
     \label{lem:pathis2mor}
     For any $f,g : \ho[A]{x}{y}$ in a Segal type $A$, the natural map
-    $$f = g \to \homtwo{A}(x,y,z, \idhom{x}, f,g)$$
+    $$f = g \to \homtwo{A}(x,x,y, \idhom{x}, f,g)$$
     is an equivalence.
 \end{lemma}
+More generally, composition and equality correlate.
 \begin{lemma}
     \label{lem:compequalis2mor}
     For any $f: \ho[A]{x}{y}$, $g : \ho[A]{y}{z}$, and $h : \ho[A]{x}{z}$ in a Segal type $A$, the natural map
     $$g \cdot f = h \to \homtwo{A}(x,y,z,f,g,h)$$
     is an equivalence.
 \end{lemma}
-We can take this one step further:
+And more generally, commutative squares correspond to morphisms that commute.
 \begin{lemma}
     \label{lem:compissquare}
-    For any Segal type $A$ and morphisms $f : \ho[A]{a}{c}$, $g:\ho[A]{b}{d}$, $p:\ho[A]{a}{b}$, and $q : \ho[A]{c}{d}$,
+    Given a Segal type $A$ and compatible morphisms $f : \ho[A]{a}{c}$, \linebreak $g:\ho[A]{b}{d}$, $p:\ho[A]{a}{b}$, and $q : \ho[A]{c}{d}$ then
     \begin{equation}
         \ho[{(\lam{(x,y)}\ho[A]{x}{y})(\lam{i}(pi,qi))}]{f}{g} \simeq g \cdot p = q \cdot f
     \end{equation}

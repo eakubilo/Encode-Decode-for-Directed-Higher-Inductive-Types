@@ -26,6 +26,7 @@
 \newtheorem{corollary}{Corollary}[theorem]
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem*{axiom}{Axiom}
+\newlength{\perspective}
 
 \theoremstyle{named}
 \newtheorem*{namedaxiom}{Axiom}
@@ -35,106 +36,134 @@
 \newtheorem*{remark}{Remark}
 
 \theoremstyle{definition}
-\newtheorem{definition}{Definition}[section]
+\newtheorem{definition}[theorem]{Definition}
 
 
 
 \begin{document}
 %preamble
 \listoftodos
+\todo{make sure to do title page}
+
 \subsection*{\centering Acknowledgements}
 \newpage
 \addcontentsline{toc}{subsection}{Acknowledgements}
 \subfile{body/0. acknowledgements}
-
-\subfile{body/1. abstract}
-\subsection*{\centering Introduction}
-\addcontentsline{toc}{subsection}{Introduction}
-\subfile{body/2. Introduction}
+\newpage
+\begin{abstract}
+    Univalence and Higher inductive types are key structures in Homotopy Type Theory. Higher inductive types allow types to be inductively
+     defined not just by points, but by paths and higher paths as well provides a powerful tool for the study of synthetic homotopy theory. 
+     Types that represent spaces such as the interval, circle, torus and higher cell complexes can be defined with a concise framework. 
+     Univalence formalizes the ubiquitous, but informal, mathematical practice of identifying isomorphic structures. This thesis explores
+     an extension of sHoTT with the directed notions of these key structures: we study an extension of sHoTT with \textit{directed higher inductive types}
+     and \textit{directed univalence}.
+    \end{abstract}
 \newpage
 \tableofcontents
 
 \newpage 
+\subsection*{\centering Introduction}
+\addcontentsline{toc}{subsection}{Introduction}
+\subfile{body/Introduction}
+\newpage
+\section*{\centering 1. HoTT}
+In HoTT, types are intuitively seen as $\infty$-groupiods. With this interpretation of a type, the path type between two terms, denoted $$x =_A y$$ represent a morphism in the groupoid. This is the correct notion, as familiar facts about equality are
+reflected in the groupoid. That means reflexivity becomes the term $$\refl{x} : x=_A x,$$ which is interpreted as the identity morphism $$\id{x} : x \to_A x.$$ Given a path $$p : x =_A y,$$ we can take its inverse $$p^{-1} : y =_A x.$$ Similarly, a morphism $$f : x \to_A y$$ in a groupoid is invertible. Moreover, given another path $$q : y =_A z$$ we can form the concatenation $$q \cdot p : x =_A z.$$ We can similarly compose two morphisms in our groupoid. While this analogy extends far, this section only provides a basic overview of the facts of HoTT we'll eventually use in our study of directed higher inductive types. For a deeper dive, check [HoTT Book]. 
 
-\section*{\centering 1. MLTT}
-\addcontentsline{toc}{section}{1. MLTT}
+\addcontentsline{toc}{section}{1. HoTT}
 \setcounter{section}{1}
-\newpage
 
-\section*{\centering 2. HoTT}
-\addcontentsline{toc}{section}{2. HoTT}
-\setcounter{section}{2}
+\subsection*{1.1 Types are higher groupoids}
+\addcontentsline{toc}{subsection}{1. Types are higher groupoids}
+\subfile{body/1. HoTT/THG}
+\subsection*{1.2 Functions are functors}
+\addcontentsline{toc}{subsection}{2. Functions are functors}
+\subfile{body/1. HoTT/FAF}
+\subsection*{1.3 Type families are fibrations}
+\addcontentsline{toc}{subsection}{3. Type families are fibrations}
+\subfile{body/1. HoTT/TFAF}
 
-\subsection*{2.1 Equivalences}
-\addcontentsline{toc}{subsection}{1. Equivalences}
-\subfile{body/2. HoTT/Equivalences}
+
+\subsection*{1.4 Homotopies and equivalences}
+\addcontentsline{toc}{subsection}{4. Homotopies and Equivalences}
+\subfile{body/1. HoTT/HomotopiesAndEquivalences}
 
 
-\subsection*{2.2 Sets and Logic}
+\subsection*{1.2 Sets and Logic}
 \addcontentsline{toc}{subsection}{2. Sets and Logic}
-\subfile{body/2. HoTT/Sets and Logic}
+\subfile{body/1. HoTT/Sets and Logic}
 
-\subsection*{2.3 Coproducts}
+\subsection*{1.3 Coproducts}
 \addcontentsline{toc}{subsection}{3. Coproducts}
-\subfile{body/2. HoTT/Coproducts}
+\subfile{body/1. HoTT/Coproducts}
 
 \newpage
 
-\section*{\centering 3. sHoTT}
-\addcontentsline{toc}{section}{3. sHoTT}
-\setcounter{section}{3}
-The type theory of simplicial homotopy type theory is an example of a \textit{type theory with shapes}. The top layers,
-the cube and tope layer, provide a setting of shapes that the lower homotopy type theory layer depend on. In the type
-theory layer, types that depend on shapes are called extension types. With extension types in tow, we can define morphisms,
-2-simplices, and higher simplices in types. This allows us to characterize Segal types which are structured like categories, 
-discrete types which are structured like groupoids, and Rezk types which act as univalent categories. We can also characterize 
-type families that lift morphisms, Covariant families, and families that lift 2-simplices, Inner families. We extend sHoTT with a
- discrete classifying universe of covariant fibrations and a directed univalence axiom. In this section, we briefly describe sHoTT 
- and explore our extensions.
+\section*{\centering 2. sHoTT}
+\addcontentsline{toc}{section}{2. sHoTT}
+\setcounter{section}{2}
+\setcounter{equation}{0}
+\setcounter{theorem}{0}
 
-\subsection*{3.1 Three-layer type theory with shapes}
+Simplicial homotopy type theory extends HoTT with \textit{extension types} and two extra layers, turning it into a
+ \textit{type theory with shapes}. It is specialized to the case of a cube $\mathbbm{2}$ and an inequality tope, including rules making the tope layer the coherent logic of a strict interval. The top geometric layers interact with the bottom type theory layer
+ through extension types. Extension types allow us to introduce dependent functions whose domain is a shape. To introduce an extension type, a shape that includes into the domain shape, a term that depends on that shape must be provided. Then, the extension
+ type can be thought of as extending the provided section from a partial domain to a full domain. 
+
+ With extension types in tow, we can probe simplicial shapes in types. That is, we can probe morphisms, 2-morphisms, 3-morphisms and higher by defining the right extension type. Using familiar notions from HoTT, we can then define a class of types whose morphisms have a weak composition structure, \textit{Segal types}. Segal types are a useful model of the notion of category. We can also define a type of classes that has no interesting simplicial data. These types are ones where the path types and morphism types are equivalent, they are dubbed \textit{discrete types}. Extending this further, types whose \textit{isomorphisms} are equivalent to its paths are dubbed \textit{Rezk types}. 
+
+
+We can also reflect our situation in HoTT in sHoTT. In HoTT, all type families are fibrations. In sHoTT, \textit{some} type families are fibrations. We can define the type of type families that lift morphisms covariantly and contravariantly, which are aptly dubbed \textit{covariant} and \textit{contravariant type families}. We are not limited to lifting morphisms, we call families that lift 2-morphisms \textit{inner type families}. 
+
+As mentioned before, we are working in a bespoke simplicial homotopy type theory. Included in our extended sHoTT is a segal classifying universe of covariant fibrations. We also include a directed univalence axiom which allows us to turn morphisms between discrete types into functions between them. 
+
+In this section, we give an informal introduction to sHoTT and develop machinery for use in Section 4.
+\subsection*{2.1 Three-layer type theory with shapes}
 \addcontentsline{toc}{subsection}{1. Three-layer type theory with shapes}
-\subfile{body/3. sHoTT/Three-layer type theory with shapes}
+\subfile{body/2. sHoTT/Three-layer_type_theory_with_shapes}
+\setcounter{theorem}{0}
 
 
-\subsection*{3.2 Extension types}
+\subsection*{2.2 Extension types}
 \addcontentsline{toc}{subsection}{2. Extension types}
-\subfile{body/3. sHoTT/Extension Types}
+\subfile{body/2. sHoTT/Extension_Types}
+\setcounter{theorem}{0}
 
 
-\subsection*{3.3 Segal condition}
+\subsection*{2.3 Segal condition}
 \addcontentsline{toc}{subsection}{3. Segal condition}
-\subfile{body/3. sHoTT/Segal condition}
+\subfile{body/2. sHoTT/Segalcondition}
+\setcounter{theorem}{0}
 
-\subsection*{3.4 Discrete types}
+\subsection*{2.4 Discrete types}
 \addcontentsline{toc}{subsection}{4. Discrete types}
-\subfile{body/3. sHoTT/Discrete types}
+\subfile{body/2. sHoTT/Discretetypes}
 
-\subsection*{3.5 Covariant fibrations}
-\addcontentsline{toc}{subsection}{5. Covariant fibrations}
-\subfile{body/3. sHoTT/Covariant fibrations}
+\subsection*{2.5 Rezk types}
+\addcontentsline{toc}{subsection}{5. Rezk types}
+\subfile{body/2. sHoTT/rezk}
 
-\subsection*{3.6 Rezk types}
-\addcontentsline{toc}{subsection}{6. Rezk types}
-\subfile{body/3. sHoTT/Discrete types}
+\subsection*{2.6 Covariant fibrations}
+\addcontentsline{toc}{subsection}{6. Covariant fibrations}
+\subfile{body/2. sHoTT/Covariantfibrations}
 
-\subsection*{3.7 Directed univalence}
+\subsection*{2.7 Directed univalence}
 \addcontentsline{toc}{subsection}{7. Directed univalence}
-\subfile{body/3. sHoTT/Directed univalence}
+\subfile{body/2. sHoTT/Directedunivalence}
 
-\subsection*{3.8 Inner fibrations}
+\subsection*{2.8 Inner fibrations}
 \addcontentsline{toc}{subsection}{8. Inner fibrations}
-\subfile{body/3. sHoTT/Inner fibrations}
+\subfile{body/2. sHoTT/Innerfibrations}
 
 
 \section{Directed Higher Inductive Types}
 
 \addcontentsline{toc}{subsection}{1. Inductive Types in sHoTT}
-\subsection*{Inductive types in sHoTT}
-\subfile{body/4. Directed Higher Inductive Types/Inductive types in sHoTT}
+\subsection*{3.1 Inductive types in sHoTT}
+\subfile{body/3. Directed Higher Inductive Types/Inductive types in sHoTT}
 
 \addcontentsline{toc}{subsection}{2. Directed Interval}
-\subsection*{Directed Interval}
-\subfile{body/4. Directed Higher Inductive Types/directed interval}
+\subsection*{3.2 Directed Interval}
+\subfile{body/3. Directed Higher Inductive Types/directed interval}
 
 \end{document}

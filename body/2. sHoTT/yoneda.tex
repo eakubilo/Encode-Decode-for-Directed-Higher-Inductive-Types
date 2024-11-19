@@ -1,0 +1,15 @@
+\documentclass[main.tex]{subfiles}
+\begin{document}
+Covariant types also automatically make up the maps required to state Yoneda lemma. That is, for any covariant $C : A \to \U$ and $a : A$,
+there are maps
+\begin{align*}
+    \evid{C}{a} \defeq \lam{\phi}\phi(a, \idhom{a}) & : \left ( \prd{x : A}(\ho[A]{a}{x}) \to C(x) \right ) \to C(a)\\
+    \yon{C}{a} \defeq  \lam{\phi}\phi(a, \idhom{a}) & : C(a) \to \left ( \prd{x : A}(\ho[A]{a}{x}) \to C(x) \right )
+\end{align*}
+For covariant families over Segal bases, the Yoneda lemma holds.
+\begin{theorem}
+    Given a covariant family $C : A \to \U$ over a segal type $A$, for any $a : A$ the maps $\evid{C}{A}$ and $\yon{C}{a}$ form an equivalence.
+\end{theorem}
+
+
+\end{document}

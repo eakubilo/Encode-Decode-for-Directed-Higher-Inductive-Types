@@ -1,0 +1,20 @@
+\documentclass[main.tex]{subfiles}
+
+\begin{document}
+In our groupoid interpretation of type theory, we aim to show that it is reasonable to think of type families as "fibrations".
+That is, that they satisfy some suitable lifting property. Before we can properly state the lifting property, we give the "indiscernability of identity" principle 
+a new name for our setting.
+\begin{lemma}[Transport, HoTT Book 2.3.1]
+    For any type family $P : A \to \U$ and path $p : x =_A y$, there is a function 
+    \[\text{transport}^P(p, -) : P(x) \to P(y),\]
+    or similarly denoted as $p_* : P(x) \to P(y)$ when clear from context.
+\end{lemma}
+Thus, transporting is our equivalent of path lifting. When viewing a type family, such as $P : A \to \U$ as a fibration, we do so as
+as a fibration $\sm{x : a}P(x) \to A$. Thus, given a potential source $u : P(x)$, transporting allows us to lift a path $p : x \to y$
+to a path from $u$ to $p_*(u)$. This is stated concretely in the following lemma.
+\begin{lemma}[Path lifting property, HoTT Book 2.3.2]
+    Let $P : A \to \U$ be a type family and let $u : P(x)$ for some $x : A$. Then, for any $p : x = y$, there is a path
+    $$\text{lift}(u,p) : (x,u) = (y, p_*(u)).$$
+    in $\sm{x : A}P(x)$ such that $\fst(\text{lift}(u,p)) = p$.
+\end{lemma}
+\end{document}

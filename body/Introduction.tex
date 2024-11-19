@@ -1,0 +1,21 @@
+\documentclass[main.tex]{subfiles}
+\begin{document}
+Homotopy Type Theory (HoTT) offers a new perspective on the foundations of math by blending topological notions with type theory.
+HoTT extends Martin-Lof Type Theory (MLTT) with Voevodsky's \textit{univalence axiom} and higher inductive types. Univalence formalizes the common,
+but informal, action in math of identifying isomorphic structures as equal. Higher inductive types allow for a concise framework
+for defining basic spaces such as the interval, circles, spheres, the torus and complex objects such as homotopy pushouts and cell complexes.
+Informally, types in HoTT are seen as topological spaces and proofs of equality are seen as paths in those space. These structures
+ make HoTT a powerful language for computer-formalized synthetic homotopy theory.
+
+While HoTT excels at capturing symmetric notions, representing asymmetric structure, such as those that arise in category theory,
+is a challenge. \todo{do something hard with asymmetry that would be easy in shott with dhit}
+
+Simplicial Homotopy Type Theory (sHoTT), as developed by Riehl and Shulman [RS17], addresses this by developing
+a layered type theory that encompasses both the symmetric notions of HoTT and the asymmetric notions of higher category theory. This thesis explores an 
+extension of sHoTT with the additional structure of directed univalence and directed higher 
+inductive types, enabling the construction of fundamental categorical objects such as the directed interval and the simplicial circle. Furthermore, 
+we investigate inner fibrations, a class of type families that exhibit desirable lifting properties analogous to those in classical category theory. 
+We begin by reviewing the essential components of HoTT necessary for understanding sHoTT (Sections 1). Then, we introduce sHoTT and our
+ extensions, including a directed univalent universe  $\uc$ and inner fibrations (Section 2). Finally, we develop the theory of directed higher inductive types
+  within this enhanced framework (Section 3).
+\end{document}

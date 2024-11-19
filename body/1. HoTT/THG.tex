@@ -1,0 +1,32 @@
+\documentclass[main.tex]{subfiles}
+
+\begin{document}
+Paths in type theory mirror paths in topology, which are morphisms in higher groupoids. The constant path
+ $c_x$ is represented by $\refl{x}$. Path induction allows us to probe the more complex structure. For example, 
+ we can show that paths are an equivalence relation, just like paths in topology. The following lemma shows the path type
+  is symmetric.
+\begin{lemma}[HoTT Book 2.1.1]
+    For any $x,y : A$ there is a function
+    $$x = y \to y = x$$
+    denoted by $p \mapsto p^{-1}$, such that $\refl{x}^{-1} \equiv \refl{x}$. We call $p^{-1}$ the \textbf{inverse} of $p$.
+\end{lemma}
+We can also show that path types are transitive.
+\begin{lemma}[HoTT Book 2.1.2]
+    For any $x,y,z : A$ there is a function
+    $$x = y \to y = z \to x = z$$
+    denoted by $p \mapsto q \mapsto q \cdot p$. We call $q \cdot p$ the \textbf{concatenation} of $p$ and $q$.
+\end{lemma}
+Due to the setting we are in, it is not enough to define maps that show paths are an equivalence relation if we want to say
+ types are higher groupods. We must show that they satisfy coherence laws as well, considering we are in a proof-relevent setting.
+\begin{lemma}[HoTT Book 2.1.4]
+    For any type $A$, $x,y,z,w : A$ $p : x =y$, $q : y = z$, and $r : z = w$ we have the following:
+    \begin{enumerate}
+        \item $p = p \cdot \refl{y}$ and $p = \refl{x} \cdot p$.
+        \item $p^{-1} \cdot p = \refl{y}$ and $p \cdot p^{-1} = \refl{x}$.
+        \item $(p^{-1})^{-1} = p$.
+        \item $p \cdot (q \cdot r) = (p \cdot q) \cdot r$.
+    \end{enumerate}
+\end{lemma}
+We are still not done, though. To truly show that types satisfy higher groupoid structure, we need to extend the lemmas we just stated
+to higher dimensions of paths.
+\end{document}

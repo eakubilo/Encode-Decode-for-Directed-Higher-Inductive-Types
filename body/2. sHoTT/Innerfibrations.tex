@@ -1,7 +1,23 @@
 \documentclass[main.tex]{subfiles}
 
 \begin{document}
-In this section, we introduce another important class of fibrations: \textit{inner fibrations}. They extend the notion of the Segal property to the dependent case. That is, inner fibrations have to do with completing \textit{horns} in the total space.
+In this section, we introduce another important class of fibrations: \textit{inner fibrations}. They extend the notion of the Segal property to the dependent case. That is, 
+inner fibrations have to do with completing \textit{horns} to a 2-simplex in the total space. Before we give the condition for a family
+to be inner, we must make sense of what it means to be a "2-simplex in the total space".
+\begin{definition}
+    Given a type $A$ and
+    \begin{gather*}
+                          x,y,z : A  \\
+    f : \ho[A]{x}{y} \qquad g : \ho[A]{y}{z} \qquad h:\ho[A]{x}{z} \\
+    t : \homtwo{A}(x,y,z,f,g,h)\\
+    u : C(x) \qquad v : C(y) \qquad w : C(z) \\
+    p : \dho{C}{f}{u}{v} \qquad q : \dho{C}{g}{v}{w} \qquad r : \dho{C}{h}{u}{w}
+    \end{gather*}
+    we define
+    $$\homtwo{C(t)}(u,v,w,p,q,r) \defeq \exten{s : \tsx}{C(t(s))}{\pardt}{[u,v,w,p,q,r]}$$
+    and say that a morphism in $\homtwo{C(t)}(u,v,w,p,q,r)$ is a \textbf{dependent 2-simplex over} $t$.
+\end{definition}
+With that, we can precisely state what it means for a type family to be inner.
 
 \begin{definition}
     For any type $A$, type family $C : A \to \uc$, and
