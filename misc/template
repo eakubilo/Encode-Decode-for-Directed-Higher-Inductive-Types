@@ -1,4 +1,9 @@
 \documentclass[main.tex]{subfiles}
 
 \begin{document}
+
+\ifSubfilesClassLoaded{%
+    \bibliographystyle{plain}
+    \bibliography{citations.bib}
+}{}
 \end{document}

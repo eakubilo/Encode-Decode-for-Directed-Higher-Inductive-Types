@@ -16,16 +16,19 @@
 \usepackage{svg}
 \usepackage{floatrow}
 \usepackage{subcaption}
+\usepackage{lmodern}
+
 \DeclareMathAlphabet{\mathbbold}{U}{bbold}{m}{n}
+\definecolor{cof}{RGB}{219,144,71}
 
 \input{commands}
 \newtheoremstyle{named}{}{}{\itshape}{}{\bfseries}{.}{.5em}{\thmnote{#3's }#1}
 
-\newtheorem{theorem}{Theorem}[section]
+\newtheorem{theorem}{Theorem}[subsection]
 \newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{corollary}{Corollary}[theorem]
 \newtheorem{lemma}[theorem]{Lemma}
-\newtheorem*{axiom}{Axiom}
+\newtheorem{axiom}[theorem]{Axiom}
 \newlength{\perspective}
 
 \theoremstyle{named}
@@ -37,13 +40,32 @@
 
 \theoremstyle{definition}
 \newtheorem{definition}[theorem]{Definition}
-
+\newenvironment{dedication}
+    {\vspace{6ex}\begin{quotation}\begin{center}\begin{em}}
+    {\par\end{em}\end{center}\end{quotation}}
 
 
 \begin{document}
 %preamble
 \listoftodos
 \todo{make sure to do title page}
+
+\clearpage
+
+\thispagestyle{empty}
+\null\vfill
+\begin{quote}
+    \itshape
+    As an empiricist I continue to think of the conceptual scheme of science as a tool, ultimately, for predicting future experience in the light of past experience. Physical objects are conceptually imported into the situation as convenient intermediaries—not by definition in terms of experience, but simply as irreducible posits comparable, epistemologically, to the gods of Homer. Let me interject that for my part I do, \textit{qua} lay physicist, believe in physical objects and not in Homer’s gods; and I consider it a scientific error to believe otherwise. But in point of epistemological footing the physical objects and the gods differ only in degree and not in kind. Both sorts of entities enter our conception only as cultural posits. The myth of physical objects is epistemologically superior to most in that it has proved more efficacious than other myths as a device for working a manageable structure into the flux of experience.
+    \end{quote}
+    
+    \begin{flushright}
+    \textbf{Two Dogmas of Empiricism, W. V. O. Quine}
+    \end{flushright}
+
+\vfill\vfill
+
+\clearpage
 
 \subsection*{\centering Acknowledgements}
 \newpage
@@ -72,30 +94,40 @@ reflected in the groupoid. That means reflexivity becomes the term $$\refl{x} : 
 
 \addcontentsline{toc}{section}{1. HoTT}
 \setcounter{section}{1}
+\stepcounter{subsection}
 
 \subsection*{1.1 Types are higher groupoids}
 \addcontentsline{toc}{subsection}{1. Types are higher groupoids}
 \subfile{body/1. HoTT/THG}
+\stepcounter{subsection}
+
 \subsection*{1.2 Functions are functors}
 \addcontentsline{toc}{subsection}{2. Functions are functors}
 \subfile{body/1. HoTT/FAF}
+\stepcounter{subsection}
+
 \subsection*{1.3 Type families are fibrations}
 \addcontentsline{toc}{subsection}{3. Type families are fibrations}
 \subfile{body/1. HoTT/TFAF}
+\stepcounter{subsection}
+
 
 
 \subsection*{1.4 Homotopies and equivalences}
 \addcontentsline{toc}{subsection}{4. Homotopies and Equivalences}
 \subfile{body/1. HoTT/HomotopiesAndEquivalences}
+\stepcounter{subsection}
 
 
-\subsection*{1.2 Sets and Logic}
-\addcontentsline{toc}{subsection}{2. Sets and Logic}
-\subfile{body/1. HoTT/Sets and Logic}
+\subsection*{1.5 Sets and Logic}
+\addcontentsline{toc}{subsection}{5. Sets and Logic}
+\subfile{body/1. HoTT/SAL}
+\stepcounter{subsection}
 
-\subsection*{1.3 Coproducts}
-\addcontentsline{toc}{subsection}{3. Coproducts}
-\subfile{body/1. HoTT/Coproducts}
+\subsection*{1.6 $\Sigma$-types}
+\addcontentsline{toc}{subsection}{6. $\Sigma$-types}
+\subfile{body/1. HoTT/sigmatypes}
+\stepcounter{subsection}
 
 \newpage
 
@@ -104,6 +136,7 @@ reflected in the groupoid. That means reflexivity becomes the term $$\refl{x} : 
 \setcounter{section}{2}
 \setcounter{equation}{0}
 \setcounter{theorem}{0}
+\setcounter{subsection}{1}
 
 Simplicial homotopy type theory extends HoTT with \textit{extension types} and two extra layers, turning it into a
  \textit{type theory with shapes}. It is specialized to the case of a cube $\mathbbm{2}$ and an inequality tope, including rules making the tope layer the coherent logic of a strict interval. The top geometric layers interact with the bottom type theory layer
@@ -122,48 +155,71 @@ In this section, we give an informal introduction to sHoTT and develop machinery
 \addcontentsline{toc}{subsection}{1. Three-layer type theory with shapes}
 \subfile{body/2. sHoTT/Three-layer_type_theory_with_shapes}
 \setcounter{theorem}{0}
+\stepcounter{subsection}
 
 
 \subsection*{2.2 Extension types}
 \addcontentsline{toc}{subsection}{2. Extension types}
 \subfile{body/2. sHoTT/Extension_Types}
 \setcounter{theorem}{0}
+\stepcounter{subsection}
 
 
 \subsection*{2.3 Segal condition}
 \addcontentsline{toc}{subsection}{3. Segal condition}
 \subfile{body/2. sHoTT/Segalcondition}
 \setcounter{theorem}{0}
+\stepcounter{subsection}
 
 \subsection*{2.4 Discrete types}
 \addcontentsline{toc}{subsection}{4. Discrete types}
 \subfile{body/2. sHoTT/Discretetypes}
+\setcounter{theorem}{0}
+\stepcounter{subsection}
 
 \subsection*{2.5 Rezk types}
 \addcontentsline{toc}{subsection}{5. Rezk types}
 \subfile{body/2. sHoTT/rezk}
+\setcounter{theorem}{0}
+\stepcounter{subsection}
 
 \subsection*{2.6 Covariant fibrations}
 \addcontentsline{toc}{subsection}{6. Covariant fibrations}
 \subfile{body/2. sHoTT/Covariantfibrations}
+\setcounter{theorem}{0}
+\stepcounter{subsection}
 
 \subsection*{2.7 Directed univalence}
 \addcontentsline{toc}{subsection}{7. Directed univalence}
 \subfile{body/2. sHoTT/Directedunivalence}
+\setcounter{theorem}{0}
+\stepcounter{subsection}
+
 
 \subsection*{2.8 Inner fibrations}
 \addcontentsline{toc}{subsection}{8. Inner fibrations}
 \subfile{body/2. sHoTT/Innerfibrations}
+\setcounter{theorem}{0}
+\stepcounter{subsection}
+
 
 
 \section{Directed Higher Inductive Types}
-
+In this section, we start our investigation of directed higher inductive types, starting at types that have no simplicial data
+to types that have more complicated structure. For these types, our main object of study is the generalization of the fundamental groupoid 
+of a space: the \textbf{fundamental monoid} of a category
 \addcontentsline{toc}{subsection}{1. Inductive Types in sHoTT}
 \subsection*{3.1 Inductive types in sHoTT}
-\subfile{body/3. Directed Higher Inductive Types/Inductive types in sHoTT}
+\subfile{body/3. Directed Higher Inductive Types/inductivetypes}
 
 \addcontentsline{toc}{subsection}{2. Directed Interval}
 \subsection*{3.2 Directed Interval}
-\subfile{body/3. Directed Higher Inductive Types/directed interval}
+\subfile{body/3. Directed Higher Inductive Types/directedinterval}
 
+\addcontentsline{toc}{subsection}{3. Directed Circle}
+\subsection*{3.3 Directed Circle}
+\subfile{body/3. Directed Higher Inductive Types/directedcircle}
+
+\bibliographystyle{plain}
+\bibliography{citations.bib}
 \end{document}

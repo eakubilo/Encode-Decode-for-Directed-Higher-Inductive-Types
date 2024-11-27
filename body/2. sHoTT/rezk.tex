@@ -1,5 +1,37 @@
 \documentclass[main.tex]{subfiles}
 
 \begin{document}
-Rezk types are univalent categories.
+The astute reader will have noticed that having defined Segal types, we have two competing notions of equality. There is a tension
+between isomorphisms between objects and paths between objects, which causes poor behavior. We are then interested in types where these
+two notions coincide. This motivates the next type class definition. First, we must make precise what it means to be an isomorphism.
+\begin{definition}
+    For any Segal type $A$ and $f : \ho[A]{x}{y}$, we write
+    \[
+    \iso(f) \defeq \left ( \sm{g :\ho[A]{y}{x}}g \cdot f = \idhom{x} \right ) \times \left ( \sm{h : \ho[A]{y}{x}} f \cdot h = \idhom{y} \right )
+    \]
+    and say that $f$ is an \textbf{isomorphism} if $\iso(f)$ is inhabited. Similarly, for any $x,y : A$, we write \textbf{the type of isomorphisms}
+    from $x$ to $y$ as 
+    \[
+    x \cong y \defeq \sm{f : \ho{A}{x}{y}}\iso(f)
+    \]
+\end{definition}
+This coincides with our notion of a bi-invertible map. Just like in HoTT, we can show that inverses and bi-invertible maps are logically
+equivalent.
+
+\begin{lemma}[RS17 10.1]
+    For any Segal type $A$ and morphism $f : \ho[A]{x}{y}$, $f$ is an isomorphism if and only if there is a $g : \ho[A]{y}{x}$ such that 
+    $g \cdot f = \idhom{x}$ and $f \cdot g = \idhom{y}$.
+\end{lemma}
+We can also show that our type of isomorphisms is a proposition.
+\begin{lemma}[RS17 10.2]
+    For any Segal type $A$ and morphism $f : \ho[A]{x}{y}$, the type $\iso(f)$ is a proposition.
+\end{lemma}
+Now, we can start to reduce the tension between isomorphisms and identities. First, we can relate them by a map.
+\begin{lemma}[RS17 10.5]
+    \begin{equation}
+        \idi : \prd{x,y:A}x =_A y \to x \cong_A y
+    \end{equation}
+    defined by path induction and the equation $\idi(\refl{x}) \defeq \idhom{x}$. If $A$ is a Segal type and 
+    $\idi_{x,y}$ is an equivalence for all $x,y$, we say $A$ is \textbf{Rezk-complete} and that $A$ is a \textbf{Rezk type}.
+\end{lemma}
 \end{document}

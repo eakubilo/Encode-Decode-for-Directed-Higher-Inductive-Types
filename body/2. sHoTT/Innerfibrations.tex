@@ -36,13 +36,13 @@ With that, we can precisely state what it means for a type family to be inner.
 \end{definition}
 
 When the base of a type family is Segal, we state the inner condition much more tersely.
-\begin{lemma}[BW21 Proposition 4.1.5]
+\begin{lemma}[\cite{buchholtz_synthetic_2022}, 4.1.5]
     \label{lem:totbaseseginner}
     Given a Segal type $A$, a type family $C : A \to \U$ is inner if and only if $\widetilde{C}$ is Segal.
 \end{lemma}
 Covariant families are a wealthy source of inner families. Not only are covariant families a specialization of inner families, but the mapping space between covariant families, even dependently, is an inner type family as well. 
 
-\begin{lemma}[BW21 Proposition 6.1.1]
+\begin{lemma}[\cite{buchholtz_synthetic_2022}, 6.1.1]
     Every covariant type family is an inner type family.
 \end{lemma}
 
@@ -67,7 +67,7 @@ Covariant families are a wealthy source of inner families. Not only are covarian
         \label{eqn:leminnerstart}
         \exten{t : \tsx}{\prd{p : P(\comp{g}{f}(t))}Q(\comp{g}{f}(t), p) }{\tohorn}{\psi}
     \end{equation}
-    where $g,f$ make up the legs of $\phi$. We seek to show that this type is contractible. By lemma~\ref{lem:covdomcovcodisinner}, shortening
+    where $g,f$ make up the legs of $\phi$. We seek to show that this type is contractible. By lemma~\ref{lem:depfuncishom}, shortening
     definitions by taking 
     \begin{align*}
         \zeta \defeq \comp{g}{f} \\

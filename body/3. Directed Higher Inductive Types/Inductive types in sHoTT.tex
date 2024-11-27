@@ -11,7 +11,7 @@ trivially the case for the Unit type. Since all of its terms are definitionally 
 \end{equation}
 which clearly has contractible fibers. Since we've assumed relative functional extensionality, the entire type (\ref{eq:unhom}) will be contractible.
 
-As a less degenerate task, we try the same thing for the natural numbers. In service of that goal, we can define a type family $$\co : \mathbb{N} \to \mathbb{N}\to \U $$ recursively, with defining equations
+As a less degenerate task, we try the same thing for the natural numbers. In service of that goal, we can define a type family $$\co : \N \to \N\to \U $$ recursively, with defining equations
 \begin{align*}
     &\co\,0\,0\defeq \Un&\\
     &\co\,0\,S(n) \defeq \vo&\\
@@ -19,34 +19,34 @@ As a less degenerate task, we try the same thing for the natural numbers. In ser
     &\co\,S(n)\,S(m)\defeq \co \,n\,m&
 \end{align*}
 
-Before we can define $\eco$ and $\dco$, we define a map $\text{pred} : \mathbb{N} \to \mathbb{N}$ as
+Before we can define $\eco$ and $\dco$, we define a map $\text{pred} : \N \to \N$ as
 \begin{align*}
     &\text{pred}\,0 \defeq 0&\\
     &\text{pred}\,S(n) \defeq n&
 \end{align*}
-Moreover, there is a map $\phi : \prd{n:\mathbb{N}}{m:\mathbb{N}}\ho[\mathbb{N}]{S(n)}{S(m)} \to \ho[\mathbb{N}]{n}{m}$ defined as
+Moreover, there is a map $\phi : \prd{n:\N}{m:\N}\ho[\N]{S(n)}{S(m)} \to \ho[\N]{n}{m}$ defined as
 \begin{align*}
     &\phi \, 0 \, 0 \,\_ \defeq \idhom{0}&\\
     &\phi \, S(n)\, S(m)\,f \defeq \lam{i}\text{pred}(f(i))
 \end{align*}
 
-Now, we can \textit{attempt} to define $\eco : \prd{n : \mathbb{N}}{m : \mathbb{N}} \ho[\mathbb{N}]{n}{m} \to \co\,n\,m$ with the defining equations
+Now, we can \textit{attempt} to define $\eco : \prd{n : \N}{m : \N} \ho[\N]{n}{m} \to \co\,n\,m$ with the defining equations
 \begin{align*}
     &\eco\,0\,0\,\_ \defeq \star&\\
     &\eco\,S(n)\,S(m)\,f\defeq \eco\,n\,m\,(\phi\,n\,m\,f)&
 \end{align*}
-We run into issues though, as we have no way of showing $\ho[\mathbb{N}]{0}{S(m)}$ is empty. We expect the naturals to be a set, both
+We run into issues though, as we have no way of showing $\ho[\N]{0}{S(m)}$ is empty. We expect the naturals to be a set, both
 simplicially and homotopically, but we need extra assumptions. There is both a constant and discrete embedding from simplicial sets into
-bisimplicial sets. Thus, we must carry the assumption that $\mathbb{N}$ is Segal or discrete to characterize its morphisms. 
+bisimplicial sets. Thus, we must carry the assumption that $\N$ is Segal or discrete to characterize its morphisms. 
 
 \begin{lemma}
-    $\mathbb{N}$ is discrete if and only if $\mathbb{N}$ is Segal.
+    $\N$ is discrete if and only if $\N$ is Segal.
 \end{lemma}
 \begin{proof}
-    In the forward direction, $\mathbb{N}$ is discrete, so it is Segal. 
+    In the forward direction, $\N$ is discrete, so it is Segal. 
     
-    On the other hand, given a proof that $\mathbb{N}$ is Segal, we can characterize the morphism space in a way that looks
-    much more similar to book HoTT. Define a map $$\co' : \mathbb{N}\to\mathbb{N}\to\uc$$
+    On the other hand, given a proof that $\N$ is Segal, we can characterize the morphism space in a way that looks
+    much more similar to book HoTT. Define a map $$\co' : \N\to\N\to\uc$$
     as
     \begin{align*}
         &\co'\,0\,0\defeq \Un&\\
@@ -54,49 +54,49 @@ bisimplicial sets. Thus, we must carry the assumption that $\mathbb{N}$ is Segal
         &\co'\,S(n)\,0\defeq \vo&\\
         &\co'\,S(n)\,S(m)\defeq \co' \,n\,m&
     \end{align*}
-    There is also a dependent function $ r : \prd{n : \mathbb{N}} \co' \,n\,n$ defined as 
+    There is also a dependent function $ r : \prd{n : \N} \co' \,n\,n$ defined as 
     \begin{align*}
         r\,0 \defeq \star
         r\,S(n) \defeq r(n)
     \end{align*}
-    We can define $\eco' : \prd{n : \mathbb{N}}{m : \mathbb{N}} \ho[\mathbb{N}]{n}{m} \to \co'\,n\,m$ as
+    We can define $\eco' : \prd{n : \N}{m : \N} \ho[\N]{n}{m} \to \co'\,n\,m$ as
     \begin{align*}
         \eco'\,n\defeq \text{yon}^{\lam{m}\co'\,n\,m}_{n}(r(n))
     \end{align*}
-    and $\dco' : \prd{n:\mathbb{N}}{m:\mathbb{N}}\co'\,n\,m \to \ho[\mathbb{N}]{n}{m}$ as
+    and $\dco' : \prd{n:\N}{m:\N}\co'\,n\,m \to \ho[\N]{n}{m}$ as
     \begin{align*}
         &\dco\,0\,0\,\_ \defeq \idhom{0}&\\
         &\dco\,S(n)\,S(m)\,u\defeq \lam{i}S((\dco\, n\, m\, u)i)&
     \end{align*}
     We must now prove that $\eco'$ and $\dco'$ are quasi-inverses. We do so by defining a map 
-    $$\eta' : \prd{n:\mathbb{N}}{m:\mathbb{N}}{f : \ho[\mathbb{N}]{n}{m}}\dco'\,n\,m\,(\eco'\,n\,m f) =f$$
+    $$\eta' : \prd{n:\N}{m:\N}{f : \ho[\N]{n}{m}}\dco'\,n\,m\,(\eco'\,n\,m f) =f$$
     as
     \begin{equation}
         \eta' \, n \defeq \text{yon}^{\lam{(m,f)}\dco'\,n\,m\,(\eco'\,n\,m f) =f}_n(\refl{\idhom{0}})
     \end{equation}
     with this being a valid definition as $\lam{(m,f)}\dco'\,n\,m\,(\eco'\,n\,m f) =f$ is covariant due to the
-    covariance of $\lam{m}\ho[\mathbb{N}]{n}{m}$, which follows from the assumption that $\mathbb{N}$ is Segal.
+    covariance of $\lam{m}\ho[\N]{n}{m}$, which follows from the assumption that $\N$ is Segal.
 
     To define the final term showing that $\eco'$ and $\dco'$ are quasi-inverses, we note that we can perform a similar
     meanuvar as in the non-Segal case and define a map showing that the fibers of $\co'$ are mere propositions. So, we define a map
-     $\psi' : \prd{n : \mathbb{N}}{m : \mathbb{N}}\co\,n\,m \to (\co\,n\,m = \Un)$ as
+     $\psi' : \prd{n : \N}{m : \N}\co\,n\,m \to (\co\,n\,m = \Un)$ as
     \begin{align*}
         &\psi\,0\,0\,\_\defeq \refl{\Un}\\
         &\psi\,S(n)\,S(m)\,u\defeq\psi\,n\,m\,u&
     \end{align*}
     and define 
-$$\epsilon' : \prd{n:\mathbb{N}}{m:\mathbb{N}}{u : \co' \, n\, m}\eco'\,n\,m\,(\dco'\,n\,m \,u) =u$$
+$$\epsilon' : \prd{n:\N}{m:\N}{u : \co' \, n\, m}\eco'\,n\,m\,(\dco'\,n\,m \,u) =u$$
 as
 \begin{align*}
     \epsilon\,n\,m\,u \defeq \text{ap}_{((\psi'\,n\,m\,u)^{-1})_*}(\refl{\star})
 \end{align*}
-    Thus, for all $n,m : \mathbb{N}$ it is the case that
-    $$\ho[\mathbb{N}]{n}{m}\simeq \co'\,n\,m,$$ hence $\psi'$ induces a map
-    $$\prd{n : \mathbb{N}}{m : \mathbb{N}}\ho[\mathbb{N}]{n}{m} \to (\ho[\mathbb{N}]{n}{m} = \Un)$$
+    Thus, for all $n,m : \N$ it is the case that
+    $$\ho[\N]{n}{m}\simeq \co'\,n\,m,$$ hence $\psi'$ induces a map
+    $$\prd{n : \N}{m : \N}\ho[\N]{n}{m} \to (\ho[\N]{n}{m} = \Un)$$
 \end{proof}
 
 So, out of the box, we quickly see that we cannot immediately conclude that inductive types behave as expected. It is only with
-the added assumption of discreteness that the type $\mathbb{N}$ satisfied the properties we would expect from an inductive type.
+the added assumption of discreteness that the type $\N$ satisfied the properties we would expect from an inductive type.
 This goes well with the slogan of sHoTT: "\textit{some} types are $(\infty,1)$-categories". 
 
 \end{document}

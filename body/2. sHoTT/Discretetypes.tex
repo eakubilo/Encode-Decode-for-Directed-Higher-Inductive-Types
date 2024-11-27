@@ -2,13 +2,18 @@
 \begin{document}
 Rather than probing for categorical structure, we can instead probe for groupoid structure. Specifically, a type that has no
 non-trivial simplicial data is a groupoid. This is captured in the following definition.
-\begin{definition}
+\begin{definition}[\cite{emily_riehl_type_2018}, 7.1]
     For any type $A$, there is a map
     \begin{equation}
-        \text{idtoarr} : \prd{x,y:A}x =_A y \to \hom[A]{x}{y}
+        \ida : \prd{x,y:A}x =_A y \to \ho[A]{x}{y}
     \end{equation}
-    defined by path induction and the equation $\text{idtoarr}(\refl{x}) \defeq \idhom{x}$. We say $A$ is a \textbf{discrete type} if
-    $\text{idtoarr}_{x,y}$ is an equivalence for all $x,y : A$.
+    defined by path induction and the equation $\ida(\refl{x}) \defeq \idhom{x}$. We say $A$ is a \textbf{discrete type} if
+    $\ida_{x,y}$ is an equivalence for all $x,y : A$.
 \end{definition}
 
+We can show that discrete types have the structure of a category. 
+\begin{lemma}[\cite{emily_riehl_type_2018}, 7.3]
+    \label{lem:discretetypesseg}
+    If $A$ is a discrete type them $A$ is Segal.
+\end{lemma}
 \end{document}

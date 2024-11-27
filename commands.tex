@@ -1,52 +1,67 @@
-\newcommand{\id}[1]{\text{id}_{#1}}
-\newcommand{\idhom}[1]{\normalfont \text{idhom}_{#1}}
-\newcommand{\refl}[1]{\text{refl}_{#1}}
-\newcommand{\Un}{\text{Unit}}
+\newcommand{\id}[1]{\mathsf{id}_{#1}}
+\newcommand{\idhom}[1]{\mathsf{idhom}_{#1}}
+\newcommand{\refl}[1]{\mathsf{refl}_{#1}}
+\newcommand{\Un}{\mathsf{Unit}}
 \newcommand{\U}{\mathcal{U}}
-\newcommand{\vo}{\text{Void}}
-\newcommand{\uc}{\U_\text{cov}}
-\newcommand{\isc}{\normalfont \text{is\_covariant}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Ns}{\mathbb{N}^s}
+\newcommand{\Nd}{\mathbb{N}^d}
+\newcommand{\ba}{\mathsf{base}}
+\newcommand{\dl}{\mathsf{dloop}}
+
+\newcommand{\sSet}{\mathsf{sSet}}
+\newcommand{\ssSet}{\mathsf{ssSet}}
+
+\newcommand{\vo}{\mathsf{Void}}
+\newcommand{\uc}{\U_\mathsf{cov}}
+\newcommand{\isc}{ \mathsf{isCovAriant}}
+\newcommand{\isd}{ \mathsf{isDiscrete}}
+\newcommand{\El}{ \mathsf{El}}
 \newcommand{\dua}{\mathsf{dua}}
-\newcommand{\dcoe}{\text{dcoe}}
-\newcommand{\ho}[3][2]{\normalfont  \text{hom}_{#1}(#2,#3)}
+\newcommand{\dcoe}{\mathsf{dcoe}}
+\newcommand{\ho}[3][2]{\mathsf{hom}_{#1}(#2,#3)}
 \newcommand{\dho}[4]{\normalfont  \hom_{#1(#2)}(#3, #4)}
 \newcommand{\dhot}[5]{\normalfont  \hom^2_{#1(#2)}(#3, #4; #5)}
-\newcommand{\hot}[4][]{\ensuremath{\text{hom}^2_{#1}({#2},{#3};{#4})}}
-\newcommand{\seg}{\text{seg}}
+\newcommand{\hot}[4][]{\ensuremath{\mathsf{hom}^2_{#1}({#2},{#3};{#4})}}
+\newcommand{\seg}{\mathsf{seg}}
 \newcommand{\defeq}{\vcentcolon\equiv}
-\newcommand{\comp}[2]{\text{comp}_{#1, #2}}
-\newcommand{\co}{\text{code}}
-\newcommand{\eco}{\text{encode}}
-\newcommand{\fst}{\text{fst}}
-\newcommand{\snd}{\text{snd}}
-\newcommand{\dco}{\text{decode}}
+\newcommand{\comp}[2]{\mathsf{comp}_{#1, #2}}
+\newcommand{\co}{\mathsf{code}}
+\newcommand{\eco}{\mathsf{encode}}
+\newcommand{\fst}{\mathsf{fst}}
+\newcommand{\snd}{\mathsf{snd}}
+\newcommand{\dco}{\mathsf{decode}}
 \newcommand{\htf}{ \mathsf{homtofun}}
-\newcommand{\funext}{\normalfont \text{funext}}
-\newcommand{\happly}{\normalfont \text{happly}}
-\newcommand{\cu}{\normalfont \text{cube}}
-\newcommand{\tope}{\normalfont \text{tope}}
-\newcommand{\dom}{\normalfont \text{dom}}
-\newcommand{\cod}{\normalfont \text{cod}}
+\newcommand{\ida}{\mathsf{idtoarr}}
+\newcommand{\idi}{\mathsf{idtoiso}}
+\newcommand{\funext}{\normalfont \mathsf{funext}}
+\newcommand{\happly}{\normalfont \mathsf{happly}}
+\newcommand{\cu}{\normalfont \mathsf{cube}}
+\newcommand{\tope}{\normalfont \mathsf{tope}}
+\newcommand{\dom}{\normalfont \mathsf{dom}}
+\newcommand{\cod}{\normalfont \mathsf{cod}}
 \newcommand{\two}{\mathbb{2}}
-\newcommand{\yon}[2]{\normalfont \text{yon}^{#1}_{#2}}
-\newcommand{\evid}[2]{\normalfont \text{evid}^{#1}_{#2}}
+\newcommand{\yon}[2]{\normalfont \mathsf{yon}^{#1}_{#2}}
+\newcommand{\evid}[2]{\normalfont \mathsf{evid}^{#1}_{#2}}
 \newcommand{\trans}[2]{\mathsf{trans}_{{#1}, {#2}}}
-\newcommand{\qinv}{\normalfont \text{qinv}}
-\newcommand{\linv}{\normalfont \text{linv}}
-\newcommand{\rinv}{\normalfont \text{rinv}}
-\newcommand{\biinv}{\normalfont \text{biinv}}
-\newcommand{\iseq}{\normalfont \text{isequiv}}
-\newcommand{\tot}{\normalfont \text{total}}
+\newcommand{\qinv}{\normalfont \mathsf{qinv}}
+\newcommand{\linv}{\normalfont \mathsf{linv}}
+\newcommand{\rinv}{\normalfont \mathsf{rinv}}
+\newcommand{\biinv}{\normalfont \mathsf{biinv}}
+\newcommand{\iseq}{\normalfont \mathsf{isequiv}}
+\newcommand{\tot}{\normalfont \mathsf{total}}
 \newcommand{\preshape}[3]{\ensuremath{\nobreak{#1}\nobreak : \nobreak {#2}\,\mid\,{#3}\nobreak}}
 \newcommand{\shape}[3]{\ensuremath{\{\preshape{{#1}}{{#2}}{{#3}}\} }}
-\newcommand{\recbot}{\normalfont \text{rec}_\bot}
+\newcommand{\recbot}{\normalfont \mathsf{rec}_\bot}
 %from RS17
 \newcommand{\sh}[2]{\{#1\mid #2\}}
 \newcommand{\exten}[4]{\left\langle\mathchoice{\textstyle\prod_{#1}}{\textstyle\prod_{#1}}{\scriptstyle\prod_{#1}}{\scriptscriptstyle\prod_{#1}} #2 \middle|^{#3}_{#4}\right\rangle}
 \newcommand{\ndexten}[4]{\left\langle #1 \to #2 \middle|^{#3}_{#4}\right\rangle}
 \newcommand{\tw}{\mathbbm{2}}
-\newcommand{\cube}{\text{cube}}
+\newcommand{\cube}{\mathsf{cube}}
 \newcommand{\dtran}[1]{\mathsf{dtransport}^{#1}}
+\newcommand{\iso}{\mathsf{isiso}}
+\newcommand{\su}{\mathsf{succ}}
 
 %extension type stuff
 \def\pair#1#2{\left \langle #1, #2 \right \rangle}

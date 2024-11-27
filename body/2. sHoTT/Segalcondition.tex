@@ -110,7 +110,7 @@ By lemma~\ref{lem:exten_curry},
 \begin{equation*}
     \ho[{(\lam{(x,y)}\ho[A]{x}{y})(\lam{i}(pi,qi))}]{f}{g} \simeq \ndexten{\mathbbm{2}\times\mathbbm{2}}{A}{\partial \square}{[f,q,p,g]}
 \end{equation*}
-where $\square$ is the square boundary
+where $\partial\square$ is the square boundary
 \[
   \begin{tikzcd} 
         a \arrow[r, "f"] \arrow[d, "p"']   
@@ -127,11 +127,11 @@ By lemma~\ref{lem:sigisassoc}, this is equivalent to
 \begin{equation*}
     \sm{(h, t) : \sm{h:\ho[A]{a}{d}}\homtwo{A}(a,c,d,f,q,h) } \homtwo{A}(a,b,d,p,g,h).
 \end{equation*}
-Lemma~\ref{contractibleissimple} allows us to contract the base to give
+Lemma~\ref{lem:contractibleissimple} allows us to contract the base to give
 \begin{equation}
     \homtwo{A}(a,b,d,p,g,q\cdot f),
 \end{equation}
-which by lemma~\ref{compequalis2mor} is equivalent to
+which by lemma~\ref{lem:compequalis2mor} is equivalent to
 \begin{equation}
     g \cdot p = q \cdot f
 \end{equation}

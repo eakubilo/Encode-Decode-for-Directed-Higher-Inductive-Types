@@ -91,7 +91,7 @@ Since $\co$ and $\lambda x. \ho[I]{1_I}{x}$ are covariant and $I$ is Segal, we k
 First, we define functions for the point constructors:
 \begin{align*}
     &f \defeq \lambda\, u. \text{abort}(u)\\
-    &g \defeq \lambda \_ . \id{1_I}
+    &g \defeq \lambda \_ . \idhom{1_I}
 \end{align*}
 which allows us to define the point constructors of $\dco$ as
 \begin{align*}
@@ -99,9 +99,8 @@ which allows us to define the point constructors of $\dco$ as
     &\dco(1_I) = g\\
 \end{align*}
 
-By lemma~\ref{lem:commisfunarr}, to define $\dco{\seg}$, it simply siffuces to show that $\seg_*\circ f = g \circ \seg_*$. 
-It is true as both sides explode.
-
+By lemma~\ref{lem:commisfunarr}, to define $\dco(\seg)$, it suffices to show that $\seg_*\circ f = g \circ \seg_*$. 
+It follows from the fact that both sides explode.
 \end{proof}
 
 With $\eco$ and $\dco$ defined, we can show that they form an equivalence.
@@ -112,31 +111,12 @@ With $\eco$ and $\dco$ defined, we can show that they form an equivalence.
 \end{lemma}
 \begin{proof}
 Noting that $\lambda x .\dco \, x (\eco \, x f) = f$ is covariant by theorem 8.26 in op. cit., we can further apply theorem 9.5 (dependent Yoneda lemma) in op. cit. So, it suffices to provide a term of the type
-$$\dco \, 1_I (\eco \, 1_I \id{1_I}) = \id{1_I}.$$
+$$\dco \, 1_I (\eco \, 1_I \idhom{1_I}) = \idhom{1_I}.$$
 
-Note, though, that $\eco$ was defined using the Yoneda lemma, hence it is a natural transformation that sends $\id{1_I}$ to $\star$. So, our equality becomes $$
-\dco \, 1_I \, \star = \id{1_I}.$$ We know how $\dco$ acts on these inputs, so it suffices to provide a term of the type
-$$\id{1_I} = \id{1_I}$$
-of which $\refl{\id{1_I}}$ suffices.
-\end{proof}
-\begin{lemma}
-    The type family $\normalfont \lambda (x,u) : \tilde{\co}\,. \eco \, x \, (\dco \, x \,u)=_{\co(x)} u$ is covariant.
-\end{lemma}
-\begin{proof}
-    Let $(x,u),(y,v) : \tilde{\co}$ such that there is a morphism from $(x,u)$ to $(y,v)$. Since $\co$ is covvariant, it also suffices to consider a morphism $f : \ho[I]{x}{y}$ and $\text{trans}_{f,u} : \ho[\lambda x. \co(x)(f)]{u}{v}$.
-    We can define a morphism $$f_t \defeq \lambda \,s . \, \bigwedge_f(t,s) : \ho[I]{x}{f(t)}.$$
-    Thus, given a point $\mu : \eco \, x \, (\dco \, x \,u)=_{\co(x)} u$, the morphism $$\phi' \defeq \lambda t : \Delta^1. (f_t)_*(\mu)$$ has source $\mu$ and target $f_*(\mu): f_*(\eco \, x \, (\dco \, x \,u)) =_{\co(y)} f_*(u)$. 
-    Since $\lambda x\, \lambda u \,. \eco \, x \, (\dco \, x \,u)$ is a fiberwise map between covariant types, $\phi'$ induces a map $\phi$ which has source $\mu$ which has type $$\eco \, x \, (\dco \, x \,u)) =_{\co(x)} u$$ and a target which has type $$\eco \, y \, (\dco \, y \,f_*(u))) =_{\co(y)} f_*(u).$$
-    That is, $\phi$ is a map that lives over $f$ and trans$_{f,u}$.
-    If there were another map $\psi$, then for every $t : \Delta^2$, $$\phi(t) : \eco \, f(t) \, (\dco \, f(t) \,(f_t)_*(u))) =_{\co(f(t))} (f_t)_*(u)$$
-    and
-    $$\psi(t) : \eco \, f(t) \, (\dco \, f(t) \,(f_t)_*(u))) =_{\co(f(t))} (f_t)_*(u)$$
-    Note though, that 
-    \begin{align*}
-        &\eco \, f(t) \, (\dco \, f(t) \,(f_t)_*(u))) =_{\co(f(t))} (f_t)_*(u) \simeq \\
-        &\ho[\lambda x.\co(x)(f_t)]{ \eco \, x \, (\dco \, x \,u)}{ (f_t)_*(u)}
-    \end{align*}
-    Since the latter type is contractible, we are done.
+Note, though, that $\eco$ was defined using the Yoneda lemma, hence it is a natural transformation that sends $\idhom{1_I}$ to $\star$. So, our equality becomes $$
+\dco \, 1_I \, \star = \idhom{1_I}.$$ We know how $\dco$ acts on these inputs, so it suffices to provide a term of the type
+$$\idhom{1_I} = \idhom{1_I}$$
+of which $\refl{\idhom{1_I}}$ suffices.
 \end{proof}
 
 \begin{lemma}
@@ -144,11 +124,12 @@ of which $\refl{\id{1_I}}$ suffices.
     $$ \epsilon : \Pi_{x : I} \Pi_{u : \co(x)} \normalfont \eco \, x (\dco \, x u) = u$$
 \end{lemma}
 \begin{proof}
-First, we note that the type family $\lambda x.\Pi_{u : \co(x)} \normalfont \eco \, x (\dco \, x u) = u $ is inner due to previous lemmas. Thus, we can define $\epsilon$ as follows:
+First, we note that the type family $\lambda x.\Pi_{u : \co(x)} \normalfont \eco \, x (\dco \, x u) = u $ is covariant by~\ref{cor:pathwithfunciscov}, so it is inner.
+Thus, we can define $\epsilon$ as follows:
 
 $$\epsilon(0_I) = \lambda u. \text{abort}(u)$$
 $$\epsilon(1_I) = \lambda \star. \refl{\star}$$
-with $\epsilon(\seg)$ following from lemma~\ref{lem:commisfunarr}.
+with $\epsilon(\seg)$ following from lemma~\ref{lem:commisfunarr} (both sides explode).
 \end{proof}
 
 \end{document}

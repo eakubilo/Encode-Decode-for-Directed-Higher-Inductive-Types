@@ -1,15 +1,14 @@
 \documentclass[main.tex]{subfiles}
 
 \begin{document}
-\todo{Turn this into a section where we characterize the identity types of Sigma}
-Product is obviously symmetric:
-
+When dealing with $\Sigma$ types, there are many techniques that we consider ubiquitous in our study. The first is that in the 
+non-dependent case, we can show that products are symmetric:
 \begin{lemma}
     \label{lem:sigissymm}
     For any two types $A$ and $B$, we have $A \times B \simeq B \times A$.
 \end{lemma}
-
-\begin{lemma}[HoTT Book Exercise 2.10]
+We can also show that associativity holds in all cases, even dependently:
+\begin{lemma}[\cite{program_homotopy_2013}, Exercise 2.10]
     \label{lem:sigisassoc}
     For any type $A : \U$ and type families $B : A \to \U$ and $C : (\sm{x : A}B(x)) \to \U$, the following holds
     \begin{equation}

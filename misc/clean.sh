@@ -7,3 +7,5 @@ rm *.tdo
 rm *.out
 rm *.synctex.gz
 rm *.toc
+rm *.bbl
+rm *.blg

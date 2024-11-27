@@ -25,21 +25,21 @@ As a first example of this, we can show that Unit is a relation.
 \end{proof}
 Natural numbers are also a relation
 \begin{lemma}
-$\mathbb{N}$ is a relation.
+$\N$ is a relation.
 \end{lemma}
 \begin{proof}
-    Now, we define $\eco : \prd{n : \mathbb{N}}{m : \mathbb{N}} \ho[\mathbb{N}]{n}{m} \to \co\,n\,m$ with the defining equations
+    Now, we define $\eco : \prd{n : \N}{m : \N} \ho[\N]{n}{m} \to \co\,n\,m$ with the defining equations
     \begin{align*}
         &\eco\,0\,0\,\_ \defeq \star&\\
         &\eco\,S(n)\,S(m)\,f\defeq \eco\,n\,m\,\phi(f)&
     \end{align*}
 
-    and we define $\dco : \prd{n:\mathbb{N}}{m:\mathbb{N}}\co\,n\,m \to \ho[\mathbb{N}]{n}{m}$ as
+    and we define $\dco : \prd{n:\N}{m:\N}\co\,n\,m \to \ho[\N]{n}{m}$ as
     \begin{align*}
         &\dco\,0\,0\,\_ \defeq \idhom{0}&\\
         &\dco\,S(n)\,S(m)\,u\defeq \lam{i}S(\dco\, n\, m\, u)&
     \end{align*}
-    Before we can show that these maps form a pair in a bi invertible equivalence, we define a map $r : \prd{n : \mathbb{N}}{f:\ho[\mathbb{N}]{n}{n}}f=\idhom{n}$
+    Before we can show that these maps form a pair in a bi invertible equivalence, we define a map $r : \prd{n : \N}{f:\ho[\N]{n}{n}}f=\idhom{n}$
     Finally, we can show that these functions form a bi invertible equivalence by defining a map  
     \begin{align*}
         \eta \, 0 \, 0 \, \_ 
