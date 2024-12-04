@@ -6,7 +6,7 @@ families are also fibrations, with respect to \textit{paths} that is. When discu
 we must specify which shapes are being lifted. An important collection of type families are the ones that lift \textit{morphisms},
 covariantly or contravariantly. Before we can precsiely define such type families, we must first make specify what it means to be a 
  "lifted morphism".
-\begin{definition}
+\begin{definition}[\cite{riehl_type_2017}]
 Given a type $A$, a type family $C : A \to \U$, points $x,y : A$, a morphism $f : \ho[A]{x}{y}$ and points $u : C(x)$ and $v : C(y)$, the type of \textbf{dependent morphisms over} $f$ \textbf{from} $u$ to $v$ is written as $$
 \dho{C}{f}{u}{v} \defeq \exten{t : \osx}{C(f(t))}{\pardo}{[u,v]}.$$
 \end{definition}

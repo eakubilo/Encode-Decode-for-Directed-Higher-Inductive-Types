@@ -1,6 +1,25 @@
 \documentclass[main.tex]{subfiles}
 \begin{document}
-Homotopy Type Theory (HoTT) offers a new perspective on the foundations of math by blending topological notions with type theory.
+The central attitude of HoTT is encapsulated with the slogan "types are $\infty$-groupoids"\footnote{Groupoids are categories where every morphism is an isomorphism. An $\infty$ groupoid generalizes this by roughly asserting that there is an infinite hiearchy of morhpisms, each layer enriched by the last, and all invertible.}\cite{berg_garner_richard}. The slogan comes from the association of types in type theory with the homotopy types of homotopy theory, which correspond roughly to $\infty$-groupoids. In such an  interpretation, between two objects $x,y : A$ the \textit{identity type from $x$ to $y$}, $x=_Ay$, corresponds to the type of morphisms fom $x$ to $y$ in the groupoid that $A$ corresponds to. The morphisms in the groupoid associated with $A$ are invertible, and thus reasonably reflect the identity types. Since homotopy types can also be viewed as topological spaces, it is apt to call the identity type $x=_Ay$, \textit{the path type from $x$ to $y$}.
+
+An important notion in homotopy theory is that of a \textit{fibration}. A fibration $p : E \to B$ is a map between spaces that has certain lifting properties. A common lifting property classifies fibrations that lift a path in $B$ to a path in $E$. Our attitude in HoTT allows us to then consider type families $P : A \to \U$ as fibrations. We do that in type theory by noting that type families induce maps from the total space, $\sm{x:A}P(x)$, to the base space, $A$. Thus, an important property of type families is that they lift paths in $A$ to paths in $\sm{x:A}P(x)$. More generally, we can consider \textit{any} map between types to be a map between spaces. We consider functions $f:A \to B$ in HoTT to be functors, by way of defining a map $\apfunc{f} : x=_A y \to f(x)=_B f(y)$. 
+
+The strength of HoTT does not come solely from its homotopical interpretation, but rather from the addition it makes to Martin-L\"of Type Theory: \textit{univalence} and \textit{higher inductive types}. The univalence principle allows the formalization of the common mathematical shorthand of considering isomorphic objects as equal. Higher inductive types allow us to define basic, yet important, spaces such as the interval, the circle, homotopy pushouts and more. All together, the structures and the interpretation of HoTT makes it a powerful language for foundational math. Since it is a dependent type theory as well, it is manageable to use for writing computer formalized proofs via the \textit{curry howard isomorphism}, which relates propositional logic structure to dependent type theory.
+
+While HoTT is manageable as a tool, it has its "inefficiencies". To illuminate such an inefficiency, we borrow an example from \cite{gratzer_directed_2024}. We start by defining the type of monoids, which are types equipped with a binary operation satisfying associativity and identity axioms. Formally, we write:
+\[
+\mon \defeq \sm{A : \U}{\star : A \times A \to A}\assoc(A, \star) \times \iden(A, \star)
+\]
+with $\assoc$ defined as
+\[
+\assoc \defeq \prd{A : \U}{\star : A \times A \to A}{a,b,c : A} a \star (b \star c) = (a \star b) \star c
+\]
+and $\iden$ defined as
+\[
+\iden \defeq \prd{A : \U}{\star: A \times A \to A}\sm{e : A}\prd{a : A} (e \star a = a) \times ( a \star e = a).
+\]
+As the names imply, $\assoc$ and $\iden$ express that its input either satisfies associativity or has an identity. With these in hand, we move to defining an inductive type $\Li$ which, for every $A : \mon$.
+
 HoTT extends Martin-Lof Type Theory (MLTT) with Voevodsky's \textit{univalence axiom} and higher inductive types. Univalence formalizes the common,
 but informal, action in math of identifying isomorphic structures as equal. Higher inductive types allow for a concise framework
 for defining basic spaces such as the interval, circles, spheres, the torus and complex objects such as homotopy pushouts and cell complexes.
