@@ -1,12 +1,48 @@
 \documentclass[main.tex]{subfiles}
 \begin{document}
-The central attitude of HoTT is encapsulated with the slogan "types are $\infty$-groupoids"\footnote{Groupoids are categories where every morphism is an isomorphism. An $\infty$ groupoid generalizes this by roughly asserting that there is an infinite hiearchy of morhpisms, each layer enriched by the last, and all invertible.}\cite{berg_garner_richard}. The slogan comes from the association of types in type theory with the homotopy types of homotopy theory, which correspond roughly to $\infty$-groupoids. In such an  interpretation, between two objects $x,y : A$ the \textit{identity type from $x$ to $y$}, $x=_Ay$, corresponds to the type of morphisms fom $x$ to $y$ in the groupoid that $A$ corresponds to. The morphisms in the groupoid associated with $A$ are invertible, and thus reasonably reflect the identity types. Since homotopy types can also be viewed as topological spaces, it is apt to call the identity type $x=_Ay$, \textit{the path type from $x$ to $y$}.
+Martin-L\"of Type Theory \cite{martin1984intuitionistic}, also known as Intuitionistic Type Theory but hereafter denoted MLTT, is a constructivist formal logic system that offers an alternative foundation to set theory. In MLTT, the primitive notion of a collection is no longer a \textit{set} and is rather referred to as a \textit{type} satisfying its own rules. With the help of the curry howard isomorphism, the type theory combines mathematical logic and programming languages through its \textit{proofs} as \textit{programs} paradigm. The system also takes \textit{type specifications} to be \textit{propositions}. As a result, the typing judgement 
+\[ a : A \]
+is also read as
+\[
+a \text{ is a proof of the proposition } A.
+\]
+This means the type theory also offers the machinery for doing \textit{proof-relevant mathematics}, by offering a way to speak about ``proof objects'' that is not available in classical mathematics. The analogy of types as propositions does not just end with types. Another basic fixture in the type theory is that of \textit{type-indexed families of types}, \textit{family} or \textit{type family} for short, whose typing judgement comes in the following form:
+\[
+x : A \vdash B (x) : \U.
+\]
+Type families are also interpreted as a \textit{hypothetical judgement}, stating that $B(x)$ is a proposition under the assumption $x:A$. 
 
-An important notion in homotopy theory is that of a \textit{fibration}. A fibration $p : E \to B$ is a map between spaces that has certain lifting properties. A common lifting property classifies fibrations that lift a path in $B$ to a path in $E$. Our attitude in HoTT allows us to then consider type families $P : A \to \U$ as fibrations. We do that in type theory by noting that type families induce maps from the total space, $\sm{x:A}P(x)$, to the base space, $A$. Thus, an important property of type families is that they lift paths in $A$ to paths in $\sm{x:A}P(x)$. More generally, we can consider \textit{any} map between types to be a map between spaces. We consider functions $f:A \to B$ in HoTT to be functors, by way of defining a map $\apfunc{f} : x=_A y \to f(x)=_B f(y)$. 
+One other quirk of the type theory has to do with equality. Equality in MLTT comes in two flavors. The first concerns computation. We write \[ a \equiv b : A\] and say that $a$ \textbf{is definitionally equal to} $b$. This is a sort of equality that happens \textit{a priori}, by definition and thus requires no proof. With definitional equality, if we know that $a \equiv b$, then we can automaticaly lift that to an equality between types $B(a) \equiv B(b)$. 
 
-The strength of HoTT does not come solely from its homotopical interpretation, but rather from the addition it makes to Martin-L\"of Type Theory: \textit{univalence} and \textit{higher inductive types}. The univalence principle allows the formalization of the common mathematical shorthand of considering isomorphic objects as equal. Higher inductive types allow us to define basic, yet important, spaces such as the interval, the circle, homotopy pushouts and more. All together, the structures and the interpretation of HoTT makes it a powerful language for foundational math. Since it is a dependent type theory as well, it is manageable to use for writing computer formalized proofs via the \textit{curry howard isomorphism}, which relates propositional logic structure to dependent type theory.
+The second concerns \textit{provability}. There are times when we want to treat two objects with the same properties as equal. For example, in category theory equality does not only happen by definition. It is common to treat \textit{equivalent} objects as being equal. Those, most categorical definitions are up to ``canonical isomorphism'', or \textit{equivalences}. For example, the categories $A \times B$ and $B \times A$ are not literally the same, but it is common to treat them as if they were. In our type theory, we consider such an operation of considering two things the same as ``identification'',  and write the collection of proofs of identity of two terms as \[x=_A y : \U\]
+and say that $x$ \textbf{is propositonally equal to} $y$. Our identity types truly capture the notion of equality, as we can can define terms showing the identity type is an equivalence relation:
+ $$\refl{\text-} : \prd{x:A}a=_A a,$$ $$(\text-)^{-1}:\prd{x,y:A}(x =_A y ) \to (y =_A x),$$ and  $$\text-\circ\text- : \prd{x,y,z : A} (x =_A y) \to (y =_A z) \to (x =_A z).$$
+These terms form data witnessing that identity types are reflexive, symmetric, and transitive respectively.
 
-While HoTT is manageable as a tool, it has its "inefficiencies". To illuminate such an inefficiency, we borrow an example from \cite{gratzer_directed_2024}. We start by defining the type of monoids, which are types equipped with a binary operation satisfying associativity and identity axioms. Formally, we write:
+Leibniz law, or the indescernability of identicals, is also another primitive feature of our type theory. In short, proofs of equality $p : x =_A y$ induce a coercion of type families $B(x) \to B(y)$. In fact, the coercion is actually an equivalence $B(x) \simeq B(y)$. 
+
+The type theory also has more direct connections with category theory. Observed first by Hofmann and Streicher \cite{hofmann1998groupoid}, MLTT types have the structure of groupoids, which are categoreies where all of the morphisms are isomorphisms. In the interpretation, the type $x=_A y$ becomes the hom-set $\ho[A]{x}{y}$\footnote{This is meant categorically, not type theoretically.}. Identity types satisfy more coherence rules, such as unit laws and associativity, which serve to make our interpretation of the types as groupoids in a category well-founded. In such an interpretation, though, we note some tension as the coherence laws do not hold up to strict equality. As mentioned in \cite{berg_garner_richard}, associativity is a prime example of this as the diagram:
+\[\begin{tikzcd}
+	{(x=_A y) \times( y =_A z) \times (z =_A w)} && {(x=_A y) \times (y=_Aw)} \\
+	\\
+	{(x =_A z )\times (z =_A w)} && {x=_A w}
+	\arrow[from=1-1, to=1-3]
+	\arrow[from=1-1, to=3-1]
+	\arrow[from=1-3, to=3-3]
+	\arrow[from=3-1, to=3-3]
+\end{tikzcd}\]
+does not commute on the nose, but rather up to equivalence. Thus, types can have much more rich structure than the notion of a groupoid captures. As \textit{op. cit.} shows, types are $\omega$-groupoids. An $\omega$-groupoid can informally be thought of as a category where the morphisms have a dimension property and higher morphisms are built out of lower ones, all morphisms invertible. More specifically, we can borrow language from Topology and consider objects to be $0$-cells. Then, morphisms between $0$-cells are $1$-cells, morphisms between $1$-cells are $2$-cells, ad infimum. With such structure, two important questions are borne: 
+\begin{enumerate}
+  \item When does an equivalence of types $B(x) \simeq B(y)$ induce an equality of types $B(x)=_{\U} B(y)$?
+  \item How are the basic cell-complexes of topology, like the circle or torus defined?
+\end{enumerate}
+
+While MLTT isn't expressive enough to generally answer these questions, we can extend the type theory with Voevodsky's univalence axiom and higher inductive types, which positively addresses the matter. Such an extension of MLTT with these two fixtures is called Homotopy Type Theory, or HoTT for short. Voevodsky's univalence axiom formalizes the notion of ``equivalent structures are equal''. As a consequence of the axiom, we can assert that type families \textit{do} act functorially with respect to propositonal equality. Using univalence, we can conclude that the equivalence $B(x) \simeq B(y)$ is in fact an equality $B(x) = B(y)$. Higher inductive types extend the inductive type schema to allow for \textit{path} constructors, not just point constructors. This allows for a logical framework for defining common spaces such as the circle and torus as mentioned before, and even more complex constructions like homotopy pushouts and colimits. 
+
+The additional structures to MLTT to create HoTT are intended to force the interpretation of types roughly as the homotopy types of spaces. Thus, the type theory lends itself well to a homotopical interpretation. An important notion in homotopy theory is that of a \textit{fibration}. A fibration $p : E \to B$ is a functor between spaces that has certain lifting properties. A common lifting property classifies fibrations that lift a path in $B$ to a path in $E$. Our attitude in HoTT allows us to then consider type families $P : A \to \U$ not just as functors, but as \textit{fibrations}. We do that in type theory by noting that type families induce maps from the total space, $\sm{x:A}P(x)$, to the base space, $A$. Thus, an important property of type families is that they lift paths in $A$ to paths in $\sm{x:A}P(x)$.
+
+
+While HoTT is powerful, it has its own pitfalls, especially when it comes to modeling asymmetric relations. To illuminate this pitfall, we follow \cite{2DTT_Licata_Harper, gratzer_directed_2024} and study a formalization of the $\Li$ inductive family. We start by defining the type of monoids, which are types equipped with a binary operation satisfying associativity and identity axioms. Formally, we write:
 \[
 \mon \defeq \sm{A : \U}{\star : A \times A \to A}\assoc(A, \star) \times \iden(A, \star)
 \]
@@ -18,23 +54,22 @@ and $\iden$ defined as
 \[
 \iden \defeq \prd{A : \U}{\star: A \times A \to A}\sm{e : A}\prd{a : A} (e \star a = a) \times ( a \star e = a).
 \]
-As the names imply, $\assoc$ and $\iden$ express that its input either satisfies associativity or has an identity. With these in hand, we move to defining an inductive type $\Li$ which, for every $A : \mon$.
+As the names imply, $\assoc$ and $\iden$ express that its input either satisfies associativity or has an identity. With these in hand, we move to defining for every monoid $A : \mon$, an inductive type $\Li\,A$ generated by:
+\begin{itemize}
+  \item An element $\nil : \Li\,A$
+  \item For every element $l : \Li\,A$ and $a : \fst(A)$ an element $\cons{a}{l} : \Li{A}$.
+\end{itemize}
+We then finish our setting the scene by defining a function $$\add : \prd{A : \mon}\Li{A} \to A$$ by $\Li$ recursion. With our scene set, we can start to ask important questions like ``what structures respect $\add$''? With little work, we can show that equivalence relations respect $\add$. For example, it is a basic exercise to take an equality between monoids $A = B$ and reflect that as an identity of sums $\add\,A = \add\,B$. Our classical mathematical intuition allows us to conjecture that the claim can be generalized to instead state that \textit{preorders}, which are \textit{reflexive} and \textit{transitive} relations, respect $\add$. 
 
-HoTT extends Martin-Lof Type Theory (MLTT) with Voevodsky's \textit{univalence axiom} and higher inductive types. Univalence formalizes the common,
-but informal, action in math of identifying isomorphic structures as equal. Higher inductive types allow for a concise framework
-for defining basic spaces such as the interval, circles, spheres, the torus and complex objects such as homotopy pushouts and cell complexes.
-Informally, types in HoTT are seen as topological spaces and proofs of equality are seen as paths in those space. These structures
- make HoTT a powerful language for computer-formalized synthetic homotopy theory.
+To try to prove our conjecture in HoTT, we first assume that the types $\mon$ and $\Li{A}$ are \textit{categories}, as defined in \cite[9]{program_homotopy_2013}. Given a monoid morphism $f : \ho[\mon]{A}{B}$, it can be observed the type $\ho{\Li{A}}{\Li{B}}$ is not automatically inhabited. We first would have to prove that $\Li$ is a \textit{functor}, as \textit{op. cit.} defines. Moreover, noting the parametricity of $\add$, we might also hope that we can obtain a proof of our conjecture as a ``theorem for free'' \cite{wadler1989theorems}. To state what that theorem might be, we would first need to define a map
+$$f_* : \Li{A} \to \Li{B}.$$
+Once we've defined such a map, the ``free theorem'' should be an inhabitant of the type:
+$$\add{B} \circ f_* = f \circ \add{A}.$$
+Although all of this is theoretically possible, it is not as simple of a job as showing that $\add$ reflects equality. There is a large contrast between the ease of proving equivalence relation-like statements and the effort required to show preorder-like statements. The lack of power for defining asymmetric relations is well-highlighted by the lack of an ability to relate functions between types to morphisms between types, and the lack of ability to define categories through a similar logical framework as HITs.
 
-While HoTT excels at capturing symmetric notions, representing asymmetric structure, such as those that arise in category theory,
-is a challenge. \todo{do something hard with asymmetry that would be easy in shott with dhit}
+To reduce some of this tension, \textit{directed type theory} has been explored. It comes in two main strains. The first, which does not include Simplicial Type Theory, is one where the vantage point is that types correspond to $(\infty,1)$-\textit{categories}\footnote{An $(\infty,1)$-category is a category with an infinite hiearchy of morphisms, each layer enriched by the last. It also has the additional property that $n$-morphisms, for $n>1$, are all invertible. We will refer to $(\infty,1)$-categories as $\infty$-categories.}, rather than $\infty-$groupoids. This includes:
+\begin{enumerate}
+  \item The $2$-dimensional type theory of Licata and Harper \cite{2DTT_Licata_Harper}. The type theory 
+\end{enumerate}
 
-Simplicial Homotopy Type Theory (sHoTT), as developed by Riehl and Shulman [RS17], addresses this by developing
-a layered type theory that encompasses both the symmetric notions of HoTT and the asymmetric notions of higher category theory. This thesis explores an 
-extension of sHoTT with the additional structure of directed univalence and directed higher 
-inductive types, enabling the construction of fundamental categorical objects such as the directed interval and the simplicial circle. Furthermore, 
-we investigate inner fibrations, a class of type families that exhibit desirable lifting properties analogous to those in classical category theory. 
-We begin by reviewing the essential components of HoTT necessary for understanding sHoTT (Sections 1). Then, we introduce sHoTT and our
- extensions, including a directed univalent universe  $\uc$ and inner fibrations (Section 2). Finally, we develop the theory of directed higher inductive types
-  within this enhanced framework (Section 3).
 \end{document}

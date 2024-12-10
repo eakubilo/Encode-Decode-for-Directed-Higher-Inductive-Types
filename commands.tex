@@ -11,7 +11,10 @@
 \newcommand{\mon}{\mathsf{monoid}}
 \newcommand{\assoc}{\mathsf{associativity}}
 \newcommand{\iden}{\mathsf{identity}}
-\newcommand{\Li}{\mathsf{List}}
+\newcommand{\Li}[1]{\mathsf{List}\,#1}
+\newcommand{\nil}{\mathsf{nil}}
+\newcommand{\cons}[2]{\mathsf{cons}({#1},{#2})}
+\newcommand{\add}{\mathsf{sum}}
 
 \newcommand{\sSet}{\mathsf{sSet}}
 \newcommand{\ssSet}{\mathsf{ssSet}}
@@ -23,7 +26,7 @@
 \newcommand{\El}{ \mathsf{El}}
 \newcommand{\dua}{\mathsf{dua}}
 \newcommand{\dcoe}{\mathsf{dcoe}}
-\newcommand{\ho}[3][2]{\mathsf{hom}_{#1}(#2,#3)}
+\newcommand{\ho}[3][]{\mathsf{hom}_{#1}(#2,#3)}
 \newcommand{\dho}[4]{\normalfont  \hom_{#1(#2)}(#3, #4)}
 \newcommand{\dhot}[5]{\normalfont  \hom^2_{#1(#2)}(#3, #4; #5)}
 \newcommand{\hot}[4][]{\ensuremath{\mathsf{hom}^2_{#1}({#2},{#3};{#4})}}
