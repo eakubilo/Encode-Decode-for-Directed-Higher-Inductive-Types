@@ -1,6 +1,6 @@
 \documentclass[main.tex]{subfiles}
 \begin{document}
-Martin-L\"of Type Theory \cite{martin1984intuitionistic}, also known as Intuitionistic Type Theory but hereafter denoted MLTT, is a constructivist formal logic system that offers an alternative foundation to set theory. In MLTT, the primitive notion of a collection is no longer a \textit{set} and is rather referred to as a \textit{type} satisfying its own rules. With the help of the curry howard isomorphism, the type theory combines mathematical logic and programming languages through its \textit{proofs} as \textit{programs} paradigm. The system also takes \textit{type specifications} to be \textit{propositions}. As a result, the typing judgement 
+Martin-L\"of Type Theory \cite{martin1984intuitionistic}, also known as Intuitionistic Type Theory but hereafter denoted MLTT, is a constructivist formal logic system that offers an alternative foundation to set theory. In MLTT, the primitive notion of a collection is no longer a \textit{set}, but is rather referred to as a \textit{type}, behaving differently from sets. With the help of the curry howard isomorphism, the type theory combines mathematical logic and programming languages through its \textit{proofs} as \textit{programs} paradigm. The system also takes \textit{type specifications} to be \textit{propositions} of formal logic. As a result, the typing judgement 
 \[ a : A \]
 is also read as
 \[
@@ -12,37 +12,37 @@ x : A \vdash B (x) : \U.
 \]
 Type families are also interpreted as a \textit{hypothetical judgement}, stating that $B(x)$ is a proposition under the assumption $x:A$. 
 
-One other quirk of the type theory has to do with equality. Equality in MLTT comes in two flavors. The first concerns computation. We write \[ a \equiv b : A\] and say that $a$ \textbf{is definitionally equal to} $b$. This is a sort of equality that happens \textit{a priori}, by definition and thus requires no proof. With definitional equality, if we know that $a \equiv b$, then we can automaticaly lift that to an equality between types $B(a) \equiv B(b)$. 
+Another departure that MLTT takes from classical mathematics has to do with equality. Equality in MLTT comes in two flavors. The first concerns computation. We write \[ a \equiv b : A\] and say that $a$ \textbf{is definitionally equal to} $b$. This is a sort of equality that happens \textit{a priori}, by definition and thus requires no proof. With definitional equality, if we know that $a \equiv b$, then we can automaticaly lift that to an equality between types $B(a) \equiv B(b)$. 
 
-The second concerns \textit{provability}. There are times when we want to treat two objects with the same properties as equal. For example, in category theory equality does not only happen by definition. It is common to treat \textit{equivalent} objects as being equal. Those, most categorical definitions are up to ``canonical isomorphism'', or \textit{equivalences}. For example, the categories $A \times B$ and $B \times A$ are not literally the same, but it is common to treat them as if they were. In our type theory, we consider such an operation of considering two things the same as ``identification'',  and write the collection of proofs of identity of two terms as \[x=_A y : \U\]
+The second concerns \textit{provability}. There are times when we want to treat two objects with the same properties as equal. For example, in category theory equality does not only happen by definition. It is common to treat \textit{equivalent} objects as being equal. As a sympton of this, most categorical definitions are up to ``canonical isomorphism'', or \textit{equivalences}. For example, let $C$ and $D$ be two sets (considered as objects of the category $\mathsf{Set}$) and $\times$ be the cartesian product operation. We might notice that "functionally", the two product sets $C \times D$ and $D \times C$ are the same, as they both satisfy the universal property of a product. Or maybe we'd like to consider the sets $C\times \mathbbm{1}$, $\mathbbm{1}\times C$ and $C$ to all be the same thing. That is, perhaps we could impose a \textit{group} structure on the category of sets in such a way. This fails at the offset, as the sets $C$ and $C\times \mathbbm{1}$ are not equal. Although two objects are sometimes not literally equal, we can work around such fine notions of equality required by other structure by coming up with new ways to call two things "the same" and craft our definitions around that notion of sameness. As we said earlier, in category theory, equivalences capture the notion of sameness that we care about. Thus, we can call categories that satisfy the group axioms "up to equivalence" \textit{symmetric monoidal categories} and say that $\mathsf{Set}$ has the structure of a \textit{Symmetric monoidal category}. 
+
+Type theory, out of the box, offers a way of representing coarser notions of "sameness" through through identity types. Between two terms in every type, there is a type of proofs of equality between the two objects. We write the collection of proofs of identity of two terms as \[x=_A y : \U\]
 and say that $x$ \textbf{is propositonally equal to} $y$. Our identity types truly capture the notion of equality, as we can can define terms showing the identity type is an equivalence relation:
  $$\refl{\text-} : \prd{x:A}a=_A a,$$ $$(\text-)^{-1}:\prd{x,y:A}(x =_A y ) \to (y =_A x),$$ and  $$\text-\circ\text- : \prd{x,y,z : A} (x =_A y) \to (y =_A z) \to (x =_A z).$$
 These terms form data witnessing that identity types are reflexive, symmetric, and transitive respectively.
 
 Leibniz law, or the indescernability of identicals, is also another primitive feature of our type theory. In short, proofs of equality $p : x =_A y$ induce a coercion of type families $B(x) \to B(y)$. In fact, the coercion is actually an equivalence $B(x) \simeq B(y)$. 
 
-The type theory also has more direct connections with category theory. Observed first by Hofmann and Streicher \cite{hofmann1998groupoid}, MLTT types have the structure of groupoids, which are categoreies where all of the morphisms are isomorphisms. In the interpretation, the type $x=_A y$ becomes the hom-set $\ho[A]{x}{y}$\footnote{This is meant categorically, not type theoretically.}. Identity types satisfy more coherence rules, such as unit laws and associativity, which serve to make our interpretation of the types as groupoids in a category well-founded. In such an interpretation, though, we note some tension as the coherence laws do not hold up to strict equality. As mentioned in \cite{berg_garner_richard}, associativity is a prime example of this as the diagram:
-\[\begin{tikzcd}
-	{(x=_A y) \times( y =_A z) \times (z =_A w)} && {(x=_A y) \times (y=_Aw)} \\
-	\\
-	{(x =_A z )\times (z =_A w)} && {x=_A w}
-	\arrow[from=1-1, to=1-3]
-	\arrow[from=1-1, to=3-1]
-	\arrow[from=1-3, to=3-3]
-	\arrow[from=3-1, to=3-3]
-\end{tikzcd}\]
-does not commute on the nose, but rather up to equivalence. Thus, types can have much more rich structure than the notion of a groupoid captures. As \textit{op. cit.} shows, types are $\omega$-groupoids. An $\omega$-groupoid can informally be thought of as a category where the morphisms have a dimension property and higher morphisms are built out of lower ones, all morphisms invertible. More specifically, we can borrow language from Topology and consider objects to be $0$-cells. Then, morphisms between $0$-cells are $1$-cells, morphisms between $1$-cells are $2$-cells, ad infimum. With such structure, two important questions are borne: 
+The type theory also has more direct connections with category theory. Observed first by Hofmann and Streicher \cite{hofmann1998groupoid}, MLTT types have the structure of groupoids, which are categoreies where all of the morphisms are isomorphisms. In the interpretation, a path $p : x=_A y$ and any path propositionally equal to $p$ becomes a morphism $f : \ho[A]{x}{y}$\footnote{This is meant categorically, not type theoretically.}. That is, morphisms are equivalence classes of paths, with the quotient being propositional equality. Identity types satisfy more coherence rules, such as unit laws and associativity, which serve to make our interpretation of the types as groupoids in a category well-founded. Such an interpretation does not capture the full picture. For example, given three paths $p : x =_A y$, $q : y=_A z$, and $r : z =_A w$, there is an identification
+\[
+(p \cdot q) \cdot r =_\U p \cdot (q \cdot r).
+\]
+These two morphisms are not definitionally equal, but correspond to the same morphism by virtue of our quotienting operation. This suggest that there is higher structure contained in a type. Indeed, we can interpret types as weak $\infty$-groupoids \cite{berg_garner_richard} rather than simply a groupoid. An $\infty$-groupoid can informally be thought of as a category where the morphisms have a dimension property and higher morphisms are built out of lower ones, all morphisms invertible. More specifically, we can borrow language from Topology and consider objects to be $0$-cells. Then, morphisms between $0$-cells are $1$-cells, morphisms between $1$-cells are $2$-cells, ad infimum. 
+
+Besides the point of the structure of types, two questions remain
 \begin{enumerate}
   \item When does an equivalence of types $B(x) \simeq B(y)$ induce an equality of types $B(x)=_{\U} B(y)$?
-  \item How are the basic cell-complexes of topology, like the circle or torus defined?
+  \item How are the basic \textit{free} $\infty$-groupoids of topology, like the circle, torus, or cell complexes in general defined?
 \end{enumerate}
 
 While MLTT isn't expressive enough to generally answer these questions, we can extend the type theory with Voevodsky's univalence axiom and higher inductive types, which positively addresses the matter. Such an extension of MLTT with these two fixtures is called Homotopy Type Theory, or HoTT for short. Voevodsky's univalence axiom formalizes the notion of ``equivalent structures are equal''. As a consequence of the axiom, we can assert that type families \textit{do} act functorially with respect to propositonal equality. Using univalence, we can conclude that the equivalence $B(x) \simeq B(y)$ is in fact an equality $B(x) = B(y)$. Higher inductive types extend the inductive type schema to allow for \textit{path} constructors, not just point constructors. This allows for a logical framework for defining common spaces such as the circle and torus as mentioned before, and even more complex constructions like homotopy pushouts and colimits. 
 
 The additional structures to MLTT to create HoTT are intended to force the interpretation of types roughly as the homotopy types of spaces. Thus, the type theory lends itself well to a homotopical interpretation. An important notion in homotopy theory is that of a \textit{fibration}. A fibration $p : E \to B$ is a functor between spaces that has certain lifting properties. A common lifting property classifies fibrations that lift a path in $B$ to a path in $E$. Our attitude in HoTT allows us to then consider type families $P : A \to \U$ not just as functors, but as \textit{fibrations}. We do that in type theory by noting that type families induce maps from the total space, $\sm{x:A}P(x)$, to the base space, $A$. Thus, an important property of type families is that they lift paths in $A$ to paths in $\sm{x:A}P(x)$.
 
+All of this machinery culminates in the view that HoTT provides a language for doing homotopy theory synthetically, without building up point-set topology first. 
 
-While HoTT is powerful, it has its own pitfalls, especially when it comes to modeling asymmetric relations. To illuminate this pitfall, we follow \cite{2DTT_Licata_Harper, gratzer_directed_2024} and study a formalization of the $\Li$ inductive family. We start by defining the type of monoids, which are types equipped with a binary operation satisfying associativity and identity axioms. Formally, we write:
+
+While HoTT is powerful, it has its own pitfalls, especially when it comes to modeling asymmetric relations. To illuminate this pitfall, we follow \cite{daniel_r_licata_2-dimensional_2011, gratzer_directed_2024} and study a formalization of the $\Li$ inductive family. We start by defining the type of monoids, which are types equipped with a binary operation satisfying associativity and identity axioms. Formally, we write:
 \[
 \mon \defeq \sm{A : \U}{\star : A \times A \to A}\assoc(A, \star) \times \iden(A, \star)
 \]
@@ -65,11 +65,38 @@ To try to prove our conjecture in HoTT, we first assume that the types $\mon$ an
 $$f_* : \Li{A} \to \Li{B}.$$
 Once we've defined such a map, the ``free theorem'' should be an inhabitant of the type:
 $$\add{B} \circ f_* = f \circ \add{A}.$$
-Although all of this is theoretically possible, it is not as simple of a job as showing that $\add$ reflects equality. There is a large contrast between the ease of proving equivalence relation-like statements and the effort required to show preorder-like statements. The lack of power for defining asymmetric relations is well-highlighted by the lack of an ability to relate functions between types to morphisms between types, and the lack of ability to define categories through a similar logical framework as HITs.
+Although all of this is theoretically possible, our type theory is not expressive enough to handle asymmetric relations as nicely as it does symmetric relations. 
 
-To reduce some of this tension, \textit{directed type theory} has been explored. It comes in two main strains. The first, which does not include Simplicial Type Theory, is one where the vantage point is that types correspond to $(\infty,1)$-\textit{categories}\footnote{An $(\infty,1)$-category is a category with an infinite hiearchy of morphisms, each layer enriched by the last. It also has the additional property that $n$-morphisms, for $n>1$, are all invertible. We will refer to $(\infty,1)$-categories as $\infty$-categories.}, rather than $\infty-$groupoids. This includes:
+To address this deficiency, \textit{directed type theory} has been investigated. The type theory come in two variations. The first, is one where the vantage point is that \textit{every} type corresponds to a $(\infty,1)$-\textit{categories}\footnote{An $(\infty,1)$-category is a category with an infinite hiearchy of morphisms, each layer enriched by the last. It also has the additional property that $n$-morphisms, for $n>1$, are all invertible. We will refer to $(\infty,1)$-categories as $\infty$-categories.}, rather than a $\infty-$groupoid. Examples of such type theories include:
+
 \begin{enumerate}
-  \item The $2$-dimensional type theory of Licata and Harper \cite{2DTT_Licata_Harper}. The type theory 
+	\item The $2$-dimensional type theory, 2DTT, of Licata and Harper \cite{2DTT_Licata_Harper}. The type theory achieves the ability to work with asymmetric relations by enforcing explicit \textit{variance} be added to types and terms, enforcing that terms introduced covariantly are only used covariantly, and similar for terms introduced contravariantly. This allows us to say, for example, that $\Pi$ is covariant in its range and contravariant in its domain. The type theory also elides the identity type constructor of MLTT and instead offers a \textit{term transformation} judgement to handle asymmetric relations, along with a coercion operation along time families that acts as a unidirectional version of transporting in HoTT. Defining a type in 2DTT is a matter of specifying:
+	\begin{itemize}
+		\item A formation rule for $A$
+		\item Introduction and elimination term rules that define when $M : A$
+		\item Introduction and elminiation transformation rules that define when $\alpha : M \implies_A M'$
+		\item Data showing the term and transformation cohere with the explicit substitutional theory of the type theory.
+	\end{itemize}
+	\item The directed type theory of Andreas Nuyts \cite{nuyts2015towards}. The type theory builds on 2DTT by expanding the base type theory to include all of HoTT, rather than MLTT without identity types. The type theory also explicates, for a morphism $a \to_A b$ and a function $f : A \to C$, 4 kinds of ways the values $f(a)$ and $f(b)$ can be related:
+	\begin{itemize}
+		\item If there is no relation between $f(a)$ and $f(b)$, $f$ is \textit{invariant}.
+		\item If $f(a)=_C f(b)$, $f$ is \textit{isovariant}.
+		\item If $f(a) \to_C f(b)$, $f$ is \textit{covariant}. 
+		\item If $f(b) \to_C f(a)$, $f$ is said to be \textit{contravariant}.
+	\end{itemize}
+	That is, there are now $4$ variances that must be kept track of, rather than 2. 
+	\item The type theory of Page North \cite{north_towards_2019}. This type theory departs from 2DTT by including a morphism type, rather than a morphism judgement. The type theory also includes elimination principles for the morphism type that are akin to a directed version of identity elimination. Variances must still be managed by hand.
+  \end{enumerate}
+
+The second takes the view that \textit{some} types correspond to $\infty$-categories. In such a type theory, we no longer have explicit variance annotations nor is there a need to manage any variances by hand. At the moment, these type theories are derivative of simplicial type theory \cite{riehl_type_2017}, referred to hereafter as STT, which will be the focus of this thesis. 
+
+STT improves on the situation through the addition of a metatheoretic layer of \textit{shapes} corresponding to polytopes carved out of cubes, and \textit{extension types} which allow types to depend on shapes. With extension types, we can carve out simplicial shapes in types, such as morphisms and $2$-morphisms. Moreover, we can start specifying important type classes like Segal types, which are types that satisfy a weak composition principle. These types satisfy coherence data that gives them the structure of a \textit{category}. Another example of a type class we can define in STT is that of a \textit{covariant type family}, which behave as covariant fibrations. That is, given a morphism $f : \ho[A]{a}{b}$ and a starting point $u : C(a)$, covariant type families lift the morphism $f$ to a morphism $\trans{f}{u}:\ho[C(f)]{u}{f_*(u)}$. 
+
+As it stands, STT is a powerful language for studying the formal category theoretical questions that arise in higher category theory. This thesis studies two additions to simplicial type theory that make it an expressive language for the formalization of basic category theory:
+\begin{enumerate}
+	\item A \textit{directed univalence} principle that states that identifies morphisms between \textit{types} and \textit{functions} between types.
+	\item A logical framework for defining \textit{directed higher inductive types} that extends the inductive type schema with the ability to include morphism constructors along with point constructors.
 \end{enumerate}
+In section 1, we warm up with a recapitulation of HoTT. We will not do any HoTT proofs, though, and instead point the reader to \cite{program_homotopy_2013} for an in-depth expliation of HoTT. In section 2, we introduce simplicial type theory. Mostly following \cite{riehl_type_2017}, start with the foundation of the type theory and introduce shapes and extension types. From there, we define various fundamental type classes such as Segal, Discrete, and Rezk types which correspond to pre-categories, groupoids, and univalent categories respectively. We also define covariant type families, as explained above. We slightly depart from \textit{op. cit.} and borrow from \cite{buchholtz_synthetic_2022} to define the class of \textit{inner type families}, which are type families that lift $2$-morphisms as opposed to $1$-morphisms. In this section, as well, we introduce $\uc$, our Segal directed univalent universe of discrete types. Along the way, we prove important lemmas intended for immediate use in the next section. Finally, in section 3, we investigate directed higher inductive types. Not only do they include point and morphism constructors, they are also Segal, ensuring that the type generated by the point and morphisms is a category. In other words, DHITs allow us to specify \textit{free categories}. Moreover, eliminating out of a DHIT can only be done with an inner type family, so as to preserve the categorical structure. We study the \textit{directed interval} and \textit{simplicial circle}, but the techniques developed in this thesis generalize to other free categories.
 
 \end{document}
