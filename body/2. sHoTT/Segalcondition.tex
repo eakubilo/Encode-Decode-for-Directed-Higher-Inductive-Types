@@ -5,87 +5,122 @@ With our three-layer type theory and extension types in tow, we can start develo
 to probe for simplicial shapes in types.
 
 \begin{definition}[\cite{riehl_type_2017}, 5.1]
-    For a type $A$ and points $x,y : A$ which induce a term $[x,y]$\footnote{Spelled out, this is a term that depends on $t : \pardo $ that evaluates to $x$ when $t \equiv 0$ and $y$ when $t \equiv 1$.} in context $\pardo$, we write
+    For a type $A$ and points $x,y : A$ which induce a term $[x,y]$\footnote{This is shorthand for $\recOr{t \equiv 0, t \equiv 1}{x}{y}$} in context $\pardo$, we write
     $$\ho[A]{x}{y} \defeq \ndexten{\osx}{A}{\pardo}{[x,y]}$$
     and say that an element of $\ho[A]{x}{y}$ is a \textbf{morphism} from $x$ to $y$. 
 \end{definition}
-\begin{definition}[\cite{riehl_type_2017}, 5.2]
-    For points $x,y,z : A$, and morphisms $f : \ho[A]{x}{y}$, $g : \ho[A]{y}{z}$, and $h : \ho[A]{x}{z}$ which induces a term $[x,y,z,f,g,h]$\footnote{Similarly, this is a term that depends on $\pair{t}{s} :\pardt$ that evaluates to:
-    \begin{itemize}
-        \item $x$ when $\pair{t}{s} \equiv \pair{0}{0}$ 
-        \item $y$ when $\pair{t}{s} \equiv \pair{1}{0}$ 
-        \item $z$ when $\pair{t}{s} \equiv \pair{1}{1}$
-        \item $f$ when $\pair{t}{s} \equiv \pair{t}{0}$
-        \item $g$ when $\pair{t}{s} \equiv \pair{1}{s}$
-        \item $h$ when $\pair{t}{s} \equiv \pair{t}{t}$
-    \end{itemize} } in context $\pardt$, we write
-    $$\homtwo{A}(x,y,z,f,f,h) \defeq \ndexten{\tsx}{A}{\pardt}{[x,y,z,f,g,h]}$$
-    or, in an abbreviated fashion,
-    $$\homtwoshort{A}(x,y,z,f,g,h)$$
-    and say that an element of $\homtwoshort{A}(x,y,z,f,g,h)$ is a $2$-\textbf{morphism}.
-\end{definition}
-One result that we'll make use of in this section states that $\mathbbm{2} \times \mathbbm{2}$ is the pushout of two copies of $\tsx$ along their common boundary.
-\begin{lemma}
-    For any type $A$ and morphisms $f : \ho[A]{a}{d}$, $g : \ho[A]{b}{c}$, $h : \ho[A]{a}{b}$, and $k : \ho[A]{d}{c}$, there is an equivalence 
-    $$\ndexten{\mathbbm{2}\times\mathbbm{2}}{A}{\partial \square}{[f,k,h,g]} \simeq \sm{p : \ho[A]{a}{c}}\homtwoshort{A}(a,d,c,f,k,p) \times \homtwoshort{A}(a,b,c,h,g,p)  $$
-\end{lemma}
-\begin{proof}
-    From left to right, $$\alpha \mapsto \left (\lam{t : \mathbbm{2}}\alpha(t,t),\lam{\langle t,s \rangle : \tsx} \alpha(t,s), \lam{\langle t,s \rangle : \tsx} \alpha(s,t) \right ).$$
-    
-    From right to left, $$(\_, \alpha_1, \alpha_2) \mapsto \lam{\langle t,s \rangle : \mathbbm{2} \times \mathbbm{2}}\recOr{t\leq s, s \leq t }{\alpha_1(t, s)}{\alpha_2(s,t)}.$$
 
-    The round trip from left, to right, back to left takes a term $\alpha : \ndexten{\mathbbm{2}\times\mathbbm{2}}{A}{\partial \square}{[f,k,h,g]}$ to 
-    $$\lam{\langle t,s \rangle : \mathbbm{2} \times \mathbbm{2}}\recOr{t\leq s, s \leq t }{\alpha(t, s)}{\alpha(t,s)}$$
-    which is definitionally equal to $\alpha$.
-
-    The round trip from right, to left, back takes a term $(p, \alpha_1, \alpha_2)$ to $$(p, )$$
-    \todo{finish proof, take it from the start and make sure you get the indices right}
-\end{proof}
-
-In the last section, we saw that functions acted functorially on paths using path induction. In sHoTT, we get nicer behavior.
-Functions definitionally act functorially on morphisms, edified by the following lemma. 
+Before we probe for more shapes, we digress to discuss the functorality of functions in sHoTT. In the last section, we saw that functions acted functorially on paths using path induction. In sHoTT, functions act functorially on morphisms by definition.
+This leads to the following lemmas.
 \begin{lemma}[\cite{riehl_type_2017}, 6.1]
     Let $A,B$ be types and $f : A \to B$. Then, given $x,y : A$, there is a function 
     \[\mapfunc{f} : \ho[A]{x}{y} \to \ho[B]{f x}{f y}\]
     When the context is clear, we often write $f(h)$ rather than $\mapfunc{f}h$ for $h : \ho[A]{x}{y}$.
 \end{lemma}
-The dependent version of the previous lemma follows.
+We can also definitionally apply dependent functions onto morphisms.
 \begin{lemma}
     Let $B : A \to \U$ and $\phi : \prd{x : A}B(x)$. Then, given $x,y : A$, there is a function
     $$\mapdepfunc{\phi} : \prd{f : \ho[A]{x}{y}}\ho[B(f)]{\phi(x)}{\phi(y)}$$
 \end{lemma}
+We are not limited to probing for 1-dimensional shapes. We can also probe for $2$-dimensional shapes and higher. For what we do in this thesis it is enough to focus on $1$ and $2$-dimensional shapes, so we elide any other higher dimensional definitions.
+\begin{definition}[\cite{riehl_type_2017}, 5.2]
+    For points $x,y,z : A$ and morphisms $f : \ho[A]{x}{y}$, $g : \ho[A]{y}{z}$, and $h : \ho[A]{x}{z}$ which induces a term $[x,y,z,f,g,h]$ in context $\pardt$, we write
+    $$\homtwo{A}(x,y,z,f,g,h) \defeq \ndexten{\tsx}{A}{\pardt}{[x,y,z,f,g,h]}$$
+    or, in an abbreviated fashion,
+    $$\homtwoshort{A}(x,y,z,f,g,h)$$
+    and say that an element of $\homtwoshort{A}(x,y,z,f,g,h)$ is a $2$-\textbf{morphism}.
+\end{definition}
+\begin{definition}
+    For points $a,b,c,d : A$, and morphisms $f : \ho[A]{a}{d}$, $g : \ho[A]{b}{c}$, $h : \ho[A]{a}{b}$, and $k : \ho[A]{d}{c}$ which induces a term $[a,b,c,d,f,h,g,k]$ in context $\pards$, we write
+    $$\diag{A}(a,b,c,d,f,k,g,h) \defeq \ndexten{\mathbbm{2}\times\mathbbm{2}}{A}{\pards}{[a,b,c,d,f,h,g,k]}$$
+    or, in an abbreviated fashion,
+    $$\diagshort{A}(a,b,c,d,f,k,g,h)$$
+    and say that an element of $\diagshort{A}(a,b,c,d,f,k,g,h)$ is a \textbf{diagram}.
+\end{definition}
+One fundamental observation is that $\mathbbm{2} \times \mathbbm{2}$ is the pushout of two copies of $\tsx$ along their common boundary.
+\todo{define connection squares?}
+We also observe that our probed shapes in types reflect the pushout property of $\tsx$. The following lemma
+ is an demonstrates this fact by showing a diagram is a pushout of two $2$-morphisms.
+\begin{lemma}
+    For any type $A$ and morphisms $f : \ho[A]{a}{d}$, $g : \ho[A]{b}{c}$, $h : \ho[A]{a}{b}$, and $k : \ho[A]{d}{c}$, there is an equivalence 
+    \begin{equation}
+        \label{eqn:squareistwotriangles}
+        \diagshort{A}(a,b,c,d,f,k,g,h) \simeq \sm{p : \ho[A]{a}{c}}\homtwoshort{A}(a,d,c,f,k,p) \times \homtwoshort{A}(a,b,c,h,g,p) 
+    \end{equation} 
+\end{lemma}
+\begin{proof}
+    From left to right, 
+    \begin{equation*}
+        \alpha \mapsto \left (\lam{t : \mathbbm{2}}\alpha(t,t),\lam{\langle t,s \rangle : \tsx} \alpha(s,t), \lam{\langle t,s \rangle : \tsx} \alpha(t,s) \right ).
+    \end{equation*}
+    
+    From right to left, 
+    \begin{equation*}
+        (p, \alpha_1, \alpha_2) \mapsto \lam{\left \langle t,s \right \rangle : \mathbbm{2} \times \mathbbm{2}}\recOr{t\leq s, s \leq t }{\alpha_1(s, t)}{\alpha_2(t,s)}.
+    \end{equation*}
 
-In section 2, we saw that we could define path composition using path induction. While we would hope that, just like the previous lemma,
-we could define morphism composition definitionally, that is not the case. In sHoTT,
-the slogan is "some types are infinity categories" and this is the first place we see why that may be. Not all types come with the
-structure of a category, but a single characterization allows us to talk about the types that do; the types that have categorical structure
-are the ones that support composition. Our system is arranged in such a way that all categorical structure follows from composition.
-For a programming languages analogy, composition of paths is a parametrically polymorphic 
-function while composition of morphisms is a type class polymorphic function. That leads us to the following definition.
+    We first check, in the case of the map from the right to the left, that the two provided terms for $\mathsf{rec}_{\lor}$ agree along the common boundary. Since
+    $\alpha_1(t,t) \equiv \alpha_2(t,t) \equiv p$ for all $t : \mathbbm{2}$, the map is well-formed.
+    
+    The round trip from left, to right, then back to the left takes a term $$\alpha : \ndexten{\mathbbm{2}\times\mathbbm{2}}{A}{\partial \square}{[f,k,h,g]}$$
+    to 
+    $$
+    \left (\lam{t : \mathbbm{2}}\alpha(t,t),\lam{\langle t,s \rangle : \tsx} \alpha(s,t), \lam{\langle t,s \rangle : \tsx} \alpha(t,s) \right )
+    $$
+    then finally to
+    $$\lam{\langle t,s \rangle : \mathbbm{2} \times \mathbbm{2}}\recOr{t\leq s, s \leq t }{\alpha(t, s)}{\alpha(t,s)}$$
+    which is definitionally equal to $\alpha$.
+
+    The round starting from the right takes the term
+    $$(p, \alpha_1, \alpha_2)$$ to 
+    $$ \lam{\left \langle t,s \right \rangle : \mathbbm{2} \times \mathbbm{2}}\recOr{t\leq s, s \leq t }{\alpha_1(s, t)}{\alpha_2(t,s)}.$$
+    We can evaluate what the map from left to right does on this term coordinate-wise. In the first coordinate, we have 
+    $$\lam{t:\mathbbm{2}}(\lam{\left \langle t,s \right \rangle : \mathbbm{2} \times \mathbbm{2}}\recOr{t\leq s, s \leq t }{\alpha_1(s, t)}{\alpha_2(t,s)})(t,t) \equiv p.$$
+    In the second coordinate, we have the following term in the context of $\langle t,s \rangle : \tsx$:
+    \begin{equation} 
+        \label{eqn:scndcoordinate}
+        (\lam{\left \langle t,s \right \rangle : \mathbbm{2} \times \mathbbm{2}}\recOr{t\leq s, s \leq t }{\alpha_1(s, t)}{\alpha_2(t,s)})(s,t)
+    \end{equation}
+    Noting that $s \leq t$, equation \ref{eqn:scndcoordinate} computes to
+    $\alpha_1(t,s)$. Thus, the second coordinate is simply $\alpha_1$.
+
+    In the third coordinate, we have the following term in the context of $\langle t,s \rangle : \tsx$:
+    \begin{equation} 
+        \label{eqn:thrdcoordinate}
+        (\lam{\left \langle t,s \right \rangle : \mathbbm{2} \times \mathbbm{2}}\recOr{t\leq s, s \leq t }{\alpha_1(s, t)}{\alpha_2(t,s)})(t,s)
+    \end{equation}
+    Again, since $s \leq t$, equation \ref{eqn:thrdcoordinate} computes to $\alpha_2(t,s)$, thus the third coordinate is simply $\alpha_2$.
+
+    Since both round trips are definitionally the identity, the equivalence in \ref{eqn:squareistwotriangles} holds.
+\end{proof}
+The astute reader will notice that we've used categorical language such as diagrams and morphisms, without actually yet defining what a category is in sHoTT. Our situation in HoTT was particularly nice - we showed how path composition could be defined using path induction. From there, the groupoidal structure of types followed. One might expect morphism composition to work similarly, but reality proves different. While path composition follows from induction, we do not get the same behavior with morphisms.
+
+This distinction reflects a core principle in sHoTT: 'some types are infinity categories.' To draw a parallel with programming languages: path composition behaves like a parametrically polymorphic function, while morphism composition is more akin to type class polymorphism. 
+
+Not every type naturally forms a category - rather, categorical structure emerges specifically in types that support composition. In fact, we can show that composition is the foundational property from which all other categorical structure follows. This leads us to our next definition.
 \begin{definition}[\cite{riehl_type_2017}, 5.3]
     \label{def:def3.3}
     Let $A$ be a type, $x,y,z : A$ and $f : \ho[A]{x}{y}$ and $g : \ho[A]{y}{z}$. We say $A$ is \textbf{Segal} if the type $${\sm{h : \ho[A]{x}{z}} \hot[A]{f}{g}{h}} $$
     is contractible. The unique inhabitant is denoted by $(g\cdot f, \comp{g}{f}).$
 \end{definition}
 
-In other words two composable morphisms specify a 2-morphism in a Segal type. To see this in action, we can show that a square, which
+Before we parse out the categorical structure of Segal types, we note that the contractibility of $2$-morphisms in a Segal type passes on to diagrams.
+\begin{lemma}
+    Given a Segal type $A$ and compatible morphisms $f : \ho[A]{a}{d}$, $g : \ho[A]{b}{c}$,  $h : \ho[A]{a}{b}$, and $k : \ho[A]{d}{c}$, the type
+    \begin{equation}
+        \diagshort{A}(a,b,c,d,f,k,g,h)
+    \end{equation}
+    is contractible.
+\end{lemma}
+\todo{need to prove that if sigma B and sigma C are contractible then so is sigma B times sigma C}
+In other words two composable morphisms specify a 2-morphism in a Segal type. 
+\todo{should do associativity and unit laws atp}
+
+To see this in action, we can show that a square, which
 is the pushout product of two copies of 2-morphisms, is a proposition in a Segal type:
 \begin{lemma}
     \todo{change this proof to say summing over the diagonal in a square is contractible in a segal type.}
-    Given a Segal type $A$ and compatible morphisms $f : \ho[A]{a}{c}$, \linebreak $g:\ho[A]{b}{d}$, $p:\ho[A]{a}{b}$, and $q : \ho[A]{c}{d}$ then
-    \begin{equation}
-        \ndexten{\mathbbm{2}\times\mathbbm{2}}{A}{\partial \square}{[f,q,p,g]}
-    \end{equation}
-    where $\partial\square$ is the square boundary
-\[
-  \begin{tikzcd} 
-        a \arrow[r, "f"] \arrow[d, "p"']   
-        & c \arrow[d, "q"] 
-         \\ 
-        b \arrow[r, "g"']  & d
-    \end{tikzcd} 
-\]
-    is contractible.
+
 \end{lemma}
 We can alternatively say that a horns
 decides simplices in a Segal type. More formally,

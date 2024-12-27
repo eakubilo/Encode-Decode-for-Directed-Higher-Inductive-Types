@@ -80,10 +80,28 @@
 \def\tthorn{\Lambda_2^2}
 \def\pardo{\partial\Delta^1}
 \def\pardt{\partial\Delta^2}
+\def\pards{\partial\square}
 \def\osx{\Delta^1}
 
 \def\tsx{\Delta^2}
 
+\def\diagshort#1(#2,#3,#4,#5,#6,#7,#8,#9){\mathsf{diag}_{#1}^2(#6,#7;#8;#9)}
+\def\diag#1{\mathsf{diag}_{#1}^2\diagarg1}
+\def\diaglong#1#2{\mathsf{diag}_{#2}^2\diagarg#1}
+\def\diagarg#1(#2,#3,#4,#5,#6,#7,#8,#9){%
+\left(
+\vcenter{\hbox{\begin{tikzpicture}[xscale=#1]
+      \node (a) at (0,0) {$\scriptstyle #2$};
+      \node (b) at (2,0) {$\scriptstyle #3$};
+      \node (c) at (2,2) {$\scriptstyle #4$};
+      \node (d) at (0,2) {$\scriptstyle #5$};
+
+      \draw (a) -- node [auto] {$\scriptstyle #6$} (d);
+      \draw (d) -- node [auto] {$\scriptstyle #7$} (c);
+      \draw (a) -- node [auto,swap] {$\scriptstyle #8$} (b);
+      \draw (b) -- node [auto,swap] {$\scriptstyle #9$} (c);
+    \end{tikzpicture}}}
+  \right)}
 \def\homtwoshort#1(#2,#3,#4,#5,#6,#7){\hom_{#1}^2(#5,#6;#7)}
 \def\homtwo#1{\hom_{#1}^2\homtwoarg1}
 \def\homtwolong#1#2{\hom_{#2}^2\homtwoarg#1}
@@ -169,11 +187,11 @@
 
 
 %%% Map on paths %%%
-\newcommand{\mapfunc}[1]{\ensuremath{\mathsf{aphom}_{#1}}\xspace} % Without argument
+\newcommand{\mapfunc}[1]{\ensuremath{\mathsf{map}_{#1}}\xspace} % Without argument
 \newcommand{\map}[2]{\ensuremath{{#1}\mathopen{}\left({#2}\right)\mathclose{}}\xspace}
 \let\Ap\map
 %\newcommand{\Ap}[2]{\ensuremath{{#1}\left({#2}\right)}\xspace}
-\newcommand{\mapdepfunc}[1]{\ensuremath{\mathsf{apdhom}_{#1}}\xspace} % Without argument
+\newcommand{\mapdepfunc}[1]{\ensuremath{\mathsf{mapd}_{#1}}\xspace} % Without argument
 % \newcommand{\mapdep}[2]{\ensuremath{{#1}\llparenthesis{#2}\rrparenthesis}\xspace}
 \newcommand{\mapdep}[2]{\ensuremath{\mapdepfunc{#1}\mathopen{}\left(#2\right)\mathclose{}}\xspace}
 

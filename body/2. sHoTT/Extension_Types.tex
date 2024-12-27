@@ -3,12 +3,12 @@
 \begin{document}
 Extension types are important as they allow an easy interface to have types that depend on shapes and \textit{cofibrations}. To say more, suppose we have two shapes
  $\phi$ and $\psi$ and a judgement $ t : I \,| \,\phi \vdash \psi$. The judgement can intuitively be viewed as a shape inclusion, and we call this
-  shape inclusion a cofibration. For any type A that depends on $\psi$, and a term $a$ that depends on $\phi$. We then write 
+  shape inclusion a cofibration. Moreover, given judgements $\psi \mid \Gamma \vdash A$, and $\phi \mid \Gamma \vdash a : A$, we write the type of extensions of $a$ as
 \begin{equation}
     \label{eqn:extentype}
     \exten{t : I | \psi}{A}{\phi}{a}
 \end{equation}
- and say \ref{eqn:extentype} is the type of extensions of $a$. An extension type encodes the following diagram:
+An extension type encodes the following diagram:
 \[\begin{tikzcd}
 	&& A \\
 	\\
@@ -21,10 +21,10 @@ Extension types are important as they allow an easy interface to have types that
 \begin{remark}
 For readability purposes, we adopt the following conventions:
 \begin{enumerate}
-\item When $A$ does not depend on a shape, instead of $\exten{t : I | \psi}{A}{\phi}{a}$ we write $\ndexten{\preshape{t}{I}{\psi}}{A}{\phi}{a}$.
-\item When $\phi$ is $\bot$, we observe that $a$ is $\recbot$, so instead of $\exten{\preshape{t}{I}{\psi}}{A}{\bot}{\recbot}$, we write $\prd{\preshape{t}{I}{\psi}}A$
-\item We think of $A$ literally as a function $$A : \shape{t}{I}{\psi} \to \U$$ with a dependent function $a : \prd{\preshape{t}{I}{\phi}}A(t)$ and write 
-$\exten{\preshape{t}{I}{\psi}}{A(t)}{\phi}{a}$.
+\item When $A$ does not depend on a shape, instead of $\exten{t : I | \psi}{A}{\phi}{a}$ we write $\ndexten{\shape{t}{I}{\psi}}{A}{\phi}{a}$.
+\item When $\phi$ is $\bot$, we observe that $a$ is $\recbot$, so instead of $$\exten{\preshape{t}{I}{\psi}}{A}{\bot}{\recbot},$$ we write $$\prd{\preshape{t}{I}{\psi}}A$$ and instead of $$\ndexten{\shape{t}{I}{\psi}}{A}{\bot}{\recbot},$$ we write $$\shape{t}{I}{\psi} \to A.$$
+\item Since we have extension types defined, we can think of $A$ literally as a function $$A : \shape{t}{I}{\psi} \to \U$$ with a section $a : \prd{\preshape{t}{I}{\phi}}A(t)$ and write its extension type as\linebreak
+$$\exten{\preshape{t}{I}{\psi}}{A(t)}{\phi}{a}.$$
 \end{enumerate}
 \end{remark}
 The syntax of an extension type is not just suggestive. They are intended to be a generalization of dependent functions and as a
