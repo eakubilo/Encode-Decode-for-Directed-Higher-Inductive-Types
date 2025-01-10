@@ -1,13 +1,16 @@
 \documentclass[main.tex]{subfiles}
 
 \begin{document}
-When dealing with $\Sigma$ types, there are many techniques that we consider ubiquitous in our study. The first is that in the 
-non-dependent case, we can show that products are symmetric:
+For a type $A$ and a type family $C : A \to \U$, the sigma type $\sm{x:A}C(x)$ consists of dependent pairs $(a, u)$ where $a : A$ and $u : C(a)$. When the type family $C$ is constant, i.e., $C(x) = B$ for all $x : A$, the sigma type is equivalent to the Cartesian product, denoted $A \times B$. Throughout this thesis, we will utilize several fundamental properties of the dependent pair type. We begin by demonstrating the symmetry of the Cartesian product, revisiting our discussion from the introduction.
+
 \begin{lemma}
     \label{lem:sigissymm}
     For any two types $A$ and $B$, we have $A \times B \simeq B \times A$.
 \end{lemma}
-We can also show that associativity holds in all cases, even dependently:
+\begin{proof}
+    We define a function $f : A \times B \to B \times A$ by $f((a, b)) \defeq (b, a)$, and a function $g : B \times A \to A \times B$ by $g((b, a)) \defeq (a, b)$. We can then show that $f$ and $g$ are inverses of each other. For any $(a, b) : A \times B$, we have $g(f(a, b)) \equiv g((b, a)) \equiv (a, b)$. Similarly, for any $(b, a) : B \times A$, we have $f(g(b, a)) \equiv f((a, b)) \equiv (b, a)$. Therefore, $f$ and $g$ form an equivalence between $A \times B$ and $B \times A$.
+\end{proof}
+Furthermore, the dependent pair type exhibits associativity, a property that holds generally for dependent sums.
 \begin{lemma}[\cite{program_homotopy_2013}, Exercise 2.10]
     \label{lem:sigisassoc}
     For any type $A : \U$ and type families $B : A \to \U$ and $C : (\sm{x : A}B(x)) \to \U$, the following holds
@@ -15,4 +18,7 @@ We can also show that associativity holds in all cases, even dependently:
         \left( \sm{x : A}\sm{y : B(x)}C((x,y)) \right) \simeq \left( \sm{p : \sm{x:A}B(x)}C(p) \right)
     \end{equation}
 \end{lemma}
+
+
+    
 \end{document}

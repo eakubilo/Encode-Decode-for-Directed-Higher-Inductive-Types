@@ -38,7 +38,7 @@ and
 \prd{x : X}\prd{y : Y}Z(x,y) \simeq \prd{y : Y}{x : X}Z(x,y).
 \]
 The commutativity of the arugments of an extension type also follow.
-\begin{lemma}[\cite{emily_riehl_type_2018}, 4.1]
+\begin{lemma}[\cite{riehl_type_2017}, 4.1]
     If $t : I \, \mid \, \phi \vdash \psi$ and $X : \U$, while $Y : \{t : I \, \mid \phi\} \to X \to \U$ and $f : \prd{t : I \, \mid\, \phi }{x : X}Y(t,x)$ then
     \[
     \exten{t : I \, \mid \, \psi }{\prd{x : X}Y(t,x)}{\phi}{f} \simeq \prd{x : X}\exten{t : I \, \mid \, \psi}{Y(t,x)}{\phi}{f}
@@ -46,7 +46,7 @@ The commutativity of the arugments of an extension type also follow.
 \end{lemma}
 Similarly, we can curry the arguments of a function. That is, there is an equivalence $$X \to Y \to Z \simeq (X \times Y) \to Z.$$
 Extension types also behave similarly, allowing for currying and swapping in multiple argument functions.
-\begin{lemma}[\cite{emily_riehl_type_2018}, 4.2]
+\begin{lemma}[\cite{riehl_type_2017}, 4.2]
     \label{lem:exten_curry}
     If $t : I \mid \phi \vdash \psi$ and $s : J \mid \chi \vdash \zeta$, while
     \begin{equation*}
@@ -65,7 +65,7 @@ We can also extend the type theoretic axiom of choice, which states that there i
 \prd{x:X}\sm{y:Y(x)}Z(x,y) \simeq \sm{f:\prd{x:X}Y(x)}\prd{x:X}Z(x,f(x))
 \]
 to extension types:
-\begin{lemma}[\cite{emily_riehl_type_2018}, 4.3]
+\begin{lemma}[\cite{riehl_type_2017}, 4.3]
     \label{lem:taocwet}
     If \preshape{t}{I}{\phi \vdash \psi}, while $X : \shape{t}{I}{\psi} \to \U$ and $Y : \prd{\preshape{t}{I}{\psi}}(X(t) \to \U)$, while
     $a : \prd{\preshape{t}{I}{\phi}}X(t)$ and $b : \prd{\preshape{t}{I}{\phi}}Y(t,a(t))$, then 
@@ -77,13 +77,13 @@ to extension types:
 
 In HoTT, the relative function extensionality axiom allows us to conclude that $\prd{x:X}B(x)$ is contractible if each $B(x)$ is contractible.
 We can state a similar axiom using extension types.
-\begin{axiom}[\cite{emily_riehl_type_2018}, relative function extensionality, 4.6]
+\begin{axiom}[\cite{riehl_type_2017}, relative function extensionality, 4.6]
 \label{axi:relfunext}
 Supposing $\preshape{t}{I}{\phi \vdash \psi }$ and that $A : \shape{t}{I}{\phi} \to \U$ is such that each $A(t)$ is contractible, and
 moreover $a : \prd{\preshape{t}{I}{\phi}}A(t)$, then $\exten{\preshape{t}{I}{\psi}}{A(t)}{\phi}{a}$ is contractible.
 \end{axiom}
 We can also show that function extensionality follows from axiom~\ref{axi:relfunext}.
-\begin{lemma}[\cite{emily_riehl_type_2018}, 4.8]
+\begin{lemma}[\cite{riehl_type_2017}, 4.8]
     \label{lem:funext}
     Assuming axiom~\ref{axi:relfunext}, given a family $A : \shape{t}{I}{\psi}$ and $a : \prd{\preshape{t}{I}{\phi}}A(t)$, and $f,g : \exten{\preshape{t}{I}{\psi}}{A(t)}{\phi}{a}$, 
     the map
@@ -92,7 +92,7 @@ We can also show that function extensionality follows from axiom~\ref{axi:relfun
     \]
     is an equivalence.
 \end{lemma}
-As is done in \cite{emily_riehl_type_2018}, we assume axiom~\ref{axi:relfunext}.
+As is done in \cite{riehl_type_2017}, we assume axiom~\ref{axi:relfunext}.
 \ifSubfilesClassLoaded{%
     \bibliographystyle{plain}
     \bibliography{citations.bib}

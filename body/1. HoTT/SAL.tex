@@ -1,41 +1,51 @@
 \documentclass[main.tex]{subfiles}
 
 \begin{document}
-In type theory, we can recover the concept of a set by asking for a type that is determined by its objects. That is, a set is 
-a type with no higher homotopical data.
-\begin{definition}
+In the realm of type theory, the familiar notion of a set can be understood through a lens that emphasizes the identity of its elements. Specifically, a set in type theory is a type where objects are distinguished solely by their values, possessing no additional ``higher homotopical data". This leads to the following definition:
+\begin{definition}[\cite{program_homotopy_2013}, 3.1.1]
     A type $A$ is said to be a \textbf{set} if the type 
     \[
     \mathsf{isSet(A)} \defeq \prd{x,y : A}\prd{p,q : x=_A y} p = q
     \]
 \end{definition}
 
-There are two important classes of sets that we often overlook when doing classical math: those that contain \textit{exactly one} object,
-and those that contain \textit{at most one} object. These two classes form what we call $-2$ types and $-1$ types, respectively, with a set
-forming a $0$ type. We can actually form a hierarchy of classes of types following this interfact, but for this thesis we only additionally
-define the first two. 
+Building upon this foundation, type theory organizes types into a hierarchy based on their level of truncation, which indicates the highest dimension at which non-trivial homotopical information exists. Sets occupy the level of $0$-types. Of particular interest are the types that reside "below" sets in this hierarchy: contractible types ($-2$ types), which contain precisely one object, and propositions ($-1$ types), which contain at most one object. We now define these fundamental types, which are essential for understanding the broader concept of $n$-types.
 
-\begin{definition}
+\begin{definition}[\cite{program_homotopy_2013}, 3.11.1]
     A type $A$ is said to be \textbf{contractible} if the type
     \[
     \mathsf{isContractible(A)} \defeq \sm{x : A}\prd{y : A} x = y
     \]
 \end{definition}
-So, contractible types correspond to $-2$ types.
-\begin{definition}
+
+\begin{definition}[\cite{program_homotopy_2013}, 3.3.1]
     A type $A$ is said to be a \textbf{proposition} if the type
     \[
     \mathsf{isProp(A)} \defeq \prd{x,y : A} x= y
     \]
 \end{definition}
 
-Generally, based path spaces are contractible. We call this result \textbf{singleton contractibility}
-\begin{lemma}
+With contractibility defined, we can define the more general concept of an $n$-type.
+
+\begin{definition}
+    For any type $A$, we say it is a $-2$ type if it is contractible and an $n+1$ type if its identity types are $n$ types.
+\end{definition}
+
+We also have a fundamental result that relates the truncation level of a type to its identity types.
+
+\begin{lemma}[\cite{rijke2022introductionhomotopytypetheory}, 12.4.4]
+    \label{lem:ntypeidenntype}
+    For any type $A$, if it is an $n$-type, then its identity types are $n$-types.
+\end{lemma}
+
+A fundamental result in homotopy type theory is the contractibility of based path spaces. This result, often referred to as \textbf{singleton contractibility}, is formally stated as follows:
+
+\begin{lemma}[\cite{program_homotopy_2013}, 3.11.8]
     \label{lem:contractiblesingletons}
     For any type $A$ and $a : A$, the type $\sm{x:A}a=x$ is contractible.
 \end{lemma}
-When dealing with Sigma types, the base or fibers being contractible allow us to greatly simplify the type presentations, up to equivalence.
-\begin{lemma}
+When working with Sigma types (dependent sum types), the property of contractibility in either the base type or the fiber types leads to significant simplifications in the type structure, up to type equivalence. This is a crucial tool for simplifying type expressions.
+\begin{lemma}[\cite{program_homotopy_2013}, 3.11.9]
     \label{lem:contractibleissimple}
     For any type family $P : A \to \U$:
     \begin{enumerate}
@@ -43,9 +53,8 @@ When dealing with Sigma types, the base or fibers being contractible allow us to
         \item If $A$ is contractible with center of contraction $a:A$, then $\sm{x:A}P(x) \simeq P(a)$.
     \end{enumerate}
 \end{lemma}
-Finally, logic does not just appear when defining $n$-types. We can state a principle that is derived from the axiom of choice
-but slightly weaker, donned \textbf{the type theoretic axiom of choice}.
-\begin{lemma}
+Finally, it is important to note that logical principles arise naturally within type theory, and are not solely confined to the definition of $n$-types. We present a principle that is logically weaker than the full axiom of choice from classical set theory, known as \textbf{the type theoretic axiom of choice}.
+\begin{lemma}[\cite{program_homotopy_2013}, 1.7]
     \label{lem:ttaoc}
     For a type $X$ and type families $A : X \to \U$ and $P : \prd{x:X}A(x) \to \U$,
     \begin{equation}

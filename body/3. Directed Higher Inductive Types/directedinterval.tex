@@ -99,7 +99,7 @@ which allows us to define the point constructors of $\dco$ as
     &\dco(1_I) = g\\
 \end{align*}
 
-By lemma~\ref{lem:commisfunarr}, to define $\dco(\seg)$, it suffices to show that $\seg_*\circ f = g \circ \seg_*$. 
+By lemma~\ref{lem:covhoissq}, to define $\dco(\seg)$, it suffices to show that $\seg_*\circ f = g \circ \seg_*$. 
 It follows from the fact that both sides explode.
 \end{proof}
 
@@ -125,11 +125,19 @@ of which $\refl{\idhom{1_I}}$ suffices.
 \end{lemma}
 \begin{proof}
 First, we note that the type family $\lambda x.\Pi_{u : \co(x)} \normalfont \eco \, x (\dco \, x u) = u $ is covariant by~\ref{cor:pathwithfunciscov}, so it is inner.
-Thus, we can define $\epsilon$ as follows:
+Proceeding with the proof, we partially define $\epsilon$ as follows:
 
 $$\epsilon(0_I) = \lambda u. \text{abort}(u)$$
 $$\epsilon(1_I) = \lambda \star. \refl{\star}$$
-with $\epsilon(\seg)$ following from lemma~\ref{lem:commisfunarr} (both sides explode).
+To complete the definition, we must define a term $$\epsilon(\seg) : \ho[(\lambda x.\Pi_{u : \co(x)} \normalfont \eco \, x (\dco \, x u) = u)\seg]{f}{g}.$$
+By lemma~\ref{lem:depmorispath}, to inhabit the dependent morphism over $\seg$, we can provide a path in the type $$\seg_*(f) =_{\Pi_{u : \co(1_I)} \normalfont \eco \, 1_I (\dco \, 1_I u) = u} g$$
+which is definitionally equal to the type $$\seg_*(f) =_{\Pi_{u : \Un} \normalfont \star = u}.$$
+By lemma~\ref{lem:funext}, function extensionality, it suffices to define a term of type $$\prd{u : \Un}\seg_*(f)(u) =_{\star = u} g(u).$$
+To define the map, assume $u : \Un$. By lemma~\ref{lem:ntypeidenntype}, the contractability of $\Un$ passes onto its identity types. So, $\star =_\Un u$ is also contractible. Thus, there is an inhabitant of the type
+$$seg_*(f)(u) =_{\star = u} g(u).$$
+We can name this function $\phi : \prd{u : \Un}\seg_*(f)(u) =_{\star = u} g(u)$ and trace it back the chain of equivalences to define a morphism
+$$\phi' : \ho[(\lambda x.\Pi_{u : \co(x)} \normalfont \eco \, x (\dco \, x u) = u)\seg]{f}{g}.$$ We can then complete the definition of $\epsilon$ with
+$$\epsilon(\seg) = \phi'$$.
 \end{proof}
 
 \end{document}

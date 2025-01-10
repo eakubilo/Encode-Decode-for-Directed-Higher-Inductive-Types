@@ -1,15 +1,15 @@
 \documentclass[main.tex]{subfiles}
 
 \begin{document}
-Between functions, paths are not the only way to relate them. There is another natural relation between them that comes from
-pointwise identification.
-\begin{definition}
+Beyond paths between terms, functions themselves can be related in type theory. A natural way to compare functions is through pointwise identification.
+\begin{definition}[\cite{program_homotopy_2013}, 2.4.1]
     Let $P : A \to \U$ be a type family and $f,g : \prd{x : A}P(x)$. We write
     $f\sim g \defeq \prd{x : A} f(x) = g(x) $
     and say an inhabitant of $f \sim g$ is a \textbf{homotopy} from $f$ to $g$.
 \end{definition}
-Since homotopies are really just pointwise paths, we expect them to satisfy the same properties as types. 
-\begin{lemma}[HoTT Book 2.4.2]
+Since homotopies are essentially pointwise paths, we expect them to share fundamental properties with path equality.
+
+\begin{lemma}[\cite{program_homotopy_2013}, 2.4.2]
     Homotopy is an equivalence relation on the dependent function type. That is, for any type family $P : A \to \U$, there are maps
     \begin{align*}
         \prd{f : \prd{x : A}P(x)} f \sim f\\
@@ -17,36 +17,31 @@ Since homotopies are really just pointwise paths, we expect them to satisfy the 
         \prd{f,g,h : \prd{x : A} P(x)} \left ( f \sim g \right ) \to \left ( g \sim h \right ) \to \left (f \sim h\right )
     \end{align*}
 \end{lemma}
-We can have a similar discsusion about types rather than functions. In HoTT, a path is not the only way to say types $A$ and $B$ are
-"the same". Just as in category theory, the notion of "equivalence" also captures "sameness". A naive interpretation of equivalences
-in HoTT takes a map $f : A \to B$ and represent the types of all \textbf{quasi-inverses} as
+Moving beyond functions, we can consider how to express that two types, $A$ and $B$, are "the same". In Homotopy Type Theory, simple path equality between types is insufficient to capture this notion fully. Drawing inspiration from category theory, the concept of \textbf{equivalence} provides a more robust notion of sameness.
+
+A first attempt at defining equivalence might involve \textbf{quasi-inverses}. For a map $f : A \to B$, a quasi-inverse $g : B \to A$ would satisfy $f\circ g \sim \id{B}$ and $g \circ f \sim \id{A}$. The type of all quasi-inverses of $f$ can be written as:
 \[
     \qinv(f) \defeq \sm{g : B \to A}((f\circ g \sim \id{B})\times(g \circ f \sim \id{A})).
 \]    
-In category theory, this is a nice enough notion to represent "equivalence of categories". In HoTT, this type is not nice enough to 
-to be the premiere notion of equivalence. Instead, we can split the inverse into two parts. The first we denote
-as a \textbf{left inverse} and write the type of all left inverses as 
+While this notion aligns with the idea of equivalence in standard category theory, HoTT typically employs a different, more refined definition.
+
+Instead of relying on a single quasi-inverse, we can decompose the notion of an inverse into two parts: left and right inverses. A function $g$ is a \textbf{left inverse} of $f: A \to B$ if $g \circ f \sim \id{A}$, and the type of all left inverses is:
 \begin{equation*}
     \linv(f) \defeq \sm{g : B \to A}g \circ f \sim \id{A}.
 \end{equation*}
-The second is denoted as a \textbf{right inverse} and the type of all right inverses is written as
+Similarly, $g$ is a \textbf{right inverse} of $f$ if $f \circ g \sim \id{B}$, and the type of all right inverses is:
 \begin{equation*}
     \rinv(f) \defeq \sm{g : B \to A} f \circ g \sim \id{B}.
 \end{equation*}
-A map $f$ is a \textbf{bi-invertible} map if it has both a left and right inverse. That is, if the type
+A map $f$ is then considered an \textbf{equivalence} (or \textbf{bi-invertible}) if it possesses both a left and a right inverse. The type of proofs that $f$ is an equivalence is defined as:
 \begin{equation*}
-\biinv(f) \defeq \linv(f) \times \rinv(f)
-\end{equation*}
-is inhabited. Bi-invertible maps are the premiere notion of equivalence for this text. That is,
-\begin{equation*}
-    \iseq \defeq \biinv
+    \iseq(f) \defeq \biinv(f) \defeq \linv(f) \times \rinv(f).
 \end{equation*}
 
 
-If $A$ and $B$ are sets and $f : A \to B$ is an equivalence, we also call $f$ an \textit{isomorphism} or a \textit{bijection} to say that
-it is both \textit{surjective} and \textit{injective}. We can recover these concepts in type theory, where $A$ and $B$ are not necessarily
-sets.
-\begin{definition}
+This notion of equivalence generalizes the familiar idea of an isomorphism or bijection between sets. If $A$ and $B$ are sets, an equivalence $f: A \to B$ corresponds precisely to a function that is both surjective and injective. We can recover these concepts within type theory.
+
+\begin{definition}[\cite{program_homotopy_2013}, 4.6.1]
     For any $f : A \to B$
     \begin{enumerate}
         \item If for every $b:B$ the type $\trunc{}{\hfib{f}{b}}$ is inhabited, $f$ is said to be \textbf{surjective}
@@ -54,38 +49,37 @@ sets.
             \textbf{embedding}.
     \end{enumerate}
 \end{definition}
-We can prove that the two notions coincide.
-\begin{lemma}
+The connection between equivalences, surjectivity, and embeddings is fundamental:
+\begin{lemma}[\cite{program_homotopy_2013}, 4.6.3]
     \label{lem:equivissurjemb}
     A function $f : A \to B$ is an equivalence if and only if it is both surjective and an embedding.
 \end{lemma}
-Given two type families $P,Q : A \to \U$, we say a map $f : \prd{x:A}P(x) \to Q(x)$ is a \textbf{fiberwise map}. Fiberwise maps induce maps
-between total spaces.
-\begin{definition}[HoTT Book 4.7.5]
+When working with type families, $P,Q : A \to \U$, we introduce \textbf{fiberwise maps} to relate them. A fiberwise map $f : \prd{x:A}P(x) \to Q(x)$ provides a way to map elements within each fiber. Such maps naturally induce maps between the total spaces of the type families.
+\begin{definition}[\cite{program_homotopy_2013}, 4.7.5]
     For any type families $P,Q : A \to \U$ and fiberwise map $f : \prd{x:A}P(x) \to Q(x)$, 
     \begin{equation}
         \tot(f) \defeq \lam{(x,u)}(x, f(x,u)) : \sm{x : A}P(x) \to \sm{x:A}Q(x)
     \end{equation}
 \end{definition}
 
-We can prove closure properties as well. We say that $f$ is a fiberwise equivalence if, for each $f(x) : P(x) \to Q(X)$ is an equivalence.
+We can further define a \textbf{fiberwise equivalence}. A fiberwise map $f : \prd{x:A}P(x) \to Q(x)$ is a fiberwise equivalence if, for each $x:A$, the map $f(x) : P(x) \to Q(x)$ is an equivalence. This property is closely tied to whether the induced map on total spaces is an equivalence.
 
-\begin{lemma}[HoTT Book 4.7.7]
+\begin{lemma}[\cite{program_homotopy_2013}, 4.7.7]
     \label{lem:equivistotequiv}
     For any type families $P,Q : A \to \U$ and fiberwise map $f : \prd{x:A}P(x)\to Q(x)$, $f$ is a fiberwise equivalence if and only if
     $\tot(f)$ is an equivalence.
 \end{lemma}
-We can "transport" structure along equivalences as well to change base types in a total space.
+Equivalences play a crucial role in transporting structure. If $e : A \to B$ is an equivalence, it allows us to relate total spaces over $A$ and $B$.
 \begin{lemma}[HoTT Book Exercise 2.17]
     \label{lem:equivbaseequivtot}
-    If $e : A \to B$ is an equivalence with quasi-inverse $e^{-1}$, 
+    For any type family $C : A \to \U$, types $A$ and $B$, and equivalence $e : A \to B$ with quasi-inverse $e^{-1}$, 
     \begin{equation}
-        \sm{a : A}B(a) \simeq \sm{b:B}B(e^{-1}(b))
+        \sm{a : A}C(a) \simeq \sm{b:B}C(e^{-1}(b))
     \end{equation}
 \end{lemma}
 
-Path composition is also an equivalence.
-\begin{lemma}[HoTT Book Exercise 2.6]
+Finally, even path composition itself exhibits the structure of an equivalence.
+\begin{lemma}[\cite{program_homotopy_2013}, Exercise 2.6]
     \label{lem:compisequiv}
     For any $p : x = y$, the function
     \begin{equation}

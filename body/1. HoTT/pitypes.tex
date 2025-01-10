@@ -1,0 +1,17 @@
+\documentclass[main.tex]{subfiles}
+
+\begin{document}
+Given a type $A$ and a type family $B : A \to \U$, the dependent function type $\prd{x:A}B(x)$ is the type of all dependent functions. That is,
+That is, a function that takes some $x : A$ and returns a section $b(x) : B(x)$. Dependent functions are well known in MLTT and their behavior is largely
+the same in HoTT. The difference, though, lies with the following lemma.
+
+\begin{lemma}[\cite{program_homotopy_2013}, 2.9.3]
+    \label{lem:funext}
+    For all types $A$, type families $B : A \to \U$, and dependent functions $f,g : \prd{x:A}B(x)$ the function
+    $$\happly : f=g \to \prd{x:A}f(x)=g(x)$$
+    defined by path induction is an equivalence.
+\end{lemma}
+
+In MLTT, \ref{lem:funext} cannot be proven. In HoTT, the lemma is a consequence of univalence. 
+    
+\end{document}

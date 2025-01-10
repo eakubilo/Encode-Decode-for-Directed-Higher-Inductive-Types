@@ -1,24 +1,22 @@
 \documentclass[main.tex]{subfiles}
 
 \begin{document}
-Paths in type theory mirror paths in topology, which are morphisms in higher groupoids. The constant path
- $c_x$ is represented by $\refl{x}$. Path induction allows us to probe the more complex structure. For example, 
- we can show that paths are an equivalence relation, just like paths in topology. The following lemma shows the path type
-  is symmetric.
-\begin{lemma}[HoTT Book 2.1.1]
+The connection between type theory and topology is evident in the concept of paths. Paths in type theory, analogous to topological paths, act as morphisms in higher groupoids. The constant path at $x$ is $\refl{x}$. Using path induction, we can show that path equality forms an equivalence relation, mirroring the behavior of topological paths. The following lemmas demonstrate this property.
+
+\begin{lemma}[\cite{program_homotopy_2013}, 2.1.1]
     For any $x,y : A$ there is a function
     $$x = y \to y = x$$
     denoted by $p \mapsto p^{-1}$, such that $\refl{x}^{-1} \equiv \refl{x}$. We call $p^{-1}$ the \textbf{inverse} of $p$.
 \end{lemma}
 We can also show that path types are transitive.
-\begin{lemma}[HoTT Book 2.1.2]
+\begin{lemma}[\cite{program_homotopy_2013}, 2.1.2]
     For any $x,y,z : A$ there is a function
     $$x = y \to y = z \to x = z$$
     denoted by $p \mapsto q \mapsto q \cdot p$. We call $q \cdot p$ the \textbf{concatenation} of $p$ and $q$.
 \end{lemma}
-Due to the setting we are in, it is not enough to define maps that show paths are an equivalence relation if we want to say
- types are higher groupods. We must show that they satisfy coherence laws as well, considering we are in a proof-relevent setting.
-\begin{lemma}[HoTT Book 2.1.4]
+However, in the proof-relevant setting of type theory, simply having functions demonstrating these equivalence relation properties is not enough to fully capture the higher groupoid structure. We need to ensure that these operations behave consistently with each other. This is where the concept of coherence laws comes in. These laws assert the equality of different ways of manipulating paths, reflecting the fact that proofs themselves can be considered equal.
+
+\begin{lemma}[\cite{program_homotopy_2013}, 2.1.4]
     For any type $A$, $x,y,z,w : A$ $p : x =y$, $q : y = z$, and $r : z = w$ we have the following:
     \begin{enumerate}
         \item $p = p \cdot \refl{y}$ and $p = \refl{x} \cdot p$.
@@ -27,6 +25,5 @@ Due to the setting we are in, it is not enough to define maps that show paths ar
         \item $p \cdot (q \cdot r) = (p \cdot q) \cdot r$.
     \end{enumerate}
 \end{lemma}
-We are still not done, though. To truly show that types satisfy higher groupoid structure, we need to extend the lemmas we just stated
-to higher dimensions of paths.
+The lemmas presented so far illustrate the one-dimensional structure of paths. To fully realize the vision of types as higher groupoids, we must extend these concepts and demonstrate analogous properties for higher-dimensional paths – paths between paths, paths between paths between paths, and so on.
 \end{document}
