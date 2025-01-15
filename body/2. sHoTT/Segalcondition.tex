@@ -36,9 +36,14 @@ Our exploration extends beyond one dimension. We can also probe for $2$-dimensio
     $$\diagshort{A}(a,b,c,d,f,k,h,g)$$
     and say that an element of $\diagshort{A}(a,b,c,d,f,k,h,g)$ is a \textbf{diagram}.
 \end{definition}
-Importantly, $\mathbbm{2} \times \mathbbm{2}$ is the pushout of two copies of $\tsx$ along their common boundary.
-\todo{define connection squares?}
-We also observe that our probed shapes in types reflect the pushout property of $\tsx$. The following lemma demonstrates this fact by showing a diagram is a pushout of two $2$-morphisms.
+Importantly, $\mathbbm{2} \times \mathbbm{2}$ is the pushout of two copies of $\tsx$ along their common boundary. We can use this fact in two ways. The first allows us to create ``connection squares'', which are simple but powerful diagrams:
+\begin{lemma}[\cite{riehl_type_2017}, 3.5]
+    For any type $A$, points $a,b:A$, and morphism $f : \ho[A]{a}{b}$, there are diagrams
+    $$\bigvee\nolimits_f : \diag{A}(x,y,y,y,f,\idhom{y},f,\idhom{y})$$
+    $$\bigwedge\nolimits_f : \diag{A}(x,x,y,x,\idhom{x},f,\idhom{x},f)$$
+\end{lemma}
+
+In the second, we note that diagrams inherit the pushout property. More specifically, the following lemma shows that diagrams are a pushout of two $2$-morphisms.
 \begin{lemma}
     \label{lem:squareistwotriangles}
     For any type $A$ and morphisms $f : \ho[A]{a}{d}$, $g : \ho[A]{b}{c}$, $h : \ho[A]{a}{b}$, and $k : \ho[A]{d}{c}$, there is an equivalence 

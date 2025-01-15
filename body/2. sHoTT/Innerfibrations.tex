@@ -20,7 +20,7 @@ to be inner, we must make sense of what it means to be a "2-simplex in the total
 With that, we can precisely state what it means for a type family to be inner.
 
 \begin{definition}
-    For any type $A$, type family $C : A \to \uc$, and
+    For any type $A$, type family $C : A \to \U$, and
     \begin{gather*}
     x,y,z : A  \\
     f : \ho[A]{x}{y} \qquad g : \ho[A]{y}{z} \qquad h:\ho[A]{x}{z} \\
@@ -47,7 +47,7 @@ Covariant families are a wealthy source of inner families. Not only are covarian
 \end{lemma}
 
 \begin{lemma}
-    Given a Segal type $A$, for any $P : A \to \uc$ and $Q : \widetilde{P} \to \uc$ the type family
+    Given a Segal type $A$, for covariant families $P : A \to \U$ and $Q : \widetilde{P} \to \U$ the type family
     $$\lam{x : A}\prd{p : P(x)}Q(x,p)$$
     is inner.
 \end{lemma}
@@ -71,23 +71,23 @@ Covariant families are a wealthy source of inner families. Not only are covarian
     definitions by taking 
     \begin{align*}
         \zeta \defeq \comp{g}{f} \\
-        \epsilon \defeq  \ho[\uc]{P(\zeta(t))}{\sm{p : P(\zeta(t))} Q(\zeta(t),p)}\\
+        \epsilon \defeq  \ho[\uc]{\overline{P}(\zeta(t))}{\overline{\sm{p : P(\zeta(t))} Q(\zeta(t),p)}}\\
         \fst : \left(\sm{p : P(\zeta(t))} Q(\zeta(t),p)\right)\to P(\zeta(t)),
     \end{align*}
      this type is equivalent to
     \begin{equation*}
-        \displaystyle \exten{t : \tsx}{\sm{f : \epsilon} \dua(\fst) \circ f = \idhom{P(\zeta(t))}}{\tohorn}{\psi'}.
+        \displaystyle \exten{t : \tsx}{\sm{f : \epsilon} \dua(\fst) \circ f = \idhom{\overline{P}(\zeta(t))}}{\tohorn}{\psi'}.
     \end{equation*} 
     By lemma~\ref{lem:compequalis2mor}, this is equivalent to the extension type
     \begin{equation*}
-        \displaystyle \exten{t : \tsx}{\sm{f : \epsilon} \homtwoshort{\uc}(P(x), {\sm{p : P(\zeta(t))} Q(\zeta(t),p)}, P(x), \dua(\fst), f, \idhom{P(x)}) )}{\tohorn}{\psi''}
+        \displaystyle \exten{t : \tsx}{\sm{f : \epsilon} \homtwoshort{\uc}(P(x), {\sm{p : P(\zeta(t))} Q(\zeta(t),p)}, P(x), \dua(\fst), f, \idhom{\overline{P}(\zeta(t))})}{\tohorn}{\psi''}
     \end{equation*} 
-    Let $\alpha\equiv \lam{t}[(P(\zeta(t)), {\sm{p : P(\zeta(t))} Q(\zeta(t),p)}, P(\zeta(t)), \dua(\fst), \idhom{P(\zeta(t))}]$. 
+    Let $\alpha\equiv \lam{t}[(\overline{P}(\zeta(t)), \overline{\sm{p : P(\zeta(t))} Q(\zeta(t),p)}, \overline{P}(\zeta(t)), \dua(\fst), \idhom{\overline{P}(\zeta(t))}]$. 
     We can push our equivalence to the type
     \begin{equation*}
         \exten{t : \tsx}{\ndexten{\tsx}{\uc}{\tthorn}{\alpha(t)} }{\tohorn}{\psi'''}
     \end{equation*}
-    by lemma~\ref{rem:sumoverfistt}. We then proceed by applying lemma~\ref{lem:exten_curry} which allows us to swap the order of the nested extension types:
+    by lemma~\ref{rem:sumoverfistt} as we are taking the sum over a side of a 2-morphism. We then proceed by applying lemma~\ref{lem:exten_curry} which allows us to swap the order of the nested extension types:
     \begin{equation}
         \label{eqn:leminnerend}
         \exten{s : \tsx}{\exten{t : \tsx}{\uc}{\tohorn}{\lam{t } \psi'''(t)(s)}}{\tthorn}{\lam{t}\alpha(t)}

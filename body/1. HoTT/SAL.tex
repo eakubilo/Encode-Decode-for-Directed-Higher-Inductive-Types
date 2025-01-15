@@ -1,11 +1,11 @@
 \documentclass[main.tex]{subfiles}
 
 \begin{document}
-In the realm of type theory, the familiar notion of a set can be understood through a lens that emphasizes the identity of its elements. Specifically, a set in type theory is a type where objects are distinguished solely by their values, possessing no additional ``higher homotopical data". This leads to the following definition:
+In the realm of type theory, the familiar notion of a set can be understood through a lens that emphasizes the identity of its elements. Specifically, a set in type theory is a type that is distinguished by its objects, possessing no additional ``higher homotopical data". This leads to the following definition:
 \begin{definition}[\cite{program_homotopy_2013}, 3.1.1]
     A type $A$ is said to be a \textbf{set} if the type 
     \[
-    \mathsf{isSet(A)} \defeq \prd{x,y : A}\prd{p,q : x=_A y} p = q
+    \mathsf{isSet(A)} \defeq \prd{x,y : A}\prd{p,q : x=_A y} p =_{x=_A y} q
     \]
 \end{definition}
 
@@ -14,14 +14,14 @@ Building upon this foundation, type theory organizes types into a hierarchy base
 \begin{definition}[\cite{program_homotopy_2013}, 3.11.1]
     A type $A$ is said to be \textbf{contractible} if the type
     \[
-    \mathsf{isContractible(A)} \defeq \sm{x : A}\prd{y : A} x = y
+    \mathsf{isContractible(A)} \defeq \sm{x : A}\prd{y : A} x =_A y
     \]
 \end{definition}
 
 \begin{definition}[\cite{program_homotopy_2013}, 3.3.1]
     A type $A$ is said to be a \textbf{proposition} if the type
     \[
-    \mathsf{isProp(A)} \defeq \prd{x,y : A} x= y
+    \mathsf{isProp(A)} \defeq \prd{x,y : A} x=_A y
     \]
 \end{definition}
 

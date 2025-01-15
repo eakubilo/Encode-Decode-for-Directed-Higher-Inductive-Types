@@ -1,0 +1,34 @@
+{"rule":"SENTENCE_WHITESPACE","sentence":"^\\Q\\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q\\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q\\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q\\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q\\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q\\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q\\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q\\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q\\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q.\\E$"}
+{"rule":"A_UNCOUNTABLE","sentence":"^\\QWe can also show that dependent morphisms in a covariant type family from some are equivalent to a path whose domain is a transport of the source of the dependent morphism, analogous to the situation in HoTT.\\E$"}
+{"rule":"COMMA_COMPOUND_SENTENCE","sentence":"^\\QThe previous lemma is slightly easier to use in the following incarnation: Suppose \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q is covariant and we have maps \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q and \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q Then \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q is covariant.\\E$"}
+{"rule":"UPPERCASE_SENTENCE_START","sentence":"^\\Qnamed      .\\E$"}
+{"rule":"WHITESPACE_RULE","sentence":"^\\Qnamed      .\\E$"}
+{"rule":"UPPERCASE_SENTENCE_START","sentence":"^\\Qmake sure to do title page\\E$"}
+{"rule":"PAST_EXPERIENCE_MEMORY","sentence":"^\\QAs an empiricist I continue to think of the conceptual scheme of science as a tool, ultimately, for predicting future experience in the light of past experience.\\E$"}
+{"rule":"UPPERCASE_SENTENCE_START","sentence":"^\\Qbody/0.\\E$"}
+{"rule":"UPPERCASE_SENTENCE_START","sentence":"^\\Qacknowledgements Homotopy Type Theory (HoTT) extends Martin-Löf Type Theory (MLTT) with new axioms and type constructors that facilitate the study of \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q-groupoids and enable a homotopical interpretation of type theory.\\E$"}
+{"rule":"UPPERCASE_SENTENCE_START","sentence":"^\\Qbody/Introduction 1.\\E$"}
+{"rule":"UPPERCASE_SENTENCE_START","sentence":"^\\Qbody/1.\\E$"}
+{"rule":"MORFOLOGIK_RULE_EN_US","sentence":"^\\QHoTT/THG\\E$"}
+{"rule":"MORFOLOGIK_RULE_EN_US","sentence":"^\\QHoTT/TFAF\\E$"}
+{"rule":"MORFOLOGIK_RULE_EN_US","sentence":"^\\Q1.4 Homotopies and equivalences.\\E$"}
+{"rule":"MORFOLOGIK_RULE_EN_US","sentence":"^\\QHoTT/HomotopiesAndEquivalences\\E$"}
+{"rule":"MORFOLOGIK_RULE_EN_US","sentence":"^\\Q1.6 Univalence.\\E$"}
+{"rule":"MORFOLOGIK_RULE_EN_US","sentence":"^\\QHoTT/pitypes\\E$"}
+{"rule":"MORFOLOGIK_RULE_EN_US","sentence":"^\\QHoTT/sigmatypes\\E$"}
+{"rule":"MORFOLOGIK_RULE_EN_US","sentence":"^\\QIt is specialized to the case of a cube \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q and an inequality tope, including rules making the tope layer the coherent logic of a strict interval.\\E$"}
+{"rule":"A_INFINITIVE","sentence":"^\\QIt is specialized to the case of a cube \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q and an inequality tope, including rules making the tope layer the coherent logic of a strict interval.\\E$"}
+{"rule":"MISSING_GENITIVE","sentence":"^\\QSegal types are a useful model of the notion of category.\\E$"}
+{"rule":"UPPERCASE_SENTENCE_START","sentence":"^\\Qbody/2.\\E$"}
+{"rule":"MORFOLOGIK_RULE_EN_US","sentence":"^\\QsHoTT/Segalcondition\\E$"}
+{"rule":"MORFOLOGIK_RULE_EN_US","sentence":"^\\QsHoTT/Discretetypes\\E$"}
+{"rule":"MORFOLOGIK_RULE_EN_US","sentence":"^\\QsHoTT/rezk\\E$"}
+{"rule":"MORFOLOGIK_RULE_EN_US","sentence":"^\\QsHoTT/Covariantfibrations\\E$"}
+{"rule":"MORFOLOGIK_RULE_EN_US","sentence":"^\\QsHoTT/yoneda\\E$"}
+{"rule":"MORFOLOGIK_RULE_EN_US","sentence":"^\\QsHoTT/Directedunivalence\\E$"}
+{"rule":"MORFOLOGIK_RULE_EN_US","sentence":"^\\QsHoTT/Innerfibrations\\E$"}
+{"rule":"MORFOLOGIK_RULE_EN_US","sentence":"^\\QFor these types, our main object of study is the generalization of the fundamental groupoid of a space: the fundamental monoid of a category 3.1 Inductive types in sHoTT.\\E$"}
+{"rule":"UPPERCASE_SENTENCE_START","sentence":"^\\Qbody/3.\\E$"}
+{"rule":"MORFOLOGIK_RULE_EN_US","sentence":"^\\QDirected Higher Inductive Types/inductivetypes\\E$"}
+{"rule":"MORFOLOGIK_RULE_EN_US","sentence":"^\\QDirected Higher Inductive Types/directedinterval\\E$"}
+{"rule":"MORFOLOGIK_RULE_EN_US","sentence":"^\\QDirected Higher Inductive Types/directedcircle\\E$"}

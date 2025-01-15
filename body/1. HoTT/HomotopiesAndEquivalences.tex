@@ -44,7 +44,7 @@ This notion of equivalence generalizes the familiar idea of an isomorphism or bi
 \begin{definition}[\cite{program_homotopy_2013}, 4.6.1]
     For any $f : A \to B$
     \begin{enumerate}
-        \item If for every $b:B$ the type $\trunc{}{\hfib{f}{b}}$ is inhabited, $f$ is said to be \textbf{surjective}
+        \item If for every $b:B$ the type $\trunc{}{\hfib{f}{b}}$ is inhabited, $f$ is said to be \textbf{surjective}.
         \item If for every $x,y : A$ the function $\apfunc{f}:(x=_A y) \to (f(x) =_B f(y))$ is an equivalence, $f$ is said to be an
             \textbf{embedding}.
     \end{enumerate}
@@ -56,7 +56,7 @@ The connection between equivalences, surjectivity, and embeddings is fundamental
 \end{lemma}
 When working with type families, $P,Q : A \to \U$, we introduce \textbf{fiberwise maps} to relate them. A fiberwise map $f : \prd{x:A}P(x) \to Q(x)$ provides a way to map elements within each fiber. Such maps naturally induce maps between the total spaces of the type families.
 \begin{definition}[\cite{program_homotopy_2013}, 4.7.5]
-    For any type families $P,Q : A \to \U$ and fiberwise map $f : \prd{x:A}P(x) \to Q(x)$, 
+    For any type families $P,Q : A \to \U$ and fiberwise map $f : \prd{x:A}P(x) \to Q(x)$, we define
     \begin{equation}
         \tot(f) \defeq \lam{(x,u)}(x, f(x,u)) : \sm{x : A}P(x) \to \sm{x:A}Q(x)
     \end{equation}
@@ -70,7 +70,7 @@ We can further define a \textbf{fiberwise equivalence}. A fiberwise map $f : \pr
     $\tot(f)$ is an equivalence.
 \end{lemma}
 Equivalences play a crucial role in transporting structure. If $e : A \to B$ is an equivalence, it allows us to relate total spaces over $A$ and $B$.
-\begin{lemma}[HoTT Book Exercise 2.17]
+\begin{lemma}[\cite{program_homotopy_2013}, Exercise 2.17]
     \label{lem:equivbaseequivtot}
     For any type family $C : A \to \U$, types $A$ and $B$, and equivalence $e : A \to B$ with quasi-inverse $e^{-1}$, 
     \begin{equation}

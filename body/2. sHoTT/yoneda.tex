@@ -1,15 +1,22 @@
 \documentclass[main.tex]{subfiles}
 \begin{document}
-Covariant types also automatically make up the maps required to state Yoneda lemma. That is, for any covariant $C : A \to \U$ and $a : A$,
-there are maps
+With the concept of covariant fibrations developed, we are now equipped to delve into a foundational result in category theory: the Yoneda Lemma. The structure of covariant families naturally provides mappings necessary to state the Yoneda Lemma in sHoTT. That is, for any covariant $C : A \to \U$ and $a : A$, there are canonical maps
 \begin{align*}
     \evid{C}{a} \defeq \lam{\phi}\phi(a, \idhom{a}) & : \left ( \prd{x : A}(\ho[A]{a}{x}) \to C(x) \right ) \to C(a)\\
     \yon{C}{a} \defeq  \lam{\phi}\phi(a, \idhom{a}) & : C(a) \to \left ( \prd{x : A}(\ho[A]{a}{x}) \to C(x) \right )
 \end{align*}
-For covariant families over Segal bases, the Yoneda lemma holds.
-\begin{theorem}
-    Given a covariant family $C : A \to \U$ over a segal type $A$, for any $a : A$ the maps $\evid{C}{A}$ and $\yon{C}{a}$ form an equivalence.
+For covariant families defined over Segal types, the Yoneda Lemma is fully realized as follows:
+\begin{theorem}[\cite{riehl_type_2017}, 9.1]
+    \label{thm:yonlemma}
+    Given a covariant family $C : A \to \U$ over a Segal type $A$, for any $a : A$ the maps $\evid{C}{A}$ and $\yon{C}{a}$ form an equivalence.
 \end{theorem}
+We can also state a dependent version of the Yoneda lemma, which is analogous to a directed version of the path induction principle.
 
+\begin{theorem}[\cite{riehl_type_2017}, 9.5]
+    \label{thm:depyonlemma}
+    For any Segal type $A$, $a : A$, and covariant type family $C : \prd{x:A}(\ho[A]{a}{x} \to \U)$, the function
+    $$\evid{C}{a} \lam{\phi}\phi(a, \idhom{a}) : \left ( \prd{x : A}{f:\ho[A]{a}{x}}\to C(x,f) \right ) \to C(a, \idhom{a})$$
+    is an equivalence.
+\end{theorem}
 
 \end{document}

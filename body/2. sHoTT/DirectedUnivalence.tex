@@ -1,48 +1,53 @@
 \documentclass[main.tex]{subfiles}
 
 \begin{document}
-For discrete types A and B, we seek to make an identification between morphisms $\ho[\uc]{A}{B}$ and functions $A \to B$. Just as we do so in informal HoTT, we can make such an identification by defining some canonical function:
+For points $A, B : \uc$, we seek to make an identification between morphisms $\ho[\uc]{A}{B}$ and functions between types $\El(A) \to \El(B)$. That is, we seek to state some directed univalence principle that allows us to identify morphisms with functions. To formalize this notion, we start by defining some canonical function:
 
 \begin{lemma}
 \label{lem:can_define_htf}
-For any two discrete types $A$ and $B$, there is a function
+For any two $A,B : \uc$, there is a function
 \begin{equation}
-    \htf : \ho[\uc]{A}{B} \to (A \to B).
+    \htf : \ho[\uc]{A}{B} \to (\El(A) \to \El(B)).
 \end{equation}
 
 \end{lemma}
 \begin{proof}
-    We begin by observing that the identity function on $\uc$, \begin{equation}
-    \label{eqn:zetaisucovid}
-        \id{\uc} : \uc \to \uc
+    We begin by observing that the identity function on $\uc$,
+        $$\id{\uc} : \uc \to \uc$$
+    induces a covariant function $$F \defeq \lam{A : \uc}\El(A) : \uc \to \U.$$ So, by Lemma~\ref{lem:covcodiscov} the type family 
+    \begin{equation}
+        \label{eqn:zetaisucovid}
+    C \defeq \lam{B : \uc}\El(A) \to F(B) : \uc \to \U
     \end{equation}
-    is covariant, so by Lemma~\ref{lem:covcodiscov} the type family $$C \defeq \lam{B : \uc}A \to \id{\uc}(B) : \uc \to \U$$
-    is also covariant. Note that \eqref{eqn:zetaisucovid} can be restated as $C \equiv \lam{B : \uc} A \to B$. Finally, we appeal to the Yoneda lemma to define $\htf$:
-    $$\htf \defeq  \yon{C}{A}(\id{A})(B) \defeq \lam{f}f_*(\id{A}) : \ho[\uc]{A}{B} \to (A \to B) $$
+    is also covariant. Note that \eqref{eqn:zetaisucovid} can be restated as $C \equiv \lam{B : \uc} \El(A) \to \El(B)$. Finally, we appeal to \cref{thm:yonlemma}, the Yoneda lemma, to define $\htf$:
+    \begin{align}
+        \htf \defeq \\  \yon{C}{\El(A)}(\id{\El(A)})(\El(B)) \defeq\\ \lam{f}f_*(\id{\El(A)}) : \ho[\uc]{A}{B} \to (\El(A) \to \El(B)) 
+    \end{align}
 \end{proof}
 \begin{remark}
-    Note that $\htf$ acts functorially, as for any $f : \ho[\uc]{A}{B}$ and $g : \ho[\uc]{B}{C}$,
+    Note that $\htf$ behaves like a functor, so for any $f : \ho[\uc]{A}{B}$ and $g : \ho[\uc]{B}{C}$,
     \begin{align*}
-        \htf(g \cdot f) \equiv\\
-        (g\cdot f)_*(\id{A}) =\\
-        g_*(f_*(\id{A}))
+        \htf(g \cdot f) : \El(A) \to \El(C) \equiv\\
+        (g\cdot f)_*(\id{\El(A)}) =\\
+        g_*(f_*(\id{\El(A)})) \equiv \\
+        \lam{x:\El(A)}(\htf(g))((\htf(f))(x)) : \El(A) \to \El(C)
     \end{align*}
-with the second equality following from Proposition 8.16. 
+with the second equality following from \cref{lem:tptisfunctorial}. 
 
 \end{remark}
 Just as HoTT does not come equipped with tools to show idtoeqv is an equivalence, sHoTT also does not come equipped with the tools to show $\htf$
  is an equivalence. Instead, we can postulate \textit{directed univalence} as an axiom.
 
 \begin{axiom}[Directed Univalence]
-    For any discrete types $A,B : \uc$, the function defined in Lemma~\ref{lem:can_define_htf} is an equivalence.
+    For any points $A,B : \uc$, the function defined in Lemma~\ref{lem:can_define_htf} is an equivalence.
 \end{axiom}
 
-For discrete types $A$ and $B$, we can break the equivalence up into:
+For points $A,B : \uc$, we can break the equivalence up into:
 \begin{itemize}
     \item An introduction rule for $\ho[\uc]{A}{B}$ denoted $\dua$ for "directed univalence axiom":
-    $$\dua : (A \to B) \to (\ho[\uc]{A}{B})$$
+    $$\dua : (\El(A) \to \El(B)) \to (\ho[\uc]{A}{B})$$
     \item An elimination rule
-    $$\htf \defeq \yon{C}{A}(\id{A}) : \ho[\uc]{A}{B} \to (A \to B)$$
+    $$\htf \defeq \yon{C}{\El(A)}(\id{\El(A)}) : \ho[\uc]{A}{B} \to (\El(A) \to \El(B))$$
     \item The propositional computation rule
         $$\htf(\dua(f)) = f$$
     \item The propositional uniqueness rule, which states for any $f : \ho[\uc]{A} {B}$,
@@ -50,30 +55,36 @@ For discrete types $A$ and $B$, we can break the equivalence up into:
 \end{itemize}
 Directed univalence also allows us to  identify identity morphisms with identity functions and composition of morphisms in $\uc$ with composition of functions, stated tersely as
 \begin{align*}
-    \idhom{A} = \dua(\id{A})\\
+    \idhom{A} = \dua(\id{\El(A)})\\
     \dua{g}\cdot\dua{f} = \dua(g \circ f).
 \end{align*}
-The first equality from the fact that $\id{A} = (\idhom{A})_*(\id{A}) \equiv \htf(\idhom{A})$ by proposition 8.16. To show the second, if we define $p \defeq \dua(f)$ and $q \defeq \dua(g)$, then
+The first equality from the fact that \begin{align*}
+\id{\El(A)} = \\
+(\idhom{A})_*(\id{A}) \equiv \\
+\htf(\idhom{A})
+\end{align*} by proposition 8.16. To show the second, if we define $p \defeq \dua(f)$ and $q \defeq \dua(g)$, then
     $$\dua(g \circ f) = \dua(\htf(p) \circ \htf(q)) = \dua(\htf(p \cdot q)) = p \cdot q$$
 
 With directed univalence, we can show that dependent transport is really just coercing a morphism of types.
 \begin{lemma}
     \label{lem:tptissubst}
-    For any covariant type $P$ and morphism $f : \ho[A]{x}{y}$,
+    For any covariant family $P : A \to \U$ and morphism $f : \ho[A]{x}{y}$,
     \begin{equation*}
-        \dua(f_*) = P(f)
+        \dua(f_*) = \overline{P}(f)
     \end{equation*}
 \end{lemma}
 \begin{proof}
-    By lemma~\ref{lem:tpthomiscoethenapp}, it follows that 
+    We have the following chain of equalities:
     \begin{align*}
-        \dua(f_*) \defeq \\
-        \dua(\dtran{P}(f, -)) \simeq \\
-        \dua(\dtran{\lam{x}x}(\mapfunc{P}f, -)) \simeq \\
-        \dua(\htf(\mapfunc{P}f)) \simeq\\
-        \mapfunc{P}f \defeq \\
-        P(f)
+        \dua(f_*) \equiv \\
+        \dua(\dtran{P}(f, -)) \equiv \\
+        \dua(\dtran{\lam{x}\El(\overline{P}(x))}(f, -)) = \\
+        \dua(\dtran{\lam{x}\El(x)}(\mapfunc{\overline{P}}f, -)) \equiv \\
+        \dua(\htf(\mapfunc{\overline{P}}f)) = \\
+        \mapfunc{\overline{P}}f \defeq \\
+        \overline{P}(f)
     \end{align*}
+    with the first following from lemma~\ref{lem:tpthomiscoethenapp} which allows us to decompose the transport of a composition into an application and a coercion. The second equality comes from the propositional uniqueness rule.
 \end{proof}
 We can also show that a morphism between functions is a commutative square.
 \begin{lemma}
@@ -87,13 +98,13 @@ We can also show that a morphism between functions is a commutative square.
     By directed univalence,
     \begin{equation*}
         \ho[(\lam{x}F(x)\to G(x))h]{f}{q} \simeq
-        \ho[{(\lam{x}\ho[\uc]{F(x)}{G(x)})h}]{\dua f}{\dua g}
+        \ho[{(\lam{x}\ho[\uc]{\overline{F}(x)}{\overline{G}(x)})h}]{\dua f}{\dua g}
     \end{equation*}
     By lemma~\ref{lem:compissquare}, this is equivalent to
     \begin{equation*}
-        \dua g \cdot F(h) = G(h) \cdot \dua f
+        \dua g \cdot \overline{F}(h) = \overline{G}(h) \cdot \dua f
     \end{equation*}
-    which transports to
+    which is equivalent to
     \begin{equation*}
         \dua g \cdot \dua h_* = \dua h_* \cdot \dua f
     \end{equation*}
@@ -102,27 +113,26 @@ We can also show that a morphism between functions is a commutative square.
     \begin{equation*}
         \dua(g \circ h_*) = \dua(h_* \circ f).
     \end{equation*}
-    From there, we can apply $\htf$ to both sides, and noting that $\htf$ and $\dua$ are inverses, furhter extend the equivalence
+    From there, we can apply $\htf$ to both sides, and noting that $\htf$ and $\dua$ are inverses, extending the equivalence
     to the type $$g \circ h_* = h_* \circ f$$ by lemma ~\ref{lem:equivissurjemb}.
 \end{proof}
 Directed univalence also extends to characterizing dependent functions as morphisms in $\uc$.
 \begin{lemma}
     \label{lem:depfuncishom}
-    For any type family $P : A \to \uc$, for all $x : A$ and $Q : \tilde{P} \to \uc$, there is an equivalence
-
-    $$\prd{p : P(x)} Q(x,p) \simeq \sm{f : \ho[\uc]{P(x)}{\sm{p : P(x)} Q(x,p)}} \dua(\fst) \circ f = \idhom{P(x)}, $$
+    Given covariant type families $P : A \to \U$ and $Q : \tilde{P} \to \U$, for all $x:A$ there is an equivalence
+    $$\prd{p : P(x)} Q(x,p) \simeq \sm{f : \ho[\uc]{\overline{P}(x)}{\overline{\sm{p : P(x)} Q(x,p)}}} \dua(\fst) \circ f = \idhom{\overline{P}(x)}, $$
     where $\fst : \sm{p : P(x)}Q(x,p) \to P(x)$
 \end{lemma}
 \begin{proof}
     We begin by noting the following equivalences
     \begin{align*}
-        \sm{f : \ho[\uc]{P(x)}{\sm{p : P(x)} Q(x,p)}} \dua(\fst) \circ f = \idhom{P(x)} \simeq \\
-        \sm{f : P(x)\to \sm{p : P(x)} Q(x,p)}\dua(\fst) \circ \dua(f) = \idhom{P(x)}\simeq \\
-        \sm{f : P(x)\to \sm{p : P(x)} Q(x,p)}\dua(\fst \circ f) = \idhom{P(x)}\simeq \\
+        \sm{f : \ho[\uc]{\overline{P}(x)}{\overline{\sm{p : P(x)} Q(x,p)}}} \dua(\fst) \circ f = \idhom{\overline{P}(x)} \simeq \\
+        \sm{f : P(x)\to \sm{p : P(x)} Q(x,p)}\dua(\fst) \circ \dua(f) = \idhom{\overline{P}(x)}\simeq \\
+        \sm{f : P(x)\to \sm{p : P(x)} Q(x,p)}\dua(\fst \circ f) = \idhom{\overline{P}(x)}\simeq \\
         \sm{f : P(x)\to \sm{p : P(x)} Q(x,p)} \fst \circ f = \id{P(x)}
     \end{align*}
-    with the first equivalence following from lemma~\ref{lem:equivbaseequivtot}. The second equivalence is a result of the functorality 
-    of $\dua$ and lemmas~\ref{lem:compisequiv} and~\ref{lem:equivistotequiv}. The third equivalence comes from~\ref{lem:equivissurjemb}. Now that
+    with the first equivalence being a change of base type to an equivalence type thus following from lemma~\ref{lem:equivbaseequivtot}. The second equivalence is a result of the functorality 
+    of $\dua$ and lemmas~\ref{lem:compisequiv} and~\ref{lem:equivistotequiv}. The third equivalence comes from~\ref{lem:equivissurjemb} as since $\htf$ is an equivalence, thus an embedding. Now that
     we are working with functions, we can reduce the types further:
     \begin{align*}
        \sm{f : P(x) \to \sm{p : P(x)}Q(x,p)}\fst \circ f = \id{P(x)} \simeq \\
@@ -132,10 +142,106 @@ Directed univalence also extends to characterizing dependent functions as morphi
        \sm{(f, p): \sm{g : P(x) \to P(x)} g = \id{P(x)}} \prd{p : P(x)}Q(x,f(p)) \simeq \\
        \prd{p : P(x)}Q(x,p)
     \end{align*}
-    with the first equivalence following from lemma~\ref{lem:ttaoc}. The second follows from
-    lemma~\ref{lem:sigisassoc}. The third follows from lemma~\ref{lem:sigissymm}. The fourth follows again from
-    lemma~\ref{lem:sigisassoc}. The final equivalence follows from lemma~\ref{lem:contractiblesingletons} and lemma~\ref{lem:contractibleissimple}.
+    with the first equivalence following from the type theoretic axiom of choice, lemma~\ref{lem:ttaoc}. The second is an application of associativity, thus follows from
+    lemma~\ref{lem:sigisassoc}. The third follows from the symmetry of the non-dependent pair type, lemma~\ref{lem:sigissymm}. The fourth is another application of associativity thus follows again from
+    lemma~\ref{lem:sigisassoc}. Note that the base is now a contractible singleton, thus contractible by lemma~\ref{lem:contractiblesingletons}, and we can simplify the sigma type with a contractible base by lemma~\ref{lem:contractibleissimple}.
      Thus, we can get our desired equivalence by composing the two equivalences formed in this proof.
     \end{proof}
-
+%     \begin{lemma}
+%         \label{lem:commisfunarr}
+%         For any covariant type families $P : A \to \U$, $Q : \prd{x : A}P(x) \to \U$, morphisms $f : \ho[A]{x}{z}$ and dependent functions
+%         $\phi : \prd{p : P(x)}Q(x,p)$, $\psi : \prd{p : P(z)}Q(z,p)$, there is a map 
+%         \begin{equation}
+%             \label{eqn:commisfunarr}
+%             f_* \circ \phi = \psi \circ f_* \to \ho[(\lam{x}\prd{p : P(x)}Q(x,p))f]{\phi}{ \psi}
+%         \end{equation}
+%     \end{lemma}
+%     \begin{proof}
+%         We start by defining a map
+%         $$\zeta : \prd{p : P(x)}Q(x,p) \to (P(x) \to \sm{p : P(x)}Q(x,p))$$
+%         with the defining equation
+%         $$\zeta \defeq \lam{g}{p}(p, g(p)).$$
+%         The codomain of \ref{eqn:commisfunarr} can be written as a morphism of sections:
+%         \begin{equation*}
+%             \ho[(\lam{x}(\sm{h : P(x) \to \sm{p : P(x)} Q(x,p)} \fst \circ h = \id{P(x)}))f]{(\zeta(\phi), \refl{})}{(\zeta(\psi), \refl{})}
+%         \end{equation*}
+%         by lemma~\ref{lem:depfuncishom}. We can then write this type as its extension type as follows:
+%         \begin{equation*}
+%             \exten{t : \osx}{\sm{h : P(f(t)) \to \sm{p : P(f(t))}Q(f(t), p)}\fst \circ h = \id{P(f(t))}}{\pardo}{[(\zeta(\phi), \refl{}), (\zeta(\psi), \refl{})]}
+%         \end{equation*}
+%         Noting that this type is a "product of sigmas", we can use the type theoretical axiom of choice, lemma ~\ref{lem:taocwet}, to write it as a "sigma of products":
+%         \begin{equation}
+%             \label{eqn:commisfunarr1}
+%             \sm{(h : \ho[(\lam{x} P(x) \to \sm{p : P(x)}Q(x,p)))f]{\zeta(\phi)}{\zeta(\psi)}}\exten{t : \osx}{\fst \circ h(t) = \id{P(f(t))}}{\pardo}{[\refl{}, \refl{}]}.
+%         \end{equation}
+%         We aim to inhabit~(\ref{eqn:commisfunarr1}). Let $h : f_* \circ \phi = \psi \circ f_*$. For any $p : P(x)$, we can construct a term
+%         $$h \defeq (\refl{}, \happly(h)(p)) : (f_*(p), (f_* \circ \phi)(p) ) = (f_*(p), \psi( f_*(p)))$$
+%         Note that $(f_*(p), \psi( f_*(p))) \equiv (\lam{p}(p, \psi(p)))(f_*(p))$. In conjunction with lemma~\ref{cor:tptinsigma}, there is a term
+%         $$h' : f_* \circ (\lam{p}(p, \phi(p)))  = (\lam{p}(p, \psi(p)))\circ f_*, $$ 
+%         which by lemma~\ref{lem:compissquare} induces a term
+%         $$\bar{h} : \ho[(\lam{x} P(x) \to \sm{p : P(x)}Q(x,p))f]{\zeta(\phi)}{\zeta(\psi)},$$ noting the covariance of
+%         $\lam{x}\sm{p:P(x)}Q(x,p)$ by lemma~\ref{lem:covdomcovcodiscov}, that is represented by the diagram
+%     % https://q.uiver.app/#q=WzAsNCxbMCwwLCJQKHgpIl0sWzAsMiwiUCh5KSJdLFszLDAsIlxcc217cDpQKHgpfVEoeCxwKSJdLFszLDIsIlxcc217cDpQKHkpfVEoeSxwKSJdLFswLDIsIlxcemV0YShcXHBoaSkiXSxbMSwzLCJcXHpldGEoXFxwc2kpIl0sWzAsMSwiUChmKSIsMV0sWzIsMywiXFxzbXtwOlAoZil9UShmLHApIiwxXV0=
+%     \[\begin{tikzcd}
+%         {P(x)} &&& {\sm{p:P(x)}Q(x,p)} \\
+%         \\
+%         {P(y)} &&& {\sm{p:P(y)}Q(y,p)}
+%         \arrow["{\zeta(\phi)}", from=1-1, to=1-4]
+%         \arrow["{P(f)}"{description}, from=1-1, to=3-1]
+%         \arrow["{\sm{p:P(f)}Q(f,p)}"{description}, from=1-4, to=3-4]
+%         \arrow["{\zeta(\psi)}", from=3-1, to=3-4]
+%     \end{tikzcd}\]
+%         Note here that the horizontal represents a type theoretic function, while the verticals represent simplicial morphisms.
+%         We can pointwise compose $\bar{h}$ with the term $\lam{t}{p}\fst(p):\ho[(\lam{x} (\sm{p : P(x)}Q(x,p)) \to P(x))f]{\fst}{\fst}$
+%         which is represented by the diagram
+%     % https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXHNte3A6UCh4KX1RKHgscCkiXSxbMCwyLCJcXHNte3A6UCh5KX1RKHkscCkiXSxbMiwwLCJQKHgpIl0sWzIsMiwiUCh5KSJdLFswLDEsIlxcc217cDpQKGYpfVEoZixwKSIsMV0sWzAsMiwiXFxmc3QiLDFdLFsxLDMsIlxcZnN0IiwxXSxbMiwzLCJQKGYpIiwxXV0=
+%     \[\begin{tikzcd}
+%         {\sm{p:P(x)}Q(x,p)} && {P(x)} \\
+%         \\
+%         {\sm{p:P(y)}Q(y,p)} && {P(y)}
+%         \arrow["\fst"{description}, from=1-1, to=1-3]
+%         \arrow["{\sm{p:P(f)}Q(f,p)}"{description}, from=1-1, to=3-1]
+%         \arrow["{P(f)}"{description}, from=1-3, to=3-3]
+%         \arrow["\fst"{description}, from=3-1, to=3-3]
+%     \end{tikzcd}\]    
+%     to yield a term 
+%         $$\kappa \defeq \lam{t}\fst \circ \bar{h}(t) : \ho[(\lam{x} P(x) \to P(x))f]{\id{P(x)}}{\id{P(y)}},$$ represented by the diagram
+%     % https://q.uiver.app/#q=WzAsNCxbMCwwLCJQKHgpIl0sWzAsMiwiUCh5KSJdLFsyLDAsIlAoeCkiXSxbMiwyLCJQKHkpIl0sWzAsMSwiUChmKSIsMV0sWzAsMiwiXFxpZHtQKHgpfSIsMV0sWzIsMywiUChmKSIsMV0sWzEsMywiXFxpZHtQKHkpfSIsMV1d
+%     \[\begin{tikzcd}
+%         {P(x)} && {P(x)} \\
+%         \\
+%         {P(y)} && {P(y)}
+%         \arrow["{\id{P(x)}}"{description}, from=1-1, to=1-3]
+%         \arrow["{P(f)}"{description}, from=1-1, to=3-1]
+%         \arrow["{P(f)}"{description}, from=1-3, to=3-3]
+%         \arrow["{\id{P(y)}}"{description}, from=3-1, to=3-3]
+%     \end{tikzcd}\]
+%         Directed univalence allows us to turn this morphism-function amalgamation digram into a pure morphism diagram. That is, there is a term
+%         \begin{equation}
+%             \label{eqn:duacommisarr}
+%             \lam{t}\dua(\kappa(t)) : \ho[{(\lam{x} \ho[\uc]{P(x)}{P(x)})f}]{\idhom{P(x)}}{\idhom{P(y)}}
+%         \end{equation}
+%         represented by the diagram
+%         \[\begin{tikzcd}
+%         {P(x)} && {P(x)} \\
+%         \\
+%         {P(y)} && {P(y)}
+%         \arrow["{\idhom{P(x)}}"{description}, from=1-1, to=1-3]
+%         \arrow["{P(f)}"{description}, from=1-1, to=3-1]
+%         \arrow["{P(f)}"{description}, from=1-3, to=3-3]
+%         \arrow["{\idhom{P(y)}}"{description}, from=3-1, to=3-3]
+%     \end{tikzcd}\]
+%         We also make note of the fact that there is an "identity term" that inhabits the same type as \ref{eqn:duacommisarr}:
+%         $$\lam{t}\idhom{P(f(t))} : \ho[{(\lam{x} \ho[\uc]{P(x)}{P(x)})f}]{\idhom{P(x)}}{\idhom{P(y)}}.$$
+%         Thus, by lemma \todo{show that squares with the same side are equal in a segal type}, there is an inhabitant of the type
+%         $$\lam{t}\dua(\kappa(t)) = \lam{t}\idhom{P(f(t))}.$$
+%         This is equivalently typed as 
+%         $$\kappa = \lam{t}\id{P(f(t))} : \exten{t:\osx}{ \fst \circ \bar{h}(t) = \id{P(f(t))}}{\pardo}{[\refl{}, \refl{}]}$$
+%         Or, by unraveling definitional equalities:
+%         $$\lam{t}\fst \circ \bar{h}(t) = \lam{t}\id{P(f(t))}.$$
+%         This induces an inhabitant of the type 
+%         $$ \exten{t:\osx}{ \fst \circ \bar{h}(t) = \id{P(f(t))}}{\pardo}{[\refl{}, \refl{}]}$$
+%         as desired.
+%     \end{proof}
+    
 \end{document}
