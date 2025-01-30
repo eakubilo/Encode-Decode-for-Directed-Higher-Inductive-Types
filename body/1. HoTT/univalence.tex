@@ -1,7 +1,7 @@
 \documentclass[main.tex]{subfiles}
 
 \begin{document}
-As mentioned in the introduction, HoTT builds on top of MLTT by identifying paths between types $A =\U B$ with equivalences $A \simeq B$. We make the identification by first defining a map in one direction:
+As mentioned in the introduction, HoTT builds on top of MLTT by identifying paths between types $A =_\U B$ with equivalences $A \simeq B$. We make the identification by first defining a map in one direction:
 
 \begin{lemma}[\cite{program_homotopy_2013}, 2.10.1]
     For any types $A,B$, there is a function
@@ -9,7 +9,7 @@ As mentioned in the introduction, HoTT builds on top of MLTT by identifying path
     defined by path induction.
 \end{lemma}
 
-From there, Univalence appears as an axiom:
+From there, univalence appears as an axiom:
 
 \begin{axiom}[\cite{program_homotopy_2013}, 2.10.3]
     For all types $A,B : \U$, the function $\ide$ is an equivalence.

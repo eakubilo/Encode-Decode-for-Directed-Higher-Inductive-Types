@@ -40,7 +40,7 @@
 \end{figure}
 The foundation of sHoTT is a \textit{three-layer type theory with shapes}. More specifically, it is a type theory that consists 
 of a \textbf{cube layer} at the top, which is a simple type theory with finite products. Cubes in sHoTT are finite powers of 
-$\mathbbm{2}$, such as those in figure~\ref{fig:importantcubes}. The cube layer is formally the rules
+$\mathbbm{2}$, such as those in figure~\cref{fig:importantcubes}. The cube layer is formally the rules
 \begin{mathpar}
     \tw~\cube \and
     0:\tw \and
@@ -48,13 +48,18 @@ $\mathbbm{2}$, such as those in figure~\ref{fig:importantcubes}. The cube layer 
   \end{mathpar}
 
 
-We have the \textbf{tope layer} sitting under the cube layer. The tope layer includes the binary relation $\leq$ that turns
+We have the \textbf{tope layer} sitting under the cube layer. The tope layer includes the binary relation $\leq$ along with axioms detailed in \cref{fig:Strict-ax} that turns
 $\mathbbm{2}$ into the strict partial order with bottom element $0$ and top element $1$ \cite{kudasov_formalizing_2023}. The tope layer allows us to talk 
 about polytopes lying in cubes. That is, the tope layer is a two layer type theory that includes an extra, separate context for cubes. Judgements in the tope
  layer are generally expressed in the form
 \begin{mathpar}
     \Xi\mid\Phi\vdash \phi
 \end{mathpar}
+with judgements 
+\begin{gather*}
+    \Xi \vdash \top \, \mathsf{tope} \qquad \qquad \Xi \, \mid \, \Phi \vdash \top \qquad  \Xi \vdash \bot \, \mathsf{tope}
+\end{gather*}
+ensuring that the tope layer forms a bounded lattice. The full formal specification for the rules can be found in \cref{fig:cubes} and \cref{fig:topes}.
 \begin{figure}
     \begin{subfigure}[]{.48\textwidth}
         \[\begin{tikzcd}[execute at end picture={
@@ -82,7 +87,7 @@ about polytopes lying in cubes. That is, the tope layer is a two layer type theo
             \arrow[from=3-1, to=3-3]
             \arrow[from=3-3, to=1-3]
         \end{tikzcd}\]
-        \caption{$\pardt \defeq \shape{\langle t,s \rangle }{\mathbbm{2} \times \mathbbm{2}}{(0 \equiv s \leq t) \lor (s \equiv t) \lor (s \leq t \equiv 1)}$}
+        \caption{$\pardt \defeq \shape{\langle t,s \rangle }{\mathbbm{2} \times \mathbbm{2}}{(0 \equiv s) \lor (s \equiv t) \lor (t \equiv 1)}$}
     \end{subfigure}
     \begin{subfigure}[]{\linewidth}
         \[\begin{tikzcd}
@@ -94,7 +99,7 @@ about polytopes lying in cubes. That is, the tope layer is a two layer type theo
             \arrow[from=3-1, to=3-3]
             \arrow[from=3-3, to=1-3]
         \end{tikzcd}\]
-        \caption{$\pards \defeq \shape{\langle t,s \rangle }{\mathbbm{2} \times \mathbbm{2}}{( s \leq t \equiv 0) \lor (1 \equiv s \leq t) \lor (0 \equiv s \leq t) \lor (s \leq t \equiv 1)}$}
+        \caption{$\pards \defeq \shape{\langle t,s \rangle }{\mathbbm{2} \times \mathbbm{2}}{( t \equiv 0) \lor (s \equiv 1) \lor (s \equiv 0) \lor (t \equiv 1)}$}
     \end{subfigure}
     \caption{Some important shapes}
     \label{fig:importantshapes}
@@ -102,8 +107,7 @@ about polytopes lying in cubes. That is, the tope layer is a two layer type theo
 \end{figure}
 
 The tope layer also admits operations of finite disjunction, conjunction, equality, and inequality. The 
-operations in the top layer allow us to talk about shapes as seen as in figure~\ref{fig:importantshapes}. The formal rules
-of the cube layer are detailed in Appendix A.
+operations in the tope layer allow us to talk about shapes as seen as in \cref{fig:importantshapes}. Moreover, there is a principle of explosion available to us arising from the tope layer. For all types $A$, there is a term $\recbot : A$. If the tope layer entails the empty tope, then for all $a : A$, we have that $\recbot \equiv a$. Disjunction allows us to have disjunct terms resulting from disjunct shapes. For all types $A$ that have two shapes $\phi$ and $\psi$ along with terms depending on those shapes $a_\phi : A$ and $a_\psi : A$ that agree on their intersection, there is a term $\recOr{\phi,\psi}{a_\phi}{a_\psi}$. Whenever the tope context entails $\phi$, then $\recOr{\phi,\psi}{a_\phi}{a_\psi} \equiv a_\phi$. On the other hand, whenever the cope context entails $\psi$, then $\recOr{\phi,\psi}{a_\phi}{a_\psi} \equiv a_\psi$. The formal rules dictating these operations are detailed in \cref{fig:tope-or}.
 
 %check here https://tex.stackexchange.com/questions/360083/filling-of-diagrams-using-tikzcd
 

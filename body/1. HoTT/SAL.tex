@@ -9,7 +9,7 @@ In the realm of type theory, the familiar notion of a set can be understood thro
     \]
 \end{definition}
 
-Building upon this foundation, type theory organizes types into a hierarchy based on their level of truncation, which indicates the highest dimension at which non-trivial homotopical information exists. Sets occupy the level of $0$-types. Of particular interest are the types that reside "below" sets in this hierarchy: contractible types ($-2$ types), which contain precisely one object, and propositions ($-1$ types), which contain at most one object. We now define these fundamental types, which are essential for understanding the broader concept of $n$-types.
+Building upon this foundation, type theory organizes types into a hierarchy based on their level of truncation, which indicates the highest dimension at which non-trivial homotopical information exists. Sets occupy the level of $0$-types. Of particular interest are the types that reside ``below" sets in this hierarchy: contractible types ($-2$ types), which contain precisely one object, and propositions ($-1$ types), which contain at most one object. We now define these fundamental types, which are essential for understanding the broader concept of $n$-types.
 
 \begin{definition}[\cite{program_homotopy_2013}, 3.11.1]
     A type $A$ is said to be \textbf{contractible} if the type
@@ -25,13 +25,22 @@ Building upon this foundation, type theory organizes types into a hierarchy base
     \]
 \end{definition}
 
-With contractibility defined, we can define the more general concept of an $n$-type.
+HoTT also allows us tools to approximate types up to the propositional level, allowing for traditional concepts like the set theoretic subset to have analogues in type theory.
+\begin{definition}{\cite{program_homotopy_2013}, 3.7}
+    For any type $A$, there is another type $\trunc{}{A}$ called the \textbf{propositional truncation of} $A$, defined by the constructors
+    \begin{itemize}
+        \item For all $a : A$ we have $|a| : \trunc{}{A}$.
+        \item For all $x,y : \trunc{}{A}$ we have $x =_{\trunc{}{A}} y$
+    \end{itemize} 
+\end{definition} 
 
-\begin{definition}
+Apart from approximating types, we can extend our the definition of propositions and contractible types to higher dimensions. In a proposition, its identity types are contractible. We expect a set to be a type that is distinguished by its objects, thus it must have no non-trivial paths. Thus, a set is a type whose identity types are propositions. This pattern generalizes to all higher dimensions as seen in the following definition: 
+
+\begin{definition}[\cite{program_homotopy_2013}, 7.1.1]
     For any type $A$, we say it is a $-2$ type if it is contractible and an $n+1$ type if its identity types are $n$ types.
 \end{definition}
 
-We also have a fundamental result that relates the truncation level of a type to its identity types.
+We also have a fundamental result that relates the truncation level of a type, the highest level of which there is non-trivial homotopical data, to its identity types.
 
 \begin{lemma}[\cite{rijke2022introductionhomotopytypetheory}, 12.4.4]
     \label{lem:ntypeidenntype}

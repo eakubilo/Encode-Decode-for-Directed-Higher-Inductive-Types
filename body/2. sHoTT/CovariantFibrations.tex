@@ -1,18 +1,28 @@
 \documentclass[main.tex]{subfiles}
 
 \begin{document}
+\todo{do codes for sigma and pi}
 In section 2, we saw that all type families were fibrations and what that means specifically in HoTT. Of course in sHoTT type 
 families are also fibrations, with respect to \textit{paths} that is. When discussing which type families lift simplicial shapes,
 we must specify which shapes are being lifted. An important collection of type families are the ones that lift \textit{morphisms},
 covariantly or contravariantly. Before we can precisely define such type families, we must first specify what it means to be a 
- "lifted morphism".
+ ``lifted morphism".
 \begin{definition}[\cite{riehl_type_2017}, 8.1]
 Given a type $A$, a type family $C : A \to \U$, points $x,y : A$, a morphism $f : \ho[A]{x}{y}$ and points $u : C(x)$ and $v : C(y)$, the type of \textbf{dependent morphisms over} $f$ \textbf{from} $u$ to $v$ is written as $$
 \dho{C}{f}{u}{v} \defeq \exten{t : \osx}{C(f(t))}{\pardo}{[u,v]}.$$
 \end{definition}
-The dependent morphism represents the intuitive notion of "morphism in the total space". It is instructive to view an inhabitant $g :\dho{C}{f}{u}{v}$ as literally living above the morphism $f$, as the following diagram illustrates:
+With the dependent morphism defined, we can show that dependent functions can also be definitionally applied to morphisms.
+\begin{lemma}
+    Let $B : A \to \U$ and $\phi : \prd{x : A}B(x)$. Then, given $x,y : A$, there is a function
+    $$\mapdepfunc{\phi} : \prd{f : \ho[A]{x}{y}}\ho[B(f)]{\phi(x)}{\phi(y)}$$
+\end{lemma}
+\begin{proof}
+Same as \cref{lem:mapfunc}.
+\end{proof}
 
-\begin{figure}[h]
+The dependent morphism represents the intuitive notion of ``morphism in the total space". It is instructive to view an inhabitant $g :\dho{C}{f}{u}{v}$ as literally living above the morphism $f$, as the following diagram illustrates:
+
+\begin{figure}[H]
     \includesvg{figures/covariant.svg}
 \end{figure}
 
@@ -72,7 +82,7 @@ We can also show that dependent morphisms in a covariant type family from some a
 We now shift our focus to the categorical nature of fibrations, particularly in the context of covariant families over Segal bases. Such covariant families exhibit an important property: directed transporting is functorial. This property is formalized in the following lemma.
 
 \begin{lemma}[\cite{riehl_type_2017}, 8.16]
-    \cite{lem:tptisfunctorial}
+    \label{lem:tptisfunctorial}
     For any Segal type $A$, covariant family $C : A \to \U$, $f : \ho[A]{x}{y}$, $g : \ho[A]{y}{z}$, and $u : C(X)$, we have
     \begin{gather*}
         g_*(f_*\,u) = (g\cdot f)_*\,u \qquad \normalfont \text{ and } \qquad (\idhom{x})_*\,u = u
@@ -119,20 +129,15 @@ An important structural property of covariant families over Segal bases is that 
     If $A$ is discrete, then for any $x,y : A$, so is $x =_A y$.
 \end{corollary}
 
-We also enjoy some closure properties with covariant type families. The covariance of dependent functions passes over to dependent pairs:
-\begin{lemma}
+When dealing with multiple argument functions, covariance can be defined:
+\begin{definition}
     \label{lem:covdomcovcodiscov}
-    Given any type family $P : A \to \U$ and a covariant type family $Q : \prd{x : A}P(x) \to \U$,
+    Given any type family $P : A \to \U$, a type family $Q : \prd{x : A}P(x) \to \U$ is covariant if the type family
     \[
     C \defeq \lam{(x,p)}Q(x,p) : (\sm{x:A}P(x)) \to \U
     \]
     is covariant.
-\end{lemma}
-\begin{proof}
-    For any $f : \ho[\sm{x:A}P(x)]{(x,p)}{(y,p')}$ and $u : Q(x,p)$, we note that the type
-    $$\exten{\preshape{t}{I}{\osx}}{Q(\fst(f(t)), \snd(f(t)))}{0}{u}$$
-    is contractible by the covariance of $Q$. Hence, $C$ is covariant.
-\end{proof}
+\end{definition}
 
 We can show that the path types in covariant families are covariant:
 \begin{lemma}[\cite{riehl_type_2017}, 8.26]
@@ -208,12 +213,17 @@ The closure properties also allow us to characterize the action of transport on 
 
 Finally, we turn our attention to classifying universes for fibrations. In HoTT, the fact that all type families are fibrations allows us to view $\U$ as a classifying universe for fibrations. On the other hand, in sHoTT only some type families are covariant fibrations. While $\U$ is not a classifying universe for covariant fibrations, we can postulate the existence of a universe that is.
 \begin{axiom}
-    There is a Segal type $\uc$ along with objects $$\enn, \Unn : \uc$$
+    There is a Segal type $\uc$ along with objects $$\enn, \Unn, \voo : \uc,$$
     and decoding function
     $$\El : \uc \to \U$$
-    such that $\El(\enn) \equiv \mathbb{N}$, $\El(\Unn) \equiv \Un$, and $\El(x)$ is discrete for all $x : \uc$.
+    such that\footnote{$\mathbb{N}^d$ is defined in 3.1} $\El(\enn) \equiv \mathbb{N}^d$, $\El(\Unn) \equiv \Un$, $\El(\voo) \equiv \vo$, and $\El(x)$ is discrete for all $x : \uc$.
     Moreover, for any map $B : A \to \uc$, it is the case that the family 
-    $$\lam{x}\El (B(x)) : A  \to \U$$ is covariant and for any covariant family $C : A \to \U$, there is a map $\overline{C} : A \to \uc$ such that $\lam{x}\El(\overline{C}(x)) \equiv C$.
+    $$\lam{x}\El (B(x)) : A  \to \U$$ is covariant. Moreover, if $A$ is Segal, then for any $x,y : A$ there is a term $$\overline{\ho[A]{x}{y}} : \uc$$ such that $$\El(\overline{\ho[A]{x}{y}}) \equiv \ho[A]{x}{y}.$$ Similarly, if $B$ is discrete, then for any $x,y : B$ there is a term $$\overline{x=_B y}:\uc$$ such that $$\El(\overline{x=_{B} y})\equiv x=_{B} y.$$ 
+    Finally, for any $A : \uc$ and $P : \El(A) \to \uc$, there is a term
+    $$\overline{\sm{a:A}\El(P(a))} : \uc$$ such that
+    $$\El(\overline{\sm{a:A}\El(P(a))}) \equiv \sm{a:A}\El(P(a))$$
+    
+
 \end{axiom}
 
 

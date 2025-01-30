@@ -1,0 +1,17 @@
+\documentclass[main.tex]{subfiles}
+
+\begin{document}
+
+\begin{figure}
+    \centering
+    \begin{mathpar}
+      \inferrule{\Xi\mid\Phi\types \bot}{\Xi\mid\Phi\mid\Gamma\types \rec_\bot : A}\and
+      \inferrule{\Xi\mid\Phi\types \bot \\ \Xi\mid\Phi\mid\Gamma\types a:A}{\Xi\mid\Phi\mid\Gamma\types a\jdeq \rec_\bot}\and
+      \inferrule{
+        \Xi\mid\Phi\types \phi\lor\psi
+      }{\Xi\mid\Phi\mid\Gamma\types \rec_\lor^{\phi,\psi}(a_\phi,a_\psi) : A}
+    \end{mathpar}
+    \caption{Type elimination for tope disjunction}
+    \label{fig:tope-or}
+  \end{figure}
+\end{document}

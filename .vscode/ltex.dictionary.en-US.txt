@@ -33,3 +33,4 @@ codomain
 isomorphisms
 Rezk
 pushout
+extensionality

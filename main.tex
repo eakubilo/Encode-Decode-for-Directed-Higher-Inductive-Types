@@ -14,6 +14,7 @@
 \usepackage{caption}
 \usepackage{svg}
 \usepackage{floatrow}
+
 \usepackage{subcaption}
 \usepackage{lmodern}
 \usepackage{natbib}
@@ -21,9 +22,13 @@
 \usepackage{xr-hyper} 
 \usepackage[hidelinks]{hyperref}
 \usepackage[nameinlink]{cleveref}
+\usepackage[symbol]{footmisc}
+\usepackage{pdfpages} % Package to include PDF pages
+\usepackage{float}
 
 \usepackage[english]{babel}
 \usepackage[autostyle, english = american]{csquotes}
+\usepackage[lite]{mtpro2}
 
 
 
@@ -60,10 +65,10 @@
 \providecommand{\lemmaautorefname}{Lemma}
 
 \begin{document}
-%preamble
-\listoftodos
-\todo{make sure to do title page}
 
+\includepdf[pages=1]{body/thesis-first-page.pdf}
+
+%preamble
 \clearpage
 
 \thispagestyle{empty}
@@ -90,8 +95,7 @@
 \clearpage
 
 \subsection*{\centering Acknowledgements}
-\newpage
-\addcontentsline{toc}{subsection}{Acknowledgements}
+\addcontentsline{toc}{section}{Acknowledgements}
 \subfile{body/0. acknowledgements}
 \newpage
 \begin{abstract}
@@ -106,7 +110,7 @@ This thesis explores the construction of free categories such as the directed in
 
 \newpage 
 \subsection*{\centering Introduction}
-\addcontentsline{toc}{subsection}{Introduction}
+\addcontentsline{toc}{section}{Introduction}
 \subfile{body/Introduction}
 \newpage
 \section*{\centering 1. HoTT}
@@ -170,7 +174,7 @@ In this section, we delve into the foundational elements of HoTT, laying the gro
 \setcounter{subsection}{1}
 
 Simplicial homotopy type theory extends HoTT with \textit{extension types} and two extra layers, turning it into a
- \textit{type theory with shapes}. It is specialized to the case of a cube $\mathbbm{2}$ and an inequality tope, including rules making the tope layer the coherent logic of a strict interval. The top geometric layers interact with the bottom type theory layer
+ \textit{type theory with shapes}. It is specialized to the case of a cube $\mathbbm{2}$ and an inequality tope, including rules making the tope layer the coherent logic\footnote{A coherent logic is a fragment of first-order logic that only allows the quantifiers and connectives $\lor$, $\land$, $\top$, $\bot$, and $\exists$.} of a strict interval. The top geometric layers interact with the bottom type theory layer
  through extension types. Extension types allow us to introduce dependent functions whose domain is a shape. To introduce an extension type, a shape that includes into the domain shape, a term that depends on that shape must be provided. Then, the extension
  type can be thought of as extending the provided section from a partial domain to a full domain. 
 
@@ -242,20 +246,162 @@ In this section, we give an informal introduction to sHoTT and develop machinery
 
 
 \section{Directed Higher Inductive Types}
+\setcounter{section}{3}
+\setcounter{equation}{0}
+\setcounter{theorem}{0}
+\setcounter{subsection}{1}
 In this section, we start our investigation of directed higher inductive types, starting at types that have no simplicial data
 to types that have more complicated structure. For these types, our main object of study is the generalization of the fundamental groupoid 
-of a space: the \textbf{fundamental monoid} of a category
+of a space: the \textbf{fundamental monoid} of a category.
 \addcontentsline{toc}{subsection}{1. Inductive Types in sHoTT}
 \subsection*{3.1 Inductive types in sHoTT}
 \subfile{body/3. Directed Higher Inductive Types/inductivetypes}
+\setcounter{theorem}{0}
+\stepcounter{subsection}
 
 \addcontentsline{toc}{subsection}{2. Directed Interval}
 \subsection*{3.2 Directed Interval}
 \subfile{body/3. Directed Higher Inductive Types/directedinterval}
+\setcounter{theorem}{0}
+\stepcounter{subsection}
 
 \addcontentsline{toc}{subsection}{3. Directed Circle}
 \subsection*{3.3 Directed Circle}
 \subfile{body/3. Directed Higher Inductive Types/directedcircle}
+\setcounter{theorem}{0}
+\stepcounter{subsection}
+\newpage
+
+\subsection*{\centering Appendix}
+\addcontentsline{toc}{section}{Appendix}
+\begin{figure}[h]
+    \centering
+    \begin{mathpar}
+      \inferrule{ }{\unittype \cube}\and
+      \inferrule{I\cube \\ J\cube}{I\times J\cube}\and
+      \inferrule{(t:I)\in \Xi}{\Xi\types t:I}\and
+      \inferrule{ }{\Xi\types\star:\unittype}\\
+      \inferrule{\Xi\types s:I \\ \Xi\types t:J}{\Xi\types \pair{s,t}:I\times J}\and
+      \inferrule{\Xi\types t:I\times J}{\Xi\types \pi_1(t):I}\and
+      \inferrule{\Xi\types t:I\times J}{\Xi\types \pi_2(t):J}\and
+    \end{mathpar}
+    \caption{The cube layer}
+    \label{fig:cubes}
+  \end{figure}
+
+\begin{figure}
+    \centering
+    \begin{mathpar}
+      \inferrule{\phi\in \Phi}{\Xi\mid\Phi\types \phi}\and
+      \inferrule{ }{\Xi\types \top\tope}\and
+      \inferrule{ }{\Xi\mid \Phi \types \top}\and
+      \inferrule{ }{\Xi\types \bot\tope}\and
+      \inferrule{\Xi\mid\Phi\types \bot}{\Xi\mid\Phi\types \psi}\and
+      \inferrule{\Xi\types \phi\tope \\ \Xi\types \psi\tope}{\Xi\types (\phi\land\psi)\tope}\and
+      \inferrule{\Xi\mid\Phi\types \phi \\ \Xi\mid\Phi\types \psi}{\Xi\mid\Phi\types \phi\land\psi}\and
+      \inferrule{\Xi\mid\Phi\types \phi\land\psi}{\Xi\mid\Phi\types \phi}\and
+      \inferrule{\Xi\mid\Phi\types \phi\land\psi}{\Xi\mid\Phi\types \psi}\and
+      \inferrule{\Xi\types \phi\tope \\ \Xi\types \psi\tope}{\Xi\types (\phi\lor\psi)\tope}\and
+      \inferrule{\Xi\mid\Phi\types \phi}{\Xi\mid\Phi\types \phi\lor\psi}\and
+      \inferrule{\Xi\mid\Phi\types \psi}{\Xi\mid\Phi\types \phi\lor\psi}\and
+      \inferrule{\Xi\mid\Phi,\phi\types \chi \\ \Xi\mid\Phi,\psi\types\chi \\ \Xi\mid\Phi\types \phi\lor\psi}{\Xi\mid\Phi\types\chi}\and
+      \inferrule{\Xi\types s:I \\ \Xi\types t:I}{\Xi\types (s\jdeq t)\tope}\and
+      \inferrule{\Xi\types s:I}{\Xi\mid\Phi\types (s\jdeq s)}\and
+      \inferrule{\Xi\mid\Phi\types (s\jdeq t)}{\Xi\mid\Phi\types (t\jdeq s)}\and
+      \inferrule{\Xi\mid\Phi\types (s\jdeq t) \\ \Xi\mid\Phi\types (t\jdeq v)}{\Xi\mid\Phi\types (s\jdeq v)}\and
+      \inferrule{\Xi\mid\Phi\types (s\jdeq t) \\ \Xi,x:I \types \psi\tope \\ \Xi\mid\Phi\types \psi[s/x]}{\Xi\mid\Phi\types \psi[t/x]}\and
+      \inferrule{\Xi\types t:\unittype}{\Xi\mid\Phi\types t\jdeq\star}\and
+      \inferrule{\Xi\types s:I \\ \Xi\types t:J}{\Xi\mid\Phi\types \pi_1(\pair{s,t}) \jdeq s}\and
+      \inferrule{\Xi\types s:I \\ \Xi\types t:J}{\Xi\mid\Phi\types \pi_2(\pair{s,t}) \jdeq t}\and
+      \inferrule{\Xi\types t:I\times J}{\Xi\mid\Phi\types t \jdeq \pair{\pi_1(t),\pi_2(t)}}\and
+    \end{mathpar}
+    \caption{The tope layer}
+    \label{fig:topes}
+  \end{figure}
+
+  \begin{figure}
+    \centering
+    \begin{mathpar}
+      \inferrule{\Xi\mid\Phi\types \bot}{\Xi\mid\Phi\mid\Gamma\types \rec_\bot : A}\and
+      \inferrule{\Xi\mid\Phi\types \bot \\ \Xi\mid\Phi\mid\Gamma\types a:A}{\Xi\mid\Phi\mid\Gamma\types a\jdeq \rec_\bot}\and
+      \inferrule{
+        \Xi\mid\Phi\types \phi\lor\psi \\
+        \Xi\mid\Phi\mid\Gamma\types A\type \\
+        \Xi\mid\Phi,\phi\mid\Gamma\types a_\phi:A \\
+        \Xi\mid\Phi,\psi\mid\Gamma\types a_\psi:A \\
+        \Xi\mid\Phi,\phi\land\psi\mid\Gamma\types a_\phi \jdeq a_\psi
+      }{\Xi\mid\Phi\mid\Gamma\types \rec_\lor^{\phi,\psi}(a_\phi,a_\psi) : A}\and
+      \inferrule{
+        \Xi\mid\Phi\types \phi\lor\psi \\
+        \Xi\mid\Phi\mid\Gamma\types A\type \\
+        \Xi\mid\Phi,\phi\mid\Gamma\types a_\phi:A \\
+        \Xi\mid\Phi,\psi\mid\Gamma\types a_\psi:A \\
+        \Xi\mid\Phi,\phi\land\psi\mid\Gamma\types a_\phi \jdeq a_\psi
+      }{\Xi\mid\Phi,\phi\mid\Gamma\types \rec_\lor^{\phi,\psi}(a_\phi,a_\psi) \jdeq a_\phi}\and
+      \inferrule{
+        \Xi\mid\Phi\types \phi\lor\psi \\
+        \Xi\mid\Phi\mid\Gamma\types A\type \\
+        \Xi\mid\Phi,\phi\mid\Gamma\types a_\phi:A \\
+        \Xi\mid\Phi,\psi\mid\Gamma\types a_\psi:A \\
+        \Xi\mid\Phi,\phi\land\psi\mid\Gamma\types a_\phi \jdeq a_\psi
+      }{\Xi\mid\Phi,\psi\mid\Gamma\types \rec_\lor^{\phi,\psi}(a_\phi,a_\psi) \jdeq a_\psi}\and
+      \inferrule{\Xi\mid\Phi\types \phi\lor\psi \\ \Xi\mid\Phi\mid\Gamma\types a:A}{\Xi\mid\Phi\mid\Gamma\types a \jdeq \rec_\lor^{\phi,\psi}(a,a)}\and
+    \end{mathpar}
+    \caption{Type elimination for tope disjunction}
+    \label{fig:tope-or}
+  \end{figure}
+  \begin{figure}
+    \begin{align*}
+        x:\two \mid\cdot &\types (x\le x)\\
+        x:\two, y:\two, z:\two \mid (x\le y), (y\le z) &\types (x\le z)\\
+        x:\two, y:\two \mid (x\le y), (y\le x) &\types (x\jdeq y)\\
+        x:\two, y:\two \mid\cdot &\types (x\le y) \lor (y\le x)\\
+        x:\two \mid\cdot &\types (0\le x)\\
+        x:\two \mid\cdot &\types (x\le 1)\\
+        \cdot\mid (0\jdeq 1) &\types \bot
+      \end{align*}
+      \caption{Strict interval axioms}
+      \label{fig:Strict-ax}
+  \end{figure}
+  \begin{figure}
+    \centering
+    \begin{mathpar}
+      \inferrule{\sh{t:I}{\phi} \shaped \\ \sh{t:I}{\psi} \shaped \\ t:I \mid \phi \types \psi \\
+        \Xi\mid\Phi \types \Gamma \ctx \\
+        \Xi,t:I \mid \Phi,\psi \mid \Gamma \types A\type \\
+        \Xi,t:I \mid \Phi,\phi \mid \Gamma \types a:A
+      }{\Xi\mid\Phi\mid\Gamma \types \exten{t:I \mid \psi}{A}{\phi}{a} \type}\and
+      \inferrule{\sh{t:I}{\phi} \shaped \\ \sh{t:I}{\psi} \shaped \\ t:I \mid \phi \types \psi \\
+        \Xi\mid\Phi \types \Gamma \ctx \\
+        \Xi,t:I \mid \Phi,\psi \mid \Gamma \types A\type \\
+        \Xi,t:I \mid \Phi,\phi \mid \Gamma \types a:A \\\\
+        \Xi,t:I \mid \Phi,\psi \mid \Gamma \types b:A \\
+        \Xi,t:I \mid \Phi,\phi \mid \Gamma \types b\jdeq a
+      }{\Xi\mid\Phi\mid\Gamma \types \lam{t^{I\mid\psi}} b : \exten{t:I \mid \psi}{A}{\phi}{a}}\and
+      \inferrule{\sh{t:I}{\phi} \shaped \\ \sh{t:I}{\psi} \shaped \\ t:I \mid \phi \types \psi \\\\
+        \Xi\mid\Phi\mid\Gamma \types f:\exten{t:I \mid \psi}{A}{\phi}{a} \\
+        \Xi\types s:I \\ \Xi\mid\Phi\types \psi[s/t]
+      }{\Xi\mid\Phi\mid\Gamma \types f(s) : A}\and
+      \inferrule{\sh{t:I}{\phi} \shaped \\ \sh{t:I}{\psi} \shaped \\ t:I \mid \phi \types \psi \\\\
+        \Xi\mid\Phi\mid\Gamma \types f:\exten{t:I \mid \psi}{A}{\phi}{a} \\
+        \Xi\types s:I \\ \Xi\mid\Phi\types \phi[s/t]
+      }{\Xi\mid\Phi\mid\Gamma \types f(s) \jdeq a[s/t]}\and
+      \inferrule{\sh{t:I}{\phi} \shaped \\ \sh{t:I}{\psi} \shaped \\ t:I \mid \phi \types \psi \\
+        \Xi\mid\Phi \types \Gamma \ctx \\
+        \Xi,t:I \mid \Phi,\psi \mid \Gamma \types A\type \\
+        \Xi,t:I \mid \Phi,\phi \mid \Gamma \types a:A \\\\
+        \Xi,t:I \mid \Phi,\psi \mid \Gamma \types b:A \\
+        \Xi,t:I \mid \Phi,\phi \mid \Gamma \types b\jdeq a\\
+        \Xi\types s:I \\ \Xi\mid\Phi\types \psi[s/t]
+      }{\Xi\mid\Phi\mid\Gamma \types (\lam{t^{I\mid\psi}} b)(s) \jdeq b[s/t]}\and  
+      \inferrule{\sh{t:I}{\phi} \shaped \\ \sh{t:I}{\psi} \shaped \\ t:I \mid \phi \types \psi \\\\
+        \Xi\mid\Phi\mid\Gamma \types f:\exten{t:I \mid \psi}{A}{\phi}{a} \\
+      }{\Xi\mid\Phi\mid\Gamma \types f \jdeq \lam{t^{I\mid\psi}} f(t)}\and
+    \end{mathpar}
+    \caption{Extension types}
+    \label{fig:exten}
+  \end{figure}
+\newpage
 
 \bibliographystyle{alpha}
 \bibliography{citations.bib}

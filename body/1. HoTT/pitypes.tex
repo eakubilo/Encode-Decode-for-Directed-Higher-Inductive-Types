@@ -1,7 +1,7 @@
 \documentclass[main.tex]{subfiles}
 
 \begin{document}
-Given a type $A$ and a type family $B : A \to \U$, the dependent function type $\prd{x:A}B(x)$ is the type of all dependent functions. That is,
+Given a type $A$ and a type family $B : A \to \U$, the dependent function type $\prd{x:A}B(x)$ is the type of all dependent functions.
 That is, a function that takes some $x : A$ and returns a section $b(x) : B(x)$. Dependent functions are well known in MLTT and their behavior is largely
 the same in HoTT. The difference, though, lies with the following lemma.
 
@@ -12,6 +12,6 @@ the same in HoTT. The difference, though, lies with the following lemma.
     defined by path induction is an equivalence.
 \end{lemma}
 
-In MLTT, \ref{lem:funext} cannot be proven. In HoTT, the lemma is a consequence of univalence. 
+In MLTT, \cref{lem:funext} cannot be proven. In HoTT, the lemma is a consequence of univalence. 
     
 \end{document}

@@ -17,7 +17,7 @@ Since homotopies are essentially pointwise paths, we expect them to share fundam
         \prd{f,g,h : \prd{x : A} P(x)} \left ( f \sim g \right ) \to \left ( g \sim h \right ) \to \left (f \sim h\right )
     \end{align*}
 \end{lemma}
-Moving beyond functions, we can consider how to express that two types, $A$ and $B$, are "the same". In Homotopy Type Theory, simple path equality between types is insufficient to capture this notion fully. Drawing inspiration from category theory, the concept of \textbf{equivalence} provides a more robust notion of sameness.
+Moving beyond functions, we can consider how to express that two types, $A$ and $B$, are ``the same". In Homotopy Type Theory, simple path equality between types is insufficient to capture this notion fully. Drawing inspiration from category theory, the concept of \textbf{equivalence} provides a more robust notion of sameness.
 
 A first attempt at defining equivalence might involve \textbf{quasi-inverses}. For a map $f : A \to B$, a quasi-inverse $g : B \to A$ would satisfy $f\circ g \sim \id{B}$ and $g \circ f \sim \id{A}$. The type of all quasi-inverses of $f$ can be written as:
 \[
@@ -49,6 +49,7 @@ This notion of equivalence generalizes the familiar idea of an isomorphism or bi
             \textbf{embedding}.
     \end{enumerate}
 \end{definition}
+
 The connection between equivalences, surjectivity, and embeddings is fundamental:
 \begin{lemma}[\cite{program_homotopy_2013}, 4.6.3]
     \label{lem:equivissurjemb}

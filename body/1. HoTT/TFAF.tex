@@ -1,17 +1,17 @@
 \documentclass[main.tex]{subfiles}
 
 \begin{document}
-In the groupoid interpretation of type theory, a key goal is to establish the analogy between type families and fibrations from homotopy theory. We aim to treat a type family $P : A \to \U$ as a "bundle" of types over $A$, which requires demonstrating a suitable path lifting property. This property is facilitated by the concept of "transport," the type-theoretic equivalent of path lifting.
+In the groupoid interpretation of type theory, a key goal is to establish the analogy between type families and fibrations from homotopy theory. We aim to treat a type family $P : A \to \U$ as a ``bundle" of types over $A$, which requires demonstrating a suitable path lifting property. This property is facilitated by the concept of ``transport", the type-theoretic equivalent of path lifting.
 \begin{lemma}[\cite{program_homotopy_2013}, Transport, 2.3.1]
     For any type family $P : A \to \U$ and path $p : x =_A y$, there is a function 
     \[\mathsf{transport}^P(p, -) : P(x) \to P(y),\]
     or similarly denoted as $p_* : P(x) \to P(y)$ when clear from context.
 \end{lemma}
-Viewing a type family $P : A \to \U$ as the fibration $\sm{x : A}P(x) \to A$, transport provides the mechanism for lifting paths. Given $u : P(x)$ and a path $p : x \to y$, transporting $u$ yields $p_*(u) : P(y)$. The path lifting property formalizes this, stating the existence of a path in the total space connecting $(x,u)$ to $(y, p_*(u))$ that projects to the original path $p$.
+Viewing a type family $P : A \to \U$ as the fibration $\sm{x : A}P(x) \to A$, transport provides the mechanism for lifting paths. Given $u : P(x)$ and a path $p : x =_A y$, transporting $u$ along $p$ yields a point $p_*(u) : P(y)$. The path lifting property formalizes this, stating the existence of a path in the total space connecting $(x,u)$ to $(y, p_*(u))$ that projects to the original path $p$.
 
 \begin{lemma}[\cite{program_homotopy_2013}, Path lifting property, 2.3.2]
     Let $P : A \to \U$ be a type family and let $u : P(x)$ for some $x : A$. Then, for any $p : x = y$, there is a path
     $$\mathsf{lift}(u,p) : (x,u) = (y, p_*(u)).$$
-    in $\sm{x : A}P(x)$ such that $\fst(\text{lift}(u,p)) = p$.
+    in $\sm{x : A}P(x)$ such that $\fst(\mathsf{lift}(u,p)) = p$.
 \end{lemma}
 \end{document}

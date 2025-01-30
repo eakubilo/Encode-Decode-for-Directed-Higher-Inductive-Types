@@ -3,7 +3,7 @@
 \begin{document}
 In this section, we introduce another important class of fibrations: \textit{inner fibrations}. They extend the notion of the Segal property to the dependent case. That is, 
 inner fibrations have to do with completing \textit{horns} to a 2-simplex in the total space. Before we give the condition for a family
-to be inner, we must make sense of what it means to be a "2-simplex in the total space".
+to be inner, we must make sense of what it means to be a ``2-simplex in the total space".
 \begin{definition}
     Given a type $A$ and
     \begin{gather*}
@@ -47,53 +47,54 @@ Covariant families are a wealthy source of inner families. Not only are covarian
 \end{lemma}
 
 \begin{lemma}
-    Given a Segal type $A$, for covariant families $P : A \to \U$ and $Q : \widetilde{P} \to \U$ the type family
-    $$\lam{x : A}\prd{p : P(x)}Q(x,p)$$
+    \label{lem:covdomcovcodisinner}
+    Given a Segal type $A$, $P : A \to \uc$, and $Q : \widetilde{\El(P)} \to \uc$ the type family
+    $$\lam{x : A}\prd{p : \El(P(x))}\El(Q(x,p))$$
     is inner.
 \end{lemma}
 \begin{proof}
-    Since $A$ is Segal, by lemma~\ref{lem:totbaseseginner} it suffices to show$$\sm{a:A}\prd{p : P(a)}Q(a,p)$$ is Segal. 
+    Since $A$ is Segal, by lemma~\cref{lem:totbaseseginner} it suffices to show$$\sm{a:A}\prd{p : P(a)}Q(a,p)$$ is Segal. 
     Note that 
     \begin{equation*}
-        \tohorn \to \sm{a:A}\prd{p : P(a)}Q(a,p)\simeq \sm{\phi : \tohorn \to A}\prd{t : \tohorn}\prd{p : P(\phi(t))}Q(\phi(t),p)
+        \tohorn \to \sm{a:A}\prd{p : \El(P(a))}\El(Q(a,p))\simeq \sm{\phi : \tohorn \to A}\prd{t : \tohorn}\prd{p : \El(P(\phi(t)))}\El(Q(\phi(t),p))
     \end{equation*}
     by the type theoretic axiom of choice.
     The type of extensions of some $(\phi, \psi)$ of this type is
     \begin{equation*}
-        \sm{\mu : \ndexten{\tsx}{A}{\tohorn}{\phi}}\exten{t : \tsx}{\prd{p : P(\mu(t))}Q(\mu(t),p)}{\tohorn}{\psi}.
+        \sm{\mu : \ndexten{\tsx}{A}{\tohorn}{\phi}}\exten{t : \tsx}{\prd{p : \El(P(\mu(t)))}\El(Q(\mu(t),p))}{\tohorn}{\psi}.
     \end{equation*}
     Note that the base is contractible since $A$ is Segal, hence this type of extensions is equivalent to
     \begin{equation}
         \label{eqn:leminnerstart}
-        \exten{t : \tsx}{\prd{p : P(\comp{g}{f}(t))}Q(\comp{g}{f}(t), p) }{\tohorn}{\psi}
+        \exten{t : \tsx}{\prd{p : \El(P(\compy{g}{f}(t)))}\El(Q(\compy{g}{f}(t), p)) }{\tohorn}{\psi}
     \end{equation}
-    where $g,f$ make up the legs of $\phi$. We seek to show that this type is contractible. By lemma~\ref{lem:depfuncishom}, shortening
+    where $g,f$ make up the legs of $\phi$. We seek to show that this type is contractible. By lemma~\cref{lem:depfuncishom}, shortening
     definitions by taking 
     \begin{align*}
-        \zeta \defeq \comp{g}{f} \\
-        \epsilon \defeq  \ho[\uc]{\overline{P}(\zeta(t))}{\overline{\sm{p : P(\zeta(t))} Q(\zeta(t),p)}}\\
-        \fst : \left(\sm{p : P(\zeta(t))} Q(\zeta(t),p)\right)\to P(\zeta(t)),
+        \zeta \defeq \compy{g}{f} \\
+        \epsilon \defeq  \ho[\uc]{P(\zeta(t))}{\overline{\sm{p : \El(P(\zeta(t)))} \El(Q(\zeta(t),p))}}\\
+        \fst : \left(\sm{p : \El(P(\zeta(t)))} \El(Q(\zeta(t),p))\right)\to \El(P(\zeta(t))),
     \end{align*}
      this type is equivalent to
     \begin{equation*}
-        \displaystyle \exten{t : \tsx}{\sm{f : \epsilon} \dua(\fst) \circ f = \idhom{\overline{P}(\zeta(t))}}{\tohorn}{\psi'}.
+        \displaystyle \exten{t : \tsx}{\sm{f : \epsilon} \dua(\fst) \circ f = \idhom{P(\zeta(t))}}{\tohorn}{\psi'}.
     \end{equation*} 
-    By lemma~\ref{lem:compequalis2mor}, this is equivalent to the extension type
+    By lemma~\cref{lem:compequalis2mor}, this is equivalent to the extension type
     \begin{equation*}
-        \displaystyle \exten{t : \tsx}{\sm{f : \epsilon} \homtwoshort{\uc}(P(x), {\sm{p : P(\zeta(t))} Q(\zeta(t),p)}, P(x), \dua(\fst), f, \idhom{\overline{P}(\zeta(t))})}{\tohorn}{\psi''}
+        \displaystyle \exten{t : \tsx}{\sm{f : \epsilon} \homtwoshort{\uc}(P(x), {\sm{p : P(\zeta(t))} Q(\zeta(t),p)}, P(x), \dua(\fst), f, \idhom{P(\zeta(t))})}{\tohorn}{\psi''}
     \end{equation*} 
-    Let $\alpha\equiv \lam{t}[(\overline{P}(\zeta(t)), \overline{\sm{p : P(\zeta(t))} Q(\zeta(t),p)}, \overline{P}(\zeta(t)), \dua(\fst), \idhom{\overline{P}(\zeta(t))}]$. 
+    Let $\alpha\equiv \lam{t}[(P(\zeta(t)), \overline{\sm{p : P(\zeta(t))} Q(\zeta(t),p)}, P(\zeta(t)), \dua(\fst), \idhom{P(\zeta(t))}]$. 
     We can push our equivalence to the type
     \begin{equation*}
         \exten{t : \tsx}{\ndexten{\tsx}{\uc}{\tthorn}{\alpha(t)} }{\tohorn}{\psi'''}
     \end{equation*}
-    by lemma~\ref{rem:sumoverfistt} as we are taking the sum over a side of a 2-morphism. We then proceed by applying lemma~\ref{lem:exten_curry} which allows us to swap the order of the nested extension types:
+    by lemma~\cref{rem:sumoverfistt} as we are taking the sum over a side of a 2-morphism. We then proceed by applying lemma~\cref{lem:exten_curry} which allows us to swap the order of the nested extension types:
     \begin{equation}
         \label{eqn:leminnerend}
         \exten{s : \tsx}{\exten{t : \tsx}{\uc}{\tohorn}{\lam{t } \psi'''(t)(s)}}{\tthorn}{\lam{t}\alpha(t)}
     \end{equation} 
-    Since $\uc$ is Segal, the fibers of \ref{eqn:leminnerend} are contractible. Thus, the entire type in \ref{eqn:leminnerend} is contractible by relative functional extensionality. 
-    So, \ref{eqn:leminnerstart} is contractible as well, since it is equivalent to \ref{eqn:leminnerend}.
+    Since $\uc$ is Segal, the fibers of \cref{eqn:leminnerend} are contractible. Thus, the entire type in \cref{eqn:leminnerend} is contractible by relative functional extensionality. 
+    So, \cref{eqn:leminnerstart} is contractible as well, since it is equivalent to \cref{eqn:leminnerend}.
 \end{proof}
 
 \end{document}

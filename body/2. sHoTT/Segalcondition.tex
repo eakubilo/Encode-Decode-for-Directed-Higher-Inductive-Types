@@ -12,15 +12,12 @@ Having established our three-layer type theory and extension types, we can start
 Before we probe for more shapes, we turn our attention to the functorality of functions in sHoTT. In the last section, we saw that functions acted functorially on paths using path induction. In sHoTT, functions act functorially on morphisms by definition.
 Consequently, we have the following lemmas.
 \begin{lemma}[\cite{riehl_type_2017}, 6.1]
+    \label{lem:mapfunc}
     Let $A,B$ be types and $f : A \to B$. Then, given $x,y : A$, there is a function 
     \[\mapfunc{f} : \ho[A]{x}{y} \to \ho[B]{f x}{f y}\]
     When the context is clear, we often write $f(h)$ rather than $\mapfunc{f}h$ for $h : \ho[A]{x}{y}$.
 \end{lemma}
-Dependent functions can also be definitionally applied to morphisms.
-\begin{lemma}
-    Let $B : A \to \U$ and $\phi : \prd{x : A}B(x)$. Then, given $x,y : A$, there is a function
-    $$\mapdepfunc{\phi} : \prd{f : \ho[A]{x}{y}}\ho[B(f)]{\phi(x)}{\phi(y)}$$
-\end{lemma}
+
 Our exploration extends beyond one dimension. We can also probe for $2$-dimensional shapes and higher. For the purposes of this thesis, we focus on $1$ and $2$-dimensional shapes, and we will not delve into higher dimensional definitions here.
 \begin{definition}[\cite{riehl_type_2017}, 5.2]
     For points $x,y,z : A$ and morphisms $f : \ho[A]{x}{y}$, $g : \ho[A]{y}{z}$, and $h : \ho[A]{x}{z}$ which induces a term $[x,y,z,f,g,h]$ in context $\pardt$, we write
@@ -85,7 +82,7 @@ In the second, we note that diagrams inherit the pushout property. More specific
         \label{eqn:scndcoordinate}
         (\lam{\left \langle t,s \right \rangle : \mathbbm{2} \times \mathbbm{2}}\recOr{t\leq s, s \leq t }{\alpha_1(s, t)}{\alpha_2(t,s)})(s,t)
     \end{equation}
-    Noting that $s \leq t$, equation \ref{eqn:scndcoordinate} computes to
+    Noting that $s \leq t$, equation \cref{eqn:scndcoordinate} computes to
     $\alpha_1(t,s)$. Thus, the second coordinate is simply $\alpha_1$.
 
     In the third coordinate, we have the following term in the context of $\langle t,s \rangle : \tsx$:
@@ -93,9 +90,9 @@ In the second, we note that diagrams inherit the pushout property. More specific
         \label{eqn:thrdcoordinate}
         (\lam{\left \langle t,s \right \rangle : \mathbbm{2} \times \mathbbm{2}}\recOr{t\leq s, s \leq t }{\alpha_1(s, t)}{\alpha_2(t,s)})(t,s)
     \end{equation}
-    Again, since $s \leq t$, equation \ref{eqn:thrdcoordinate} computes to $\alpha_2(t,s)$, thus the third coordinate is simply $\alpha_2$.
+    Again, since $s \leq t$, equation \cref{eqn:thrdcoordinate} computes to $\alpha_2(t,s)$, thus the third coordinate is simply $\alpha_2$.
 
-    Since both round trips are definitionally the identity, the equivalence in \ref{eqn:squareistwotriangles} holds.
+    Since both round trips are definitionally the identity, the equivalence in \cref{eqn:squareistwotriangles} holds.
 \end{proof}
 Observe that, although we have introduced categorical terms such as diagrams and morphisms, a formal definition of a category in sHoTT is still forthcoming. Recall that in HoTT, path composition was a natural consequence of path induction, subsequently revealing the groupoidal nature of types. While it is tempting to anticipate a similar derivation for morphism composition, this expectation does not hold. Morphism composition in sHoTT requires a different approach, as it is not a direct result of inductive principles as with paths.
 
@@ -118,12 +115,12 @@ Thus, in Segal types, composable morphisms directly correspond to 2-mor{\linebre
     $$
     is an equivalence. 
     \end{lemma}
-    In the proof of \ref{lem:segalisrestrict}, \cite{riehl_type_2017} proves along the way that there is an equivalence
+    In the proof of \cref{lem:segalisrestrict}, \cite{riehl_type_2017} proves along the way that there is an equivalence
     \begin{equation}
         \sm{h : \ho[A]{x}{z}}\homtwo{A}(x,y,z,f,g,h) \simeq \ndexten{\tsx}{A}{\tohorn}{[x,y,z,f,g]}.
     \end{equation}
     As we will see, it is also useful to consider summing over the other sides of a 2-morphism.
-    \begin{corollary}
+    \begin{proposition}
         In any type $A$, there are equivalences
         \begin{equation}
             \label{rem:sumoverfistt}
@@ -133,7 +130,29 @@ Thus, in Segal types, composable morphisms directly correspond to 2-mor{\linebre
         \begin{equation}
         \sm{g : \ho[A]{y}{z}}\homtwo{A}(x,y,z,f,g,h) \simeq \ndexten{\tsx}{A}{\tzhorn}{[x,y,z,f,h]}.
         \end{equation}
-    \end{corollary}
+    \end{proposition}
+    \begin{proof}
+        Let $\osx_{2}$ denote the bottom leg and $\osx_{0}$ denote the right leg of $\tsx$. We can observe then that 
+        \begin{itemize}
+            \item $\tthorn \cap \osx_{2} = \partial \osx_{2}$ and $\tzhorn \cap \osx_{0} = \partial \osx_{0}$
+            \item $\tthorn \cup \osx_{2} = \pardt$ and $\tzhorn \cup \osx_{0} = \pardt$.
+        \end{itemize}
+        Hence, by \cref{lem:disjunctexten}, there are equivalences
+        \begin{align*}
+            \sm{f : \ho[A]{x}{y}}\homtwo{A}(x,y,z,f,g,h) \equiv \\
+            \sm{f : \ndexten{\osx}{A}{\pardo}{[x,y]}}\ndexten{\tsx}{A}{\pardt}{[x,y,z,f,g,h]} \simeq \\
+            \sm{l : \ndexten{\pardt}{A}{\tthorn}{[x,y,z,g,h]}}\ndexten{\tsx}{A}{\pardt}{l} \simeq\\ 
+            \ndexten{\tsx}{A}{\tthorn}{[x,y,z,g,h]}
+        \end{align*}
+        and 
+        \begin{align*}
+            \sm{g : \ho[A]{y}{z}}\homtwo{A}(x,y,z,f,g,h)\equiv \\
+            \sm{g : \ndexten{\osx}{A}{\pardo}{[y,z]}}\ndexten{\tsx}{A}{\pardt}{[x,y,z,f,g,h]} \simeq \\
+            \sm{l : \ndexten{\pardt}{A}{\tzhorn}{[x,y,z,f,h]}}\ndexten{\tsx}{A}{\pardt}{l} \simeq \\
+            \ndexten{\tsx}{A}{\tzhorn}{[x,y,z,f,h]}
+        \end{align*}
+        with, in both cases, the first equivalence following from \cref{lem:disjunctexten} and the second \cref{lem:compofexten}.
+    \end{proof}
 
 Now that we've covered that digression, we can examine the categorical structure of Segal types. We already have three key components: objects (which are points of a type), morphisms (which are points of the morphism type), and a weak composition function that arises from the Segal definition. Unit and associativity laws also follow.
 
@@ -167,19 +186,19 @@ Furthermore, composition and equality are closely related.
 Extending this idea, commutative squares correspond to commuting morphisms.
 \begin{lemma}
     \label{lem:compissquare}
-    Given a Segal type $A$ and compatible morphisms $f : \ho[A]{a}{d}$, \linebreak $k:\ho[A]{d}{c}$, $h:\ho[A]{a}{b}$, and $g : \ho[A]{d}{c}$ then
+    Given a Segal type $A$ and compatible morphisms $f : \ho[A]{a}{d}$, \linebreak $k:\ho[A]{d}{c}$, $h:\ho[A]{a}{b}$, and $g : \ho[A]{b}{c}$ then
     \begin{equation}
         \diag{A}(a,b,c,d,f,k,h,g) \simeq k\cdot f = g \cdot h
     \end{equation}
 \end{lemma}
 \begin{proof}
-By lemma~\ref{lem:squareistwotriangles},
+By lemma~\cref{lem:squareistwotriangles},
 $$        \diagshort{A}(a,b,c,d,f,k,h,g) \simeq \sm{p : \ho[A]{a}{c}}\homtwoshort{A}(a,d,c,f,k,p) \times \homtwoshort{A}(a,b,c,h,g,p) .$$
-By lemma~\ref{lem:compissquare}, the both $2$-morphism types in the codomain can be equated with path types
+By lemma~\cref{lem:compissquare}, the both $2$-morphism types in the codomain can be equated with path types
 $$\sm{p : \ho[A]{a}{c}}\homtwoshort{A}(a,d,c,f,k,p) \times \homtwoshort{A}(a,b,c,h,g,p) \simeq \sm{p : \ho[A]{a}{c}} k\cdot f = p \times g \cdot h = p.$$
-By lemma~\ref{lem:sigisassoc}, we can reassociate the pair type as follows
+By lemma~\cref{lem:sigisassoc}, we can reassociate the pair type as follows
 $$\sm{p : \ho[A]{a}{c}} k\cdot f = p \times g \cdot h = p \simeq \sm{t : \sm{p : \ho[A]{a}{c}} k\cdot f = p } g \cdot h = \fst(t).$$
-Note that the base is contractible by singleton contractibility, with center of contraction $k \cdot f$. Thus, by lemma~\ref{lem:contractibleissimple}, the codomain is equivalent to 
+Note that the base is contractible by singleton contractibility, with center of contraction $k \cdot f$. Thus, by lemma~\cref{lem:contractibleissimple}, the codomain is equivalent to 
 $$g \cdot h = k \cdot f. $$ Our desired equation is the composition of all of the equivalences constructed in this proof.
 \end{proof}
 \end{document}

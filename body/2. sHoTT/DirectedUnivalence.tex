@@ -6,15 +6,15 @@ For points $A, B : \uc$, we seek to make an identification between morphisms $\h
 \begin{lemma}
 \label{lem:can_define_htf}
 For any two $A,B : \uc$, there is a function
-\begin{equation}
+\begin{equation*}
     \htf : \ho[\uc]{A}{B} \to (\El(A) \to \El(B)).
-\end{equation}
+\end{equation*}
 
 \end{lemma}
 \begin{proof}
     We begin by observing that the identity function on $\uc$,
         $$\id{\uc} : \uc \to \uc$$
-    induces a covariant function $$F \defeq \lam{A : \uc}\El(A) : \uc \to \U.$$ So, by Lemma~\ref{lem:covcodiscov} the type family 
+    induces a covariant function $$F \defeq \lam{A : \uc}\El(A) : \uc \to \U.$$ So, by Lemma~\cref{lem:covcodiscov} the type family 
     \begin{equation}
         \label{eqn:zetaisucovid}
     C \defeq \lam{B : \uc}\El(A) \to F(B) : \uc \to \U
@@ -24,27 +24,34 @@ For any two $A,B : \uc$, there is a function
         \htf \defeq \\  \yon{C}{\El(A)}(\id{\El(A)})(\El(B)) \defeq\\ \lam{f}f_*(\id{\El(A)}) : \ho[\uc]{A}{B} \to (\El(A) \to \El(B)) 
     \end{align}
 \end{proof}
-\begin{remark}
-    Note that $\htf$ behaves like a functor, so for any $f : \ho[\uc]{A}{B}$ and $g : \ho[\uc]{B}{C}$,
+We first observe that $\htf$ behaves like a functor, which is formalized by the following lemma:
+\begin{lemma}
+    \label{lem:htfisfunctor}
+    For all $A,B,C : \uc$ along with $f : \ho[\uc]{A}{B}$ and $g : \ho[\uc]{B}{C}$,
+    \[
+    \htf(g \cdot f) = \htf{g} \circ \htf{f}
+    \]
+\end{lemma}
+\begin{proof}
     \begin{align*}
         \htf(g \cdot f) : \El(A) \to \El(C) \equiv\\
         (g\cdot f)_*(\id{\El(A)}) =\\
         g_*(f_*(\id{\El(A)})) \equiv \\
-        \lam{x:\El(A)}(\htf(g))((\htf(f))(x)) : \El(A) \to \El(C)
+        \lam{x:\El(A)}(\htf(g))((\htf(f))(x)) \equiv \\
+        \htf(g) \circ \htf(f) : \El(A) \to \El(C)
     \end{align*}
 with the second equality following from \cref{lem:tptisfunctorial}. 
-
-\end{remark}
+\end{proof}
 Just as HoTT does not come equipped with tools to show idtoeqv is an equivalence, sHoTT also does not come equipped with the tools to show $\htf$
  is an equivalence. Instead, we can postulate \textit{directed univalence} as an axiom.
 
 \begin{axiom}[Directed Univalence]
-    For any points $A,B : \uc$, the function defined in Lemma~\ref{lem:can_define_htf} is an equivalence.
+    For any points $A,B : \uc$, the function defined in Lemma~\cref{lem:can_define_htf} is an equivalence.
 \end{axiom}
 
 For points $A,B : \uc$, we can break the equivalence up into:
 \begin{itemize}
-    \item An introduction rule for $\ho[\uc]{A}{B}$ denoted $\dua$ for "directed univalence axiom":
+    \item An introduction rule for $\ho[\uc]{A}{B}$ denoted $\dua$ for ``directed univalence axiom":
     $$\dua : (\El(A) \to \El(B)) \to (\ho[\uc]{A}{B})$$
     \item An elimination rule
     $$\htf \defeq \yon{C}{\El(A)}(\id{\El(A)}) : \ho[\uc]{A}{B} \to (\El(A) \to \El(B))$$
@@ -53,7 +60,7 @@ For points $A,B : \uc$, we can break the equivalence up into:
     \item The propositional uniqueness rule, which states for any $f : \ho[\uc]{A} {B}$,
     $$f = \dua(\htf(f))$$
 \end{itemize}
-Directed univalence also allows us to  identify identity morphisms with identity functions and composition of morphisms in $\uc$ with composition of functions, stated tersely as
+Directed univalence also allows us to identify identity morphisms with identity functions and composition of morphisms in $\uc$ with composition of functions, stated tersely as
 \begin{align*}
     \idhom{A} = \dua(\id{\El(A)})\\
     \dua{g}\cdot\dua{f} = \dua(g \circ f).
@@ -62,89 +69,87 @@ The first equality from the fact that \begin{align*}
 \id{\El(A)} = \\
 (\idhom{A})_*(\id{A}) \equiv \\
 \htf(\idhom{A})
-\end{align*} by proposition 8.16. To show the second, if we define $p \defeq \dua(f)$ and $q \defeq \dua(g)$, then
+\end{align*} by \cref{lem:tptisfunctorial}. To show the second, if we define $p \defeq \dua(f)$ and $q \defeq \dua(g)$, then
     $$\dua(g \circ f) = \dua(\htf(p) \circ \htf(q)) = \dua(\htf(p \cdot q)) = p \cdot q$$
 
 With directed univalence, we can show that dependent transport is really just coercing a morphism of types.
 \begin{lemma}
     \label{lem:tptissubst}
-    For any covariant family $P : A \to \U$ and morphism $f : \ho[A]{x}{y}$,
+    For any map $P : A \to \U$ and morphism $f : \ho[A]{x}{y}$,
     \begin{equation*}
-        \dua(f_*) = \overline{P}(f)
+        \dua(f_*) = P(f)
     \end{equation*}
 \end{lemma}
 \begin{proof}
     We have the following chain of equalities:
     \begin{align*}
         \dua(f_*) \equiv \\
-        \dua(\dtran{P}(f, -)) \equiv \\
-        \dua(\dtran{\lam{x}\El(\overline{P}(x))}(f, -)) = \\
-        \dua(\dtran{\lam{x}\El(x)}(\mapfunc{\overline{P}}f, -)) \equiv \\
-        \dua(\htf(\mapfunc{\overline{P}}f)) = \\
-        \mapfunc{\overline{P}}f \defeq \\
-        \overline{P}(f)
+        \dua(\dtran{\El(P)}(f, -)) = \\
+        \dua(\dtran{\El}(P(f), -)) \equiv \\
+        \dua(\htf(P(f))) = \\
+        P(f)
     \end{align*}
-    with the first following from lemma~\ref{lem:tpthomiscoethenapp} which allows us to decompose the transport of a composition into an application and a coercion. The second equality comes from the propositional uniqueness rule.
+    with the first following from lemma~\cref{lem:tpthomiscoethenapp} which allows us to decompose the transport of a composition into an application and a coercion. The second equality comes from the propositional uniqueness rule.
 \end{proof}
 We can also show that a morphism between functions is a commutative square.
 \begin{lemma}
     \label{lem:covhoissq}
-    For any two covariant families $F, G : A \to \U$, a morphism $h : \ho[A]{x}{y}$ and maps $f : F(x) \to G(x)$, and $g : F(y) \to G(y)$ we have the following:
+    For any two maps $F, G : A \to \uc$, a morphism $h : \ho[A]{x}{y}$ and maps $f : \El(F(x)) \to \El(G(x))$, and $g : \El(F(y)) \to \El(G(y))$ we have the following:
     \begin{equation*}
-        \ho[(\lam{x}F(x)\to G(x))h]{f}{q} \simeq g \circ h_* = h_*  \circ f
+        \ho[(\lam{x}\El(F(x))\to \El(G(x)))h]{f}{q} \simeq g \circ h_* = h_*  \circ f
     \end{equation*}
 \end{lemma}
 \begin{proof}
     By directed univalence,
     \begin{equation*}
-        \ho[(\lam{x}F(x)\to G(x))h]{f}{q} \simeq
-        \ho[{(\lam{x}\ho[\uc]{\overline{F}(x)}{\overline{G}(x)})h}]{\dua f}{\dua g}
+        \ho[(\lam{x}\El(F(x))\to \El(G(x)))h]{f}{q} \simeq
+        \ho[{(\lam{x}\ho[\uc]{F(x)}{G(x)})h}]{\dua f}{\dua g}
     \end{equation*}
-    By lemma~\ref{lem:compissquare}, this is equivalent to
+    By lemma~\cref{lem:compissquare}, this is equivalent to
     \begin{equation*}
-        \dua g \cdot \overline{F}(h) = \overline{G}(h) \cdot \dua f
+        \dua g \cdot F(h) = G(h) \cdot \dua f
     \end{equation*}
     which is equivalent to
     \begin{equation*}
         \dua g \cdot \dua h_* = \dua h_* \cdot \dua f
     \end{equation*}
-    by lemma~\ref{lem:tptissubst}. The functorality of $\dua$ allow us to push
+    by lemma~\cref{lem:tptissubst}. The functorality of $\dua$ allow us to push
     this equivalence to the type
     \begin{equation*}
         \dua(g \circ h_*) = \dua(h_* \circ f).
     \end{equation*}
     From there, we can apply $\htf$ to both sides, and noting that $\htf$ and $\dua$ are inverses, extending the equivalence
-    to the type $$g \circ h_* = h_* \circ f$$ by lemma ~\ref{lem:equivissurjemb}.
+    to the type $$g \circ h_* = h_* \circ f$$ by lemma ~\cref{lem:equivissurjemb}.
 \end{proof}
 Directed univalence also extends to characterizing dependent functions as morphisms in $\uc$.
 \begin{lemma}
     \label{lem:depfuncishom}
-    Given covariant type families $P : A \to \U$ and $Q : \tilde{P} \to \U$, for all $x:A$ there is an equivalence
-    $$\prd{p : P(x)} Q(x,p) \simeq \sm{f : \ho[\uc]{\overline{P}(x)}{\overline{\sm{p : P(x)} Q(x,p)}}} \dua(\fst) \circ f = \idhom{\overline{P}(x)}, $$
-    where $\fst : \sm{p : P(x)}Q(x,p) \to P(x)$
+    Given maps $P : A \to \uc$ and $Q : \widetilde{\El(P)} \to \uc$, for all $x:A$ there is an equivalence
+    $$\prd{p : \El(P(x))} \El(Q(x,p)) \simeq \sm{f : \ho[\uc]{P(x)}{\overline{\sm{p : \El(P(x))} \El(Q(x,p))}}} \dua(\fst) \cdot f = \idhom{P(x)}, $$
+    where $\fst : \sm{p : \El(P(x))}\El(Q(x,p)) \to \El(P(x))$
 \end{lemma}
 \begin{proof}
     We begin by noting the following equivalences
     \begin{align*}
-        \sm{f : \ho[\uc]{\overline{P}(x)}{\overline{\sm{p : P(x)} Q(x,p)}}} \dua(\fst) \circ f = \idhom{\overline{P}(x)} \simeq \\
-        \sm{f : P(x)\to \sm{p : P(x)} Q(x,p)}\dua(\fst) \circ \dua(f) = \idhom{\overline{P}(x)}\simeq \\
-        \sm{f : P(x)\to \sm{p : P(x)} Q(x,p)}\dua(\fst \circ f) = \idhom{\overline{P}(x)}\simeq \\
-        \sm{f : P(x)\to \sm{p : P(x)} Q(x,p)} \fst \circ f = \id{P(x)}
+        \sm{f : \ho[\uc]{P(x)}{\overline{\sm{p : P(x)} Q(x,p)}}} \dua(\fst) \circ f = \idhom{P(x)} \simeq \\
+        \sm{f : \El(P(x)) \to \sm{p : \El(P(x))} \El(Q(x,p))}\dua(\fst) \circ \dua(f) = \idhom{P(x)}\simeq \\
+        \sm{f : \El(P(x)) \to \sm{p : \El(P(x))} \El(Q(x,p))}\dua(\fst \circ f) = \idhom{P(x)}\simeq \\
+        \sm{f : \El(P(x)) \to \sm{p : \El(P(x))} \El(Q(x,p))} \fst \circ f = \id{\El(P(x))}
     \end{align*}
-    with the first equivalence being a change of base type to an equivalence type thus following from lemma~\ref{lem:equivbaseequivtot}. The second equivalence is a result of the functorality 
-    of $\dua$ and lemmas~\ref{lem:compisequiv} and~\ref{lem:equivistotequiv}. The third equivalence comes from~\ref{lem:equivissurjemb} as since $\htf$ is an equivalence, thus an embedding. Now that
+    with the first equivalence being a change of base type to an equivalence type thus following from lemma~\cref{lem:equivbaseequivtot}. The second equivalence is a result of the functorality 
+    of $\dua$ and lemmas~\cref{lem:compisequiv} and~\cref{lem:equivistotequiv}. The third equivalence comes from~\cref{lem:equivissurjemb} as since $\htf$ is an equivalence, thus an embedding. Now that
     we are working with functions, we can reduce the types further:
     \begin{align*}
-       \sm{f : P(x) \to \sm{p : P(x)}Q(x,p)}\fst \circ f = \id{P(x)} \simeq \\
-       \sm{(f_1,f_2) : \sm{g : P(x) \to P(x)}\prd{p : P(x)}Q(x,g(p))}f_1 = \id{P(x)} \simeq\\
-       \sm{f : P(x) \to P(x)}(\prd{p : P(x)}Q(x,f(p))) \times (f = \id{P(x)}) \simeq \\
-       \sm{f : P(x) \to P(x)} (f = \id{P(x)})\times(\prd{p : P(x)}Q(x,f(p))) \simeq \\
-       \sm{(f, p): \sm{g : P(x) \to P(x)} g = \id{P(x)}} \prd{p : P(x)}Q(x,f(p)) \simeq \\
-       \prd{p : P(x)}Q(x,p)
+       \sm{f : \El(P(x)) \to \sm{p : \El(P(x))} \El(Q(x,p))} \fst \circ f = \id{\El(P(x))}\simeq \\
+       \sm{(f_1,f_2) : \sm{g : \El(P(x)) \to \El(P(x))}\prd{p : \El(P(x))}El(Q(x,g(p)))}f_1 = \id{\El(P(x))} \simeq\\
+       \sm{f : \El(P(x)) \to \El(P(x))}(\prd{p : \El(P(x))}Q(x,f(p))) \times (f = \id{\El(P(x))}) \simeq \\
+       \sm{f : \El(P(x)) \to \El(P(x))} (f = \id{\El(P(x))})\times(\prd{p : \El(P(x))}\El(Q(x,f(p)))) \simeq \\
+       \sm{(f, p): \sm{g : \El(P(x)) \to \El(P(x))} g = \id{\El(P(x))}} \prd{p : \El(P(x))}\El(Q(x,f(p))) \simeq \\
+       \prd{p : \El(P(x))}\El(Q(x,p))
     \end{align*}
-    with the first equivalence following from the type theoretic axiom of choice, lemma~\ref{lem:ttaoc}. The second is an application of associativity, thus follows from
-    lemma~\ref{lem:sigisassoc}. The third follows from the symmetry of the non-dependent pair type, lemma~\ref{lem:sigissymm}. The fourth is another application of associativity thus follows again from
-    lemma~\ref{lem:sigisassoc}. Note that the base is now a contractible singleton, thus contractible by lemma~\ref{lem:contractiblesingletons}, and we can simplify the sigma type with a contractible base by lemma~\ref{lem:contractibleissimple}.
+    with the first equivalence following from the type theoretic axiom of choice, lemma~\cref{lem:ttaoc}. The second is an application of associativity, thus follows from
+    lemma~\cref{lem:sigisassoc}. The third follows from the symmetry of the non-dependent pair type, lemma~\cref{lem:sigissymm}. The fourth is another application of associativity thus follows again from
+    lemma~\cref{lem:sigisassoc}. Note that the base is now a contractible singleton, thus contractible by lemma~\cref{lem:contractiblesingletons}, and we can simplify the sigma type with a contractible base by lemma~\cref{lem:contractibleissimple}.
      Thus, we can get our desired equivalence by composing the two equivalences formed in this proof.
     \end{proof}
 %     \begin{lemma}
@@ -161,26 +166,26 @@ Directed univalence also extends to characterizing dependent functions as morphi
 %         $$\zeta : \prd{p : P(x)}Q(x,p) \to (P(x) \to \sm{p : P(x)}Q(x,p))$$
 %         with the defining equation
 %         $$\zeta \defeq \lam{g}{p}(p, g(p)).$$
-%         The codomain of \ref{eqn:commisfunarr} can be written as a morphism of sections:
+%         The codomain of \cref{eqn:commisfunarr} can be written as a morphism of sections:
 %         \begin{equation*}
 %             \ho[(\lam{x}(\sm{h : P(x) \to \sm{p : P(x)} Q(x,p)} \fst \circ h = \id{P(x)}))f]{(\zeta(\phi), \refl{})}{(\zeta(\psi), \refl{})}
 %         \end{equation*}
-%         by lemma~\ref{lem:depfuncishom}. We can then write this type as its extension type as follows:
+%         by lemma~\cref{lem:depfuncishom}. We can then write this type as its extension type as follows:
 %         \begin{equation*}
 %             \exten{t : \osx}{\sm{h : P(f(t)) \to \sm{p : P(f(t))}Q(f(t), p)}\fst \circ h = \id{P(f(t))}}{\pardo}{[(\zeta(\phi), \refl{}), (\zeta(\psi), \refl{})]}
 %         \end{equation*}
-%         Noting that this type is a "product of sigmas", we can use the type theoretical axiom of choice, lemma ~\ref{lem:taocwet}, to write it as a "sigma of products":
+%         Noting that this type is a "product of sigmas", we can use the type theoretical axiom of choice, lemma ~\cref{lem:taocwet}, to write it as a "sigma of products":
 %         \begin{equation}
 %             \label{eqn:commisfunarr1}
 %             \sm{(h : \ho[(\lam{x} P(x) \to \sm{p : P(x)}Q(x,p)))f]{\zeta(\phi)}{\zeta(\psi)}}\exten{t : \osx}{\fst \circ h(t) = \id{P(f(t))}}{\pardo}{[\refl{}, \refl{}]}.
 %         \end{equation}
-%         We aim to inhabit~(\ref{eqn:commisfunarr1}). Let $h : f_* \circ \phi = \psi \circ f_*$. For any $p : P(x)$, we can construct a term
+%         We aim to inhabit~(\cref{eqn:commisfunarr1}). Let $h : f_* \circ \phi = \psi \circ f_*$. For any $p : P(x)$, we can construct a term
 %         $$h \defeq (\refl{}, \happly(h)(p)) : (f_*(p), (f_* \circ \phi)(p) ) = (f_*(p), \psi( f_*(p)))$$
-%         Note that $(f_*(p), \psi( f_*(p))) \equiv (\lam{p}(p, \psi(p)))(f_*(p))$. In conjunction with lemma~\ref{cor:tptinsigma}, there is a term
+%         Note that $(f_*(p), \psi( f_*(p))) \equiv (\lam{p}(p, \psi(p)))(f_*(p))$. In conjunction with lemma~\cref{cor:tptinsigma}, there is a term
 %         $$h' : f_* \circ (\lam{p}(p, \phi(p)))  = (\lam{p}(p, \psi(p)))\circ f_*, $$ 
-%         which by lemma~\ref{lem:compissquare} induces a term
+%         which by lemma~\cref{lem:compissquare} induces a term
 %         $$\bar{h} : \ho[(\lam{x} P(x) \to \sm{p : P(x)}Q(x,p))f]{\zeta(\phi)}{\zeta(\psi)},$$ noting the covariance of
-%         $\lam{x}\sm{p:P(x)}Q(x,p)$ by lemma~\ref{lem:covdomcovcodiscov}, that is represented by the diagram
+%         $\lam{x}\sm{p:P(x)}Q(x,p)$ by lemma~\cref{lem:covdomcovcodiscov}, that is represented by the diagram
 %     % https://q.uiver.app/#q=WzAsNCxbMCwwLCJQKHgpIl0sWzAsMiwiUCh5KSJdLFszLDAsIlxcc217cDpQKHgpfVEoeCxwKSJdLFszLDIsIlxcc217cDpQKHkpfVEoeSxwKSJdLFswLDIsIlxcemV0YShcXHBoaSkiXSxbMSwzLCJcXHpldGEoXFxwc2kpIl0sWzAsMSwiUChmKSIsMV0sWzIsMywiXFxzbXtwOlAoZil9UShmLHApIiwxXV0=
 %     \[\begin{tikzcd}
 %         {P(x)} &&& {\sm{p:P(x)}Q(x,p)} \\
@@ -231,7 +236,7 @@ Directed univalence also extends to characterizing dependent functions as morphi
 %         \arrow["{P(f)}"{description}, from=1-3, to=3-3]
 %         \arrow["{\idhom{P(y)}}"{description}, from=3-1, to=3-3]
 %     \end{tikzcd}\]
-%         We also make note of the fact that there is an "identity term" that inhabits the same type as \ref{eqn:duacommisarr}:
+%         We also make note of the fact that there is an "identity term" that inhabits the same type as \cref{eqn:duacommisarr}:
 %         $$\lam{t}\idhom{P(f(t))} : \ho[{(\lam{x} \ho[\uc]{P(x)}{P(x)})f}]{\idhom{P(x)}}{\idhom{P(y)}}.$$
 %         Thus, by lemma \todo{show that squares with the same side are equal in a segal type}, there is an inhabitant of the type
 %         $$\lam{t}\dua(\kappa(t)) = \lam{t}\idhom{P(f(t))}.$$

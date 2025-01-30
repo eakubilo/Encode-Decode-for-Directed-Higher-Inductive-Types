@@ -16,11 +16,14 @@
 \newcommand{\cons}[2]{\mathsf{cons}({#1},{#2})}
 \newcommand{\add}{\mathsf{sum}}
 \newcommand{\recOr}[3]{\mathsf{rec}_{\lor}^{#1}(#2, #3)}
+\newcommand{\types}{\vdash}
+\newcommand{\unittype}{\ensuremath{\mathbf{1}}}
 
 \newcommand{\sSet}{\mathsf{sSet}}
 \newcommand{\ssSet}{\mathsf{ssSet}}
 \newcommand{\enn}{\overline{\mathbb{N}}}
 \newcommand{\Unn}{\overline{\Un}}
+\newcommand{\voo}{\overline{\vo}}
 \newcommand{\vo}{\mathsf{Void}}
 \newcommand{\uc}{\U_\mathsf{cov}}
 \newcommand{\isc}{ \mathsf{isCovAriant}}
@@ -34,7 +37,7 @@
 \newcommand{\hot}[4][]{\ensuremath{\mathsf{hom}^2_{#1}({#2},{#3};{#4})}}
 \newcommand{\seg}{\mathsf{seg}}
 \newcommand{\defeq}{\vcentcolon\equiv}
-\newcommand{\comp}[2]{\mathsf{comp}_{#1, #2}}
+\newcommand{\compy}[2]{\mathsf{comp}_{#1, #2}}
 \newcommand{\co}{\mathsf{code}}
 \newcommand{\eco}{\mathsf{encode}}
 \newcommand{\fst}{\mathsf{fst}}
@@ -72,9 +75,14 @@
 \newcommand{\dtran}[1]{\mathsf{dtransport}^{#1}}
 \newcommand{\iso}{\mathsf{isiso}}
 \newcommand{\su}{\mathsf{succ}}
+\newcommand{\jdeq}{\equiv}
+\newcommand{\rec}{\mathsf{rec}}
+\newcommand{\type}{\;\mathsf{type}}
+\newcommand{\ctx}{\;\mathsf{ctx}}
+\newcommand{\shaped}{\;\mathsf{shape}}
 
 %extension type stuff
-\def\pair#1#2{\left \langle #1, #2 \right \rangle}
+\newcommand{\pair}[1]{\langle #1\rangle}
 
 %simplex stuff
 \def\tzhorn{\Lambda_0^2}

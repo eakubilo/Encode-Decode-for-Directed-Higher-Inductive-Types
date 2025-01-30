@@ -19,7 +19,7 @@ An extension type encodes the following diagram:
 	\arrow[bend right = 30, from=3-3, to=1-3]
 \end{tikzcd}\]
 \begin{remark}
-For readability purposes, we adopt the following conventions:
+For readability purposes, we note that the full formal specification of extension types can be found at \cref{fig:exten} and we adopt the following conventions:
 \begin{enumerate}
 \item When $A$ does not depend on a shape, instead of $\exten{t : I | \psi}{A}{\phi}{a}$ we write $\ndexten{\shape{t}{I}{\psi}}{A}{\phi}{a}$.
 \item When $\phi$ is $\bot$, we observe that $a$ is $\recbot$, so instead of $$\exten{\preshape{t}{I}{\psi}}{A}{\bot}{\recbot},$$ we write $$\prd{\preshape{t}{I}{\psi}}A$$ and instead of $$\ndexten{\shape{t}{I}{\psi}}{A}{\bot}{\recbot},$$ we write $$\shape{t}{I}{\psi} \to A.$$
@@ -27,6 +27,7 @@ For readability purposes, we adopt the following conventions:
 $$\exten{\preshape{t}{I}{\psi}}{A(t)}{\phi}{a}.$$
 \end{enumerate}
 \end{remark}
+
 The syntax of an extension type is not just suggestive. They are intended to be a generalization of dependent functions and as a
  result we can prove similar facts about extension types as we can about functions. To start, we know that the arguments of a 
  function commute. That is, 
@@ -67,14 +68,28 @@ We can also extend the type theoretic axiom of choice, which states that there i
 to extension types:
 \begin{lemma}[\cite{riehl_type_2017}, 4.3]
     \label{lem:taocwet}
-    If \preshape{t}{I}{\phi \vdash \psi}, while $X : \shape{t}{I}{\psi} \to \U$ and $Y : \prd{\preshape{t}{I}{\psi}}(X(t) \to \U)$, while
+    If $\preshape{t}{I}{\phi \vdash \psi}$, while $X : \shape{t}{I}{\psi} \to \U$ and $Y : \prd{\preshape{t}{I}{\psi}}(X(t) \to \U)$, while
     $a : \prd{\preshape{t}{I}{\phi}}X(t)$ and $b : \prd{\preshape{t}{I}{\phi}}Y(t,a(t))$, then 
     \begin{align*}
         &\exten{\preshape{t}{I}{\psi}}{\sm{x : X(t)} Y(t,x)}{\phi}{\lam{t}(a(t),b(t))}  \\
         &\simeq\sm{f : \exten{\preshape{t}{I}{\psi}}{X(t)}{\phi}{a}}\exten{\preshape{t}{I}{\psi}}{Y(t,f(t))}{\phi}{b}.
     \end{align*}
 \end{lemma}
-
+While the following two lemmas do not have direct analogus with the usual function type, they are nonetheless extremely useful:
+\begin{lemma}[\cite{riehl_type_2017}, 4.4]
+    \label{lem:compofexten}
+    Suppose $\preshape{t}{I}{\phi \vdash \psi}$ and $\preshape{t}{I}{\psi \vdash \chi}$, and that $X : \shape{t}{I}{\chi} \to \U$ and $a : \prd{\preshape{t}{I}{\phi}}X(t)$. Then,
+    $$
+        \exten{\preshape{t}{I}{\chi}}{X}{\phi}{a} \simeq  \sm{f : \exten{\preshape{t}{I}{\psi}}{X}{\phi}{a}}\exten{\preshape{t}{I}{\chi}}{X}{\psi}{f}
+    $$
+\end{lemma}
+\begin{lemma}[\cite{riehl_type_2017}, 4.5]
+    \label{lem:disjunctexten}
+    Suppose $t:I \vdash \phi$ and $t : I \vdash \psi$ and that $X : \shape{t}{I}{\phi \lor \psi} \to \U$ and $a : \prd{\preshape{t}{I}{\psi}}X(t)$. Then,
+    $$
+        \exten{\preshape{t}{I}{\phi \lor \psi}}{X}{\psi}{a} \simeq \exten{\preshape{t}{I}{\phi}}{X}{\phi \land \psi}{\lam{t}a(t)}
+    $$
+\end{lemma}
 In HoTT, the relative function extensionality axiom allows us to conclude that $\prd{x:X}B(x)$ is contractible if each $B(x)$ is contractible.
 We can state a similar axiom using extension types.
 \begin{axiom}[\cite{riehl_type_2017}, relative function extensionality, 4.6]
@@ -82,17 +97,17 @@ We can state a similar axiom using extension types.
 Supposing $\preshape{t}{I}{\phi \vdash \psi }$ and that $A : \shape{t}{I}{\phi} \to \U$ is such that each $A(t)$ is contractible, and
 moreover $a : \prd{\preshape{t}{I}{\phi}}A(t)$, then $\exten{\preshape{t}{I}{\psi}}{A(t)}{\phi}{a}$ is contractible.
 \end{axiom}
-We can also show that function extensionality follows from axiom~\ref{axi:relfunext}.
+We can also show that function extensionality follows from axiom~\cref{axi:relfunext}.
 \begin{lemma}[\cite{riehl_type_2017}, 4.8]
     \label{lem:simpfunext}
-    Assuming axiom~\ref{axi:relfunext}, given a family $A : \shape{t}{I}{\psi}$ and $a : \prd{\preshape{t}{I}{\phi}}A(t)$, and $f,g : \exten{\preshape{t}{I}{\psi}}{A(t)}{\phi}{a}$, 
+    Assuming axiom~\cref{axi:relfunext}, given a family $A : \shape{t}{I}{\psi}$ and $a : \prd{\preshape{t}{I}{\phi}}A(t)$, and $f,g : \exten{\preshape{t}{I}{\psi}}{A(t)}{\phi}{a}$, 
     the map
     \[
     (f=g)\to \exten{\preshape{t}{I}{\psi}}{f(t)=g(t)}{\phi}{\lam{t}\refl{}}
     \]
     is an equivalence.
 \end{lemma}
-As is done in \cite{riehl_type_2017}, we assume axiom~\ref{axi:relfunext}.
+As is done in \cite{riehl_type_2017}, we assume axiom~\cref{axi:relfunext}.
 \ifSubfilesClassLoaded{%
     \bibliographystyle{plain}
     \bibliography{citations.bib}
