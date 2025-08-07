@@ -9,6 +9,17 @@ Having established our three-layer type theory and extension types, we can start
     and say that an element of $\ho[A]{x}{y}$ is a \textbf{morphism} from $x$ to $y$. 
 \end{definition}
 
+Viewing Segal types as categories, it is also important to have an object map.
+\begin{definition}
+    There are maps:
+    \begin{itemize}
+        \item $\ob \defeq \lam{A : \U} \shape{t}{\Delta^0}{\top} \to A$
+        \item $U : \sm{A : \shape{t}{\Delta^0}{\top} \to \U}\ob(A(\star))$ defined by \[U(A) \defeq \lam{t:\Delta^0}{a:A(t)}a\]
+        \item For any type $A$, $\iota : \ob(A) \to A$ defined by \[\iota a \defeq a(\star)\]
+    \end{itemize}
+
+\end{definition}
+
 Before we probe for more shapes, we turn our attention to the functorality of functions in sHoTT. In the last section, we saw that functions acted functorially on paths using path induction. In sHoTT, functions act functorially on morphisms by definition.
 Consequently, we have the following lemmas.
 \begin{lemma}[\cite{riehl_type_2017}, 6.1]

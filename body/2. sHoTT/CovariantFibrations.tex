@@ -213,15 +213,29 @@ The closure properties also allow us to characterize the action of transport on 
 
 Finally, we turn our attention to classifying universes for fibrations. In HoTT, the fact that all type families are fibrations allows us to view $\U$ as a classifying universe for fibrations. On the other hand, in sHoTT only some type families are covariant fibrations. While $\U$ is not a classifying universe for covariant fibrations, we can postulate the existence of a universe that is.
 \begin{axiom}
-    There is a Segal type $\uc$ along with objects $$\enn, \Unn, \voo : \uc,$$
-    and decoding function
-    $$\El : \uc \to \U$$
-    such that\footnote{$\mathbb{N}^d$ is defined in 3.1} $\El(\enn) \equiv \mathbb{N}^d$, $\El(\Unn) \equiv \Un$, $\El(\voo) \equiv \vo$, and $\El(x)$ is discrete for all $x : \uc$.
-    Moreover, for any map $B : A \to \uc$, it is the case that the family 
-    $$\lam{x}\El (B(x)) : A  \to \U$$ is covariant. Moreover, if $A$ is Segal, then for any $x,y : A$ there is a term $$\overline{\ho[A]{x}{y}} : \uc$$ such that $$\El(\overline{\ho[A]{x}{y}}) \equiv \ho[A]{x}{y}.$$ Similarly, if $B$ is discrete, then for any $x,y : B$ there is a term $$\overline{x=_B y}:\uc$$ such that $$\El(\overline{x=_{B} y})\equiv x=_{B} y.$$ 
-    Finally, for any $A : \uc$ and $P : \El(A) \to \uc$, there is a term
-    $$\overline{\sm{a:A}\El(P(a))} : \uc$$ such that
-    $$\El(\overline{\sm{a:A}\El(P(a))}) \equiv \sm{a:A}\El(P(a))$$
+    There is a Segal type $\uc$ that satisfies the following properties:
+    \begin{itemize}
+        \item There is a covariant function $\El : \uc \to \U$.
+        \item For any closed discrete type $A : \U$, there is a term $\overline{A} : \uc$ such that $\El(\overline{A}) \equiv A$.
+        \item For any Segal types $A,B : \U$ satisfying
+        \begin{itemize}
+            \item $i : \ob(A) \simeq \ob(B)$
+            \item $\prd{a,b:\ob{A}}\ho[A]{a}{b} \simeq \ho[B]{i(b)}{i(a)}$
+        \end{itemize}
+        there is a map 
+        \[
+        \Phi : A \times B \to \uc
+        \]
+        such that
+        \begin{align*}
+            &\lam{b:B}\El(\Phi(a,b)) \equiv \lam{b:B}\ho[B]{i(a)}{b}\\
+            &\lam{a:A}\El(\Phi(a,b)) \equiv \lam{a:A}\ho[B]{i(a)}{b}
+        \end{align*}
+        \item     Finally, for any $A : \uc$ and $P : \El(A) \to \uc$, there is a term
+    $$\overline{\Sigma}A\,P : \uc$$ such that
+    $$\El(\overline{\Sigma}A\,P) \equiv \sm{a:\El(A)}\El(P(a))$$
+
+    \end{itemize}
     
 
 \end{axiom}

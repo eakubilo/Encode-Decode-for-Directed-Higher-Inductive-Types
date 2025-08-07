@@ -1,11 +1,10 @@
-rm *.aux
-rm *.fdb_latexmk
-rm *.fls
-rm *.log
-rm *.pdf
-rm *.tdo
-rm *.out
-rm *.synctex.gz
-rm *.toc
-rm *.bbl
-rm *.blg
+find . -type f -name "*.aux" -delete
+find . -type f -name "*.fdb_latexmk" -delete
+find . -type f -name "*.fls" -delete
+find . -type f -name "*.log" -delete
+find . -type f -name "*.tdo" -delete
+find . -type f -name "*.out" -delete
+find . -type f -name "*.synctex.gz" -delete
+find . -type f -name "*.toc" -delete
+find . -type f -name "*.bbl" -delete
+find . -type f -name "*.blg" -delete
